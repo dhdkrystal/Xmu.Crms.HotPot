@@ -12841,7 +12841,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
-      "C:\\Users\\dhd\\OneDrive - stu.xmu.edu.cn\\Visual Studio Workspace\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj",
+      "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj",
       "Microsoft.AspNetCore.All >= 2.0.3",
       "Microsoft.NETCore.App >= 2.0.3",
       "Xmu.Crms.Services.HotPot >= 1.0.0",
@@ -12858,11 +12858,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\dhd\\OneDrive - stu.xmu.edu.cn\\Visual Studio Workspace\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot.csproj",
+      "projectUniqueName": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot.csproj",
       "projectName": "Xmu.Crms.HotPot",
-      "projectPath": "C:\\Users\\dhd\\OneDrive - stu.xmu.edu.cn\\Visual Studio Workspace\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot.csproj",
+      "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot.csproj",
       "packagesPath": "C:\\Users\\dhd\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dhd\\OneDrive - stu.xmu.edu.cn\\Visual Studio Workspace\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\obj\\",
+      "outputPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12881,14 +12881,14 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\dhd\\OneDrive - stu.xmu.edu.cn\\Visual Studio Workspace\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj": {
-              "projectPath": "C:\\Users\\dhd\\OneDrive - stu.xmu.edu.cn\\Visual Studio Workspace\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj"
+            "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj": {
+              "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj"
             },
-            "C:\\Users\\dhd\\OneDrive - stu.xmu.edu.cn\\Visual Studio Workspace\\Xmu.Crms.HotPot\\Xmu.Crms.Shared\\Xmu.Crms.Shared.csproj": {
-              "projectPath": "C:\\Users\\dhd\\OneDrive - stu.xmu.edu.cn\\Visual Studio Workspace\\Xmu.Crms.HotPot\\Xmu.Crms.Shared\\Xmu.Crms.Shared.csproj"
+            "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Shared\\Xmu.Crms.Shared.csproj": {
+              "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Shared\\Xmu.Crms.Shared.csproj"
             },
-            "C:\\Users\\dhd\\OneDrive - stu.xmu.edu.cn\\Visual Studio Workspace\\Xmu.Crms.HotPot\\Xmu.Crms.Services.HotPot\\Xmu.Crms.Services.HotPot.csproj": {
-              "projectPath": "C:\\Users\\dhd\\OneDrive - stu.xmu.edu.cn\\Visual Studio Workspace\\Xmu.Crms.HotPot\\Xmu.Crms.Services.HotPot\\Xmu.Crms.Services.HotPot.csproj"
+            "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.HotPot\\Xmu.Crms.Services.HotPot.csproj": {
+              "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.HotPot\\Xmu.Crms.Services.HotPot.csproj"
             }
           }
         }
@@ -12924,8 +12924,8 @@
     {
       "code": "NU1104",
       "level": "Error",
-      "message": "找不到项目“C:\\Users\\dhd\\OneDrive - stu.xmu.edu.cn\\Visual Studio Workspace\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj”。请检查项目引用是否有效以及项目文件是否存在。",
-      "libraryId": "C:\\Users\\dhd\\OneDrive - stu.xmu.edu.cn\\Visual Studio Workspace\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj",
+      "message": "找不到项目“C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj”。请检查项目引用是否有效以及项目文件是否存在。",
+      "libraryId": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj",
       "targetGraphs": [
         ".NETCoreApp,Version=v2.0"
       ]
