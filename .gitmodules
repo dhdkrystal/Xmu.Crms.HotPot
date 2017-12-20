@@ -1,0 +1,9 @@
+[submodule "Xmu.Crms.Services.HotPot"]
+	path = Xmu.Crms.Services.HotPot
+	url = https://github.com/dhdkrystal/Xmu.Crms.Services.HotPot.git
+[submodule "Xmu.Crms.Shared"]
+	path = Xmu.Crms.Shared
+	url = https://github.com/Librazy/Xmu.Crms.Shared.git
+[submodule "Xmu.Crms.Mobile.HotPot"]
+	path = Xmu.Crms.Mobile.HotPot
+	url = https://github.com/dhdkrystal/Xmu.Crms.Mobile.HotPot.git
