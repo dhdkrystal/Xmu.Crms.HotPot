@@ -19,6 +19,8 @@
 
   <ItemGroup>
 
+    <ProjectReference Include="..\Xmu.Crms.Mobile.HotPot\Xmu.Crms.Mobile.HotPot.csproj" />
+
     <ProjectReference Include="..\Xmu.Crms.Services.HotPot\Xmu.Crms.Services.HotPot.csproj" />
 
     <ProjectReference Include="..\Xmu.Crms.Shared\Xmu.Crms.Shared.csproj" />
