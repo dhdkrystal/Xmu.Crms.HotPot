@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
+using Xmu.Crms.Shared.Models;
 using System.Threading.Tasks;
 
 namespace Xmu.Crms.HotPot.Controllers

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Xmu.Crms.Shared.Models;
-
 namespace Xmu.Crms.HotPot.Controllers
 {
     [Route("")]
@@ -11,14 +10,7 @@ namespace Xmu.Crms.HotPot.Controllers
         [HttpGet("/topic/{topicId:long}")]
         public IActionResult GetTopicById([FromRoute] long topicId)
         {
-            var t = new Topic
-            {
-                Name= "领域模型与模块",
-                Description= "Domain model与模块划分",
-                GroupNumberLimit = 5,
-                GroupStudentLimit = 6
-            };
-            return Json(t);
+            return GetTopicByTopicId(topicId);
         }
 
         [HttpDelete("/topic/{topicId:long}")]

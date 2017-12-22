@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Xmu.Crms.Shared.Models;
+using Xmu.Crms.Shared.Service;
+using Xmu.Crms.Shared.Exceptions;
 
 namespace Xmu.Crms.HotPot.Controllers
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-
+using Xmu.Crms.Shared.Models;
 namespace Xmu.Crms.HotPot.Controllers
 {
     [Route("")]
