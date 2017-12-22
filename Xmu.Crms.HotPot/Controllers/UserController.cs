@@ -15,6 +15,7 @@ namespace Xmu.Crms.HotPot.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _service;
+        private readonly ILoginService _loginService;
         private readonly JwtHeader _header;
 
         public UserController(IUserService service, JwtHeader header)
@@ -23,13 +24,17 @@ namespace Xmu.Crms.HotPot.Controllers
             _header = header;
         }
 
+        /// <summary>
+        /// 获取当前用户
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         [HttpGet("/me")]
         public IActionResult GetCurrentUser()
         {
             try
             {
-                var user = _service.GetUserByUserId(User.Id());
+                var user = _service.GetUserByUserId(Shared.Models.User.Id);
                 return Json(user, Utils.Ignoring("City", "Province"));
             }
             catch (UserNotFoundException)
@@ -38,25 +43,33 @@ namespace Xmu.Crms.HotPot.Controllers
             }
         }
 
+        /// <summary>
+        /// 修改当前用户
+        /// </summary>
+        /// <param name="updated"></param>
+        /// <returns></returns>
         [HttpPut("/me")]
-        public IActionResult UpdateCurrentUser([FromBody] UserInfo updated) => NoContent();
+        public IActionResult UpdateCurrentUser([FromBody] User updated) => NoContent();
 
-        [HttpGet("/signin")]
-        public IActionResult SigninWechat([FromQuery] string code, [FromQuery] string state,
-            [FromQuery(Name = "success_url")] string successUrl) => Json(new SigninResult());
-
+        
+        /// <summary>
+        /// 手机号密码登录
+        /// </summary>
+        /// <param name="uap"></param>
+        /// <returns></returns>
         [HttpPost("/signin")]
         public IActionResult SigninPassword([FromBody] UsernameAndPassword uap)
         {
             try
             {
-                var user = _service.SignUpPhone(new UserInfo {Phone = uap.Phone, Password = uap.Password});
+                var user = _loginService.SignUpPhone(new User {Phone = uap.Phone, Password = uap.Password});
                 return Json(new SigninResult
                 {
                     Exp = DateTime.UtcNow.AddDays(7)
                               .Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).Ticks /
                           TimeSpan.TicksPerSecond,
                     Id = user.Id,
+                    //Type = user.Type;
                     Name = user.Name,
                     Jwt = new JwtSecurityTokenHandler().WriteToken(new JwtSecurityToken(_header,
                         new JwtPayload(
@@ -82,6 +95,11 @@ namespace Xmu.Crms.HotPot.Controllers
             }
         }
 
+        /// <summary>
+        /// 手机号密码注册
+        /// </summary>
+        /// <param name="uap"></param>
+        /// <returns></returns>
         [HttpPost("/register")]
         public IActionResult RegisterPassword([FromBody] UsernameAndPassword uap) => Json(new SigninResult());
 
@@ -98,6 +116,8 @@ namespace Xmu.Crms.HotPot.Controllers
         public class SigninResult
         {
             public long Id { get; set; }
+
+            //public Xmu.Crms.Shared.Models.Type Type { get; set; }
 
             public string Name { get; set; }
 

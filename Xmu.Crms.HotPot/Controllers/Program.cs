@@ -15,7 +15,7 @@ namespace Xmu.Crms.HotPot.Controllers
         public static async Task Main(string[] args)
         {
             Startup.ControllerAssembly.Add(Assembly.GetEntryAssembly());
-            Startup.ControllerAssembly.Add(Assembly.GetAssembly(typeof(Xmu.Crms.Web.Group1.Program)));
+            Startup.ControllerAssembly.Add(Assembly.GetAssembly(typeof(Xmu.Crms..Group1.Program)));
 
             Startup.ConfigureCrmsServices += collection => collection.AddGroup1UserService();
 
@@ -48,7 +48,7 @@ namespace Xmu.Crms.HotPot.Controllers
 
                     await db.SaveChangesAsync();
 
-                    await db.UserInfos.AddAsync(new UserInfo
+                    await db.UserInfos.AddAsync(new User
                     {
                         Avatar = "/upload/avatar/Logo_Li.png",
                         Email = "t@t.test",
@@ -61,7 +61,7 @@ namespace Xmu.Crms.HotPot.Controllers
                         Title = 1
                     });
 
-                    await db.UserInfos.AddAsync(new UserInfo
+                    await db.UserInfos.AddAsync(new User
                     {
                         Avatar = "/upload/avatar/Logo_Li.png",
                         Email = "t2@t.test",
