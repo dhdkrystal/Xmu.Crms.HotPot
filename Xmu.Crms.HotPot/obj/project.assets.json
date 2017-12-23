@@ -5158,8 +5158,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.All": "2.0.3",
           "Microsoft.NETCore.App": "2.0.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.0",
-          "Xmu.Crms.Shared": "1.0.0"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.0"
         },
         "compile": {
           "bin/placeholder/Xmu.Crms.Mobile.HotPot.dll": {}
