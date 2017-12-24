@@ -13446,7 +13446,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
-      "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj",
+      "C:\\Users\\deng\\Source\\Repos\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj",
       "Microsoft.AspNetCore.All >= 2.0.3",
       "Microsoft.NETCore.App >= 2.0.3",
       "Xmu.Crms.Mobile.HotPot >= 1.0.0",
@@ -13455,7 +13455,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dhd\\.nuget\\packages\\": {},
+    "C:\\Users\\deng\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -13464,17 +13464,17 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot.csproj",
+      "projectUniqueName": "C:\\Users\\deng\\Source\\Repos\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot.csproj",
       "projectName": "Xmu.Crms.HotPot",
-      "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot.csproj",
-      "packagesPath": "C:\\Users\\dhd\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\obj\\",
+      "projectPath": "C:\\Users\\deng\\Source\\Repos\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot.csproj",
+      "packagesPath": "C:\\Users\\deng\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\deng\\Source\\Repos\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\dhd\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\deng\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -13487,17 +13487,17 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj": {
-              "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj"
+            "C:\\Users\\deng\\Source\\Repos\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj": {
+              "projectPath": "C:\\Users\\deng\\Source\\Repos\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj"
             },
-            "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Mobile.HotPot\\Xmu.Crms.Mobile.HotPot.csproj": {
-              "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Mobile.HotPot\\Xmu.Crms.Mobile.HotPot.csproj"
+            "C:\\Users\\deng\\Source\\Repos\\Xmu.Crms.HotPot\\Xmu.Crms.Mobile.HotPot\\Xmu.Crms.Mobile.HotPot.csproj": {
+              "projectPath": "C:\\Users\\deng\\Source\\Repos\\Xmu.Crms.HotPot\\Xmu.Crms.Mobile.HotPot\\Xmu.Crms.Mobile.HotPot.csproj"
             },
-            "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Shared\\Xmu.Crms.Shared.csproj": {
-              "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Shared\\Xmu.Crms.Shared.csproj"
+            "C:\\Users\\deng\\Source\\Repos\\Xmu.Crms.HotPot\\Xmu.Crms.Services.HotPot\\Xmu.Crms.Services.HotPot.csproj": {
+              "projectPath": "C:\\Users\\deng\\Source\\Repos\\Xmu.Crms.HotPot\\Xmu.Crms.Services.HotPot\\Xmu.Crms.Services.HotPot.csproj"
             },
-            "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.HotPot\\Xmu.Crms.Services.HotPot.csproj": {
-              "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.HotPot\\Xmu.Crms.Services.HotPot.csproj"
+            "C:\\Users\\deng\\Source\\Repos\\Xmu.Crms.HotPot\\Xmu.Crms.Shared\\Xmu.Crms.Shared.csproj": {
+              "projectPath": "C:\\Users\\deng\\Source\\Repos\\Xmu.Crms.HotPot\\Xmu.Crms.Shared\\Xmu.Crms.Shared.csproj"
             }
           }
         }
@@ -13511,14 +13511,14 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
-          "Microsoft.NETCore.App": {
-            "target": "Package",
-            "version": "2.0.3",
-            "autoReferenced": true
-          },
           "Microsoft.AspNetCore.All": {
             "target": "Package",
-            "version": "2.0.3"
+            "version": "[2.0.3, )"
+          },
+          "Microsoft.NETCore.App": {
+            "target": "Package",
+            "version": "[2.0.3, )",
+            "autoReferenced": true
           }
         },
         "imports": [
@@ -13533,8 +13533,8 @@
     {
       "code": "NU1104",
       "level": "Error",
-      "message": "找不到项目“C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj”。请检查项目引用是否有效以及项目文件是否存在。",
-      "libraryId": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj",
+      "message": "找不到项目“C:\\Users\\deng\\Source\\Repos\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj”。请检查项目引用是否有效以及项目文件是否存在。",
+      "libraryId": "C:\\Users\\deng\\Source\\Repos\\Xmu.Crms.HotPot\\Xmu.Crms.Web.HotPot\\Xmu.Crms.Web.HotPot.csproj",
       "targetGraphs": [
         ".NETCoreApp,Version=v2.0"
       ]
