@@ -6,7 +6,7 @@ namespace Xmu.Crms.HotPot.Controllers
     [Route("")]
     [Produces("application/json")]
     public class TopicController : Controller
-    {
+    {/*
         [HttpGet("/topic/{topicId:long}")]
         public IActionResult GetTopicById([FromRoute] long topicId)
         {
@@ -36,5 +36,6 @@ namespace Xmu.Crms.HotPot.Controllers
                 new {id = 65, name = "2A2"},
             });
         }
+        */
     }
 }

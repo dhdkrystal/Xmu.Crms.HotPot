@@ -7,7 +7,7 @@ namespace Xmu.Crms.HotPot.Controllers
     [Route("")]
     [Produces("application/json")]
     public class ClassController : Controller
-    {
+    {/*
         /// <summary>
         /// 获取与当前用户相关的或者符合条件的班级列表
         /// </summary>
@@ -179,5 +179,6 @@ namespace Xmu.Crms.HotPot.Controllers
             public string Name { get; set; }
             public string number { get; set; }
         }
+        */
     }
 }

@@ -9,7 +9,7 @@ using Xmu.Crms.Shared.Models;
 using System.Threading.Tasks;
 
 namespace Xmu.Crms.HotPot.Controllers
-{
+{/*
     public class Program
     {
         public static async Task Main(string[] args)
@@ -88,4 +88,5 @@ namespace Xmu.Crms.HotPot.Controllers
                 .UseStartup<Startup>()
                 .Build();
     }
+    */
 }

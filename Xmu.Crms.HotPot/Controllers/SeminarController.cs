@@ -6,7 +6,7 @@ namespace Xmu.Crms.HotPot.Controllers
     [Route("")]
     [Produces("application/json")]
     public class SeminarController : Controller
-    {
+    {/*
         [HttpGet("/seminar/{seminarId:long}")]
         public IActionResult GetSeminarByIdRandom([FromRoute] long seminarId)
         {
@@ -44,5 +44,7 @@ namespace Xmu.Crms.HotPot.Controllers
         {
             return Json(new List<SeminarGroup>(), Utils.Ignoring("Group*", "Members", "Leader", "Report", "Grade"));
         }
+        */
     }
+
 }

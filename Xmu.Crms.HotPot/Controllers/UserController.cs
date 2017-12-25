@@ -13,7 +13,7 @@ namespace Xmu.Crms.HotPot.Controllers
     [Route("")]
     [Produces("application/json")]
     public class UserController : Controller
-    {
+    {/*
         private readonly IUserService _service;
         private readonly ILoginService _loginService;
         private readonly JwtHeader _header;
@@ -125,5 +125,6 @@ namespace Xmu.Crms.HotPot.Controllers
 
             public string Jwt { get; set; }
         }
+        */
     }
 }

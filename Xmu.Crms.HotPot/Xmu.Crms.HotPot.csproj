@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.1" />
 	<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
   </ItemGroup>
 
@@ -19,13 +20,9 @@
 
   <ItemGroup>
 
-    <ProjectReference Include="..\Xmu.Crms.Mobile.HotPot\Xmu.Crms.Mobile.HotPot.csproj" />
-
     <ProjectReference Include="..\Xmu.Crms.Services.HotPot\Xmu.Crms.Services.HotPot.csproj" />
 
     <ProjectReference Include="..\Xmu.Crms.Shared\Xmu.Crms.Shared.csproj" />
-
-    <ProjectReference Include="..\Xmu.Crms.Web.HotPot\Xmu.Crms.Web.HotPot.csproj" />
 
     <PackageReference Update="Microsoft.NETCore.App" Version="2.0.3" />
   </ItemGroup>
