@@ -1,17 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using Xmu.Crms.Shared.Models;
+﻿using Xmu.Crms.Shared.Models;
 using Xmu.Crms.Services.HotPot;
 using Xmu.Crms.Shared.Service;
 using Xmu.Crms.Shared.Exceptions;
 
 namespace Xmu.Crms.HotPot.Controllers
 {
-    
+    /*
     [Route("")]
     [Produces("application/json")]
     public class ClassController : Controller
@@ -224,4 +218,5 @@ namespace Xmu.Crms.HotPot.Controllers
             return NoContent();
         }
     }
+    */
 }

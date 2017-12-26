@@ -8,6 +8,7 @@ namespace Xmu.Crms.HotPot.Controllers
     [Produces("application/json")]
     public class SchoolController : Controller
     {
+        /*
         [HttpGet("/school")]
         public IActionResult GetSchools([FromQuery] string city)
         {
@@ -31,5 +32,7 @@ namespace Xmu.Crms.HotPot.Controllers
         {
             return Created("/school/1", newSchool);
         }
+        */
     }
+    
 }

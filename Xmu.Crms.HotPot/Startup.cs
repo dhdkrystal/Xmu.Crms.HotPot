@@ -4,7 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Xmu.Crms.Shared.Models;
-namespace Xmu.Crms.Mobile.HotPot
+using System;
+namespace Xmu.Crms.HotPot
 {
     public class Startup
     {
@@ -18,7 +19,10 @@ namespace Xmu.Crms.Mobile.HotPot
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CrmsContext>(options => options.UseMySql(Configuration.GetConnectionString("MYSQL57")));
+            var connStr = Configuration.GetConnectionString("MYSQL57");
+            System.Diagnostics.Debug.WriteLine(connStr+" hhhhh");
+            services.AddDbContext<CrmsContext>(options => options.UseMySql(connStr));
+            
             services.AddMvc();
         }
 

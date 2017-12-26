@@ -4,6 +4,7 @@ using Xmu.Crms.Shared.Models;
 
 namespace Xmu.Crms.HotPot.Controllers
 {
+    /*
     [Route("")]
     [Produces("application/json")]
     public class GroupController : Controller
@@ -57,4 +58,5 @@ namespace Xmu.Crms.HotPot.Controllers
             return NoContent();
         }
     }
+    */
 }

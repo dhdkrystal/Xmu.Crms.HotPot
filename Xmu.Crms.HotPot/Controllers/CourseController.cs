@@ -7,7 +7,7 @@ namespace Xmu.Crms.HotPot.Controllers
     [Route("")]
     [Produces("application/json")]
     public class CourseController : Controller
-    {
+    {/*
         [HttpGet("/course")]
         public IActionResult GetUserCourses()
         {
@@ -99,5 +99,7 @@ namespace Xmu.Crms.HotPot.Controllers
             var gd2 = new StudentScoreGroup();
             return Json(new List<StudentScoreGroup> {gd1, gd2});
         }
+        */
     }
+    
 }

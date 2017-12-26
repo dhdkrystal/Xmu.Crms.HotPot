@@ -14,19 +14,19 @@ namespace Xmu.Crms.HotPot.Controllers
     [Route("")]
     public class TestController : Controller
     {
-        public ClassService _cs;
-        public CrmsContext _db;
+        public IClassService _cs;
+        //public CrmsContext _db;
         // GET: api/values
-        public TestController(ClassService classService)
+        public TestController(IClassService classService)
         {
             _cs = classService;
         }
         [HttpGet(("/test"))]
         public void Get()
         {
-            var location=_cs.ListClassByUserId(4);
-            Console.WriteLine(location);
-            
+            var c=_cs.ListClassByCourseId(1);
+            System.Diagnostics.Debug.WriteLine("result"+c.First().Name);
+
         }
 
     }
