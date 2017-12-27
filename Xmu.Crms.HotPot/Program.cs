@@ -21,6 +21,7 @@ namespace Xmu.Crms.HotPot
 
         WebHost.CreateDefaultBuilder(args)
                 .UseIISIntegration()
+                .UseStartup<Xmu.Crms.Shared.Startup>()
                 .ConfigureServices(services => 
                 {
                     services
@@ -28,6 +29,7 @@ namespace Xmu.Crms.HotPot
                     .AddHotPotClassService()
                     .AddHotPotGradeService()
                     .AddHotPotLoginService()
+                    .AddCrmsView("Mobile.HotPot")
 
                     //Group1_7
                     .AddGroup1_7SeminarService()
@@ -37,13 +39,12 @@ namespace Xmu.Crms.HotPot
                     //Group2_10
                     .AddGroup2_10SeminarGroupService()
                     .AddGroup2_10TopicService()
-
+                    
                     //SmartFive
                     .AddSmartFiveFixGroupService()
                     .AddSmartFiveUserService();
 
-                })
-                .UseStartup<Startup>()
+                })              
                 .Build(); 
     }
 }

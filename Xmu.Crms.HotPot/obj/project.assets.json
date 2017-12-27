@@ -5158,6 +5158,10 @@
           "Microsoft.AspNetCore.All": "2.0.3",
           "Microsoft.NETCore.App": "2.0.3",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.1",
+          "Xmu.Crms.Services.Group1_7": "1.0.0",
+          "Xmu.Crms.Services.Group2_10": "1.0.0",
+          "Xmu.Crms.Services.HotPot": "1.0.0",
+          "Xmu.Crms.Services.SmartFive": "1.0.0",
           "Xmu.Crms.Shared": "1.0.0"
         },
         "compile": {
