@@ -1,0 +1,57 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="divport" content="width=device-width,
+                                     initial-scale=1.0,
+                                     maximum-scale=1.0">
+    <title>Course Info</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/css/CourseUI.css">
+    <link rel="stylesheet" href="~/css/bootstrap.css">
+
+
+</head>
+<body class="body">
+	<div class="head20">
+		<span  class="FONT1" id="course"></span>
+	</div><div /><div /><div />
+	<div  class="infoBlock">
+		<img src="~/images/smile.png" class="infoIcon"/>
+   		 <span id="teacher" ></span>
+	</div>
+    <div/><div /><div /><div />
+	<div class="infoBlock"> 
+		<img src="~/images/email.png" class="infoIcon"/>
+		<span id="mail"></span>
+	</div>
+    <div />
+    <div /><div /><div />
+	<div class="infoBlock"> 
+		<img src="~/images/FileIcon.png"  class="infoIcon"/>
+		<span id="detail"></span>
+	</div>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/api/courseinfo/32',
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                success: function (result) {
+                    $("#teacher").text(result.Data.teacher);
+                    $("#mail").text(result.Data.mail);
+                    $("#detail").text(result.Data.detail);
+                    $("#course").text(result.Data.course);
+                }
+            })
+        });
+    </script>
+
+
+</body>
+	</html>
+

@@ -1,0 +1,198 @@
+/* CSS Document */
+
+
+/*更改body*/
+.body{
+	height: 100%;
+	weight:100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+
+}
+
+/*黑色线的样式*/
+
+.hrDiv {
+  height: 2px;
+  width: 80%;
+  margin: auto;
+  border: 0.5px solid black;
+  background-color: black;
+  color: black;
+  float: right;
+  margin-right: 10%;
+  margin-top: 5%;
+  margin-bottom: 10%;
+}
+
+
+.fullbackground
+{
+	background-color: #66CCFF
+}
+
+.head20
+{
+	width:100%;
+	height:90px;
+	position:relative;
+	background-color: #66CCFF;
+}
+
+.FONT1
+{
+	font-size: 6vw;
+	position: absolute;
+	color: #FFFFFF;
+	margin-top: 23px;
+	height: 10px;
+	margin-left: 40%;
+}
+.FONT2
+{
+	font-size: 1vw;
+	position: absolute;
+	color: #FFFFFF;
+	margin-left: 63%;
+	margin-top: 50px;
+}
+.FONT21
+{
+	font-size: 3vw;
+	position: absolute;
+	color: #FFFFFF;
+	margin-top: 45%;
+	margin-left: 40%;
+}
+.FONT3{
+	margin-left: 100px;
+	color: #000000;
+	margin-top: 30px;
+	font-size: 3vw;
+}
+
+.FONT4{
+	margin-left: 30%;
+	color: #000000;
+	margin-top: 8%;
+	font-size: 1vw;
+}
+.FONT41{
+	margin-left: 30%;
+	color: #000000;
+	margin-top: 8%;
+	font-size: 1vw;
+}
+.FONT5{
+	font-size: 4vw;
+	position: absolute;
+	color: #666666;
+	margin-left: 63%;
+	margin-top: 50px;
+}
+.FONT6{
+	font-size: 1vw;
+	position: relative;
+	color: #000000;
+	margin-left: 63%;
+	margin-top: 5%;
+}
+.box1
+{
+	position: relative;
+	float: left;
+	margin-left: 5%;
+	margin-right: 5%;
+	background-color:#66CCFF;
+	margin-top: 5%;
+	width: 40%;
+	padding-bottom: 40%;
+	border-radius: 15px;
+	
+}
+
+.box2
+{
+	position:relative;
+	float: right;
+	margin-right: 5%;
+	background-color:#66CCFF;
+	margin-top: 5%;
+	width: 40%;
+	padding-bottom: 85%;
+	border-radius: 15px;
+}
+.box3{
+	position:relative;
+	margin-left: 5%;
+	width: 90%;
+	background-color:#66CCFF;
+	margin-top: 5%;
+	padding-bottom: 25%;
+    border-radius: 15px;
+	
+}
+.box4{
+	position:relative;
+	margin-left: 5%;
+	width: 90%;
+	background-color:#CCCCCC;
+	margin-top: 5%;
+	padding-bottom: 25%;
+    border-radius: 15px;
+	
+}
+.box5{
+	left: 0px;
+	position:absolute;
+	width: 100%;
+	height: 150px;
+}
+.box6{
+	position:absolute;
+	left: 0px;
+	width: 100%;
+	height: 50px;
+	background-color: #66CCFF;
+}
+.box7{
+	position:absolute;
+	background-color: #ffffff;
+	left: 0px;
+	width: 100%;
+	height: 50%;
+	margin-top: 15%;
+}
+.button1{
+	background-color: #66CCFF;
+	font-size: 1vw;
+	position: absolute;
+	border:none;
+	text-align: center;
+	display: inline-block;
+	padding: 15px 32px;
+	box-shadow: 0 1px 5px 0 rgba(0,0,0,0.2), 0 5px 5px 0 rgba(0,0,0,0.1);
+}
+.box8{
+	left: 0px;
+	width: 100%;
+	height: 50px;
+}
+.button2{
+	background-color: #ffffff;
+	color:#000000;
+	font-size: 3vw;
+	border:none;
+	display: inline-block;
+	padding: 13px;
+	margin-top: 1%;
+	box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.1);
+	width:100%;
+	/*添加文字左对齐*/
+	text-align: left;
+}
+/*利用css伪元素hover更改触摸时背景颜色*/
+.button2:hover
+{
+	background: #66CCFF;
+}

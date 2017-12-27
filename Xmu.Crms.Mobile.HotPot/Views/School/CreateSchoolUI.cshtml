@@ -1,0 +1,51 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="divport" content="width=device-width,
+                                     initial-scale=1.0,
+                                     maximum-scale=1.0">
+    <title>CreateSchoolUI</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/css/CreateSchoolUI.css">
+
+
+
+</head>
+
+<body>
+    <div class="topBoardView" >
+        <!-- 背景图的div -->
+        <img  width="100%" height="250px" src="~/images/head-background.jpg" position="absolute">
+        <img class="topLight" src="~/images/deng.png">
+		<div class="topTips">创建学校</div>
+		<div class="topLine"/>
+        
+    </div>
+ <div class="mainView">
+	<div class="schoolName">学校名：</div>
+	<div class="inputSchool"></div>
+
+    <div class="box8"><button class="confirmButton">创建</button>
+ </div>  
+    <script>
+            $(document).on("click", ".box8", function () {
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/school/"厦门人民公园"',
+                    data: "",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        alert("创建成功,新学校ID为44");
+                        $(window).attr("location", '/Account/StudentBinding');
+                    }
+                })
+            })
+    </script>
+	
+</body>
+</html>

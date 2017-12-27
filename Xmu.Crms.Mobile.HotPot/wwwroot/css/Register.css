@@ -1,0 +1,54 @@
+﻿
+/*界面上方蓝色块*/
+.Header {
+    width: 100%;
+    height: 33%;
+    background-image: url(./images/head-background.jpg);
+    font-size: 40px;
+    padding-left: 30.5%;
+    display: inline-block;
+}
+
+/*蓝色块里面讨论课的字体*/
+.seminarText {
+    color: #000;
+    font-size: 14px;
+}
+
+.icon {
+    width: 10%;
+    height: 5%
+}
+
+/*讨论课的时间和分组方式Div*/
+.clockAndGroupDiv {
+    width: 49.9%;
+    margin-top: 1%;
+    color: #000;
+    font-size: 14px;
+    float: left;
+    padding-left: 5%;
+}
+
+/*讨论课的时间和分组方式Icon*/
+
+
+/*班级Div*/
+.class {
+    display: inline-block;
+    margin-top: 10%;
+    width: 49%;
+    height: 26%;
+}
+
+/*班级名*/
+.className {
+    font-size: 14px;
+    padding-left: 30%;
+}
+
+/*班级Icon*/
+.classIcon {
+    width: 100%;
+    height: 70%;
+}

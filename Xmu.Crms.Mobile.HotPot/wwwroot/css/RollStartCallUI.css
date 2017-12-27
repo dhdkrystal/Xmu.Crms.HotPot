@@ -1,0 +1,191 @@
+/*背景色*/
+html{
+    font-family:"微软雅黑";
+    font-size:100px;
+    height:100%;
+    width: 100%;
+}
+.body{
+    height: 100%
+}
+body {
+    background: rgba(102, 204, 255, 0.5);
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* 左上角的蓝色板的容器*/
+.blueBoardDiv {
+    width: 30em;
+    height: 30em;
+    float: left;
+    padding-top: 10%;
+    padding-left: 10%;
+}
+
+/* 左上角的蓝色板图标大小*/
+.blueBoardIcon {
+    width: 100%;
+    height: 100%;
+}
+
+/* 班级名的位置、字体等样式 */
+.classNameDiv {
+    margin-top: 13%;
+    margin-left: 0.66%;
+    margin-right: 4%;
+    width: 40%;
+    height: 7.5%;
+    font-size: 8em;
+    float: left;
+    padding-left: 5.3%;
+}
+
+/* 学生总数的位置、字体等样式*/
+.studentSumDiv {
+    font-size: 3.5em;
+    width: 46.6%;
+    height: 6%;
+    float: left;
+    margin-left: 0.66%;
+    font-weight: bold;
+    padding-top: 4%;
+    padding-left: 5.3%;
+}
+
+/*黑色线的样式*/
+.hrDiv {
+    height: 1px;
+    width: 80%;
+    margin: auto;
+    border: 1px solid black;
+    background-color: black;
+    color: black;
+    float: right;
+    margin-right: 10%;
+    margin-top: 7.5%;
+}
+
+.lowBox{
+    width: 100%;
+    height:50em;
+}
+/*居中的已签到学生的文字和容器*/
+.studentNum {
+    height: 3em;
+    width: 50%;
+    margin-top: 5%;
+    float: left;
+    font-size: 3em;
+}
+
+/*居中已签到学生签名的icon*/
+.usersIcon {
+
+    width: 10%;
+    height: 100%;
+    margin-left: 25%;
+}
+
+/*居左情况下已签到学生的文字和容器*/
+.studentNum2 {
+    height: 3em;
+    width: 50%;
+    float: left;
+    color: black;
+    margin-top: 5%;
+    font-size: 3em;
+}
+.studentNumText{
+    text-align: center;
+}
+
+/*居左已签到学生签名的icon*/
+.usersIcon2 {
+    width: 16%;
+    height: 100%;
+    margin-left: 12%;
+}
+
+/*签到名单button*/
+.blueCallBtn {
+    position: absolute;
+    margin-top: 2%;
+    background-color: rgba(102, 204, 255, 1);
+    color: white;
+    width: 26.67%;
+    border-radius: 0.5em;
+    left: 60.67%;
+    float: left;
+    height: 2em;
+    font-weight: bold;
+    border-style: none;
+}
+
+/*蓝色的大button*/
+.blueBigBtn {
+    background-color: rgba(102, 204, 255, 1);
+    color: white;
+    font-size: 3.5em;
+    width: 38.67%;
+    border-radius: 1em;
+    margin-left: 30.67%;
+    margin-top: 10%;
+    float: left;
+    height: 3.5em;
+    font-weight: bold;
+    border-style: none;
+}
+
+/*红色的大button*/
+.redBigBtn {
+    background-color: #FA8888;
+    color: white;
+    font-size: 3.5em;
+    width: 38.67%;
+    border-radius: 1em;
+    margin-left: 30.67%;
+    margin-top: 11.2%;
+    height: 3.5em;
+    float: left;
+    border-style: none;
+}
+
+/*绿色的大button*/
+.greenBigBtn {
+    background-color: #02C3D3;
+    color: white;
+    font-size: 3.5em;
+    width: 38.67%;
+    border-radius: 1em;
+    margin-left: 30.67%;
+    margin-top: 11.2%;
+    height: 3.5em;
+    float: left;
+    border-style: none;
+}
+
+/*灰色的大button*/
+.greyBigBtn {
+    background-color: #ccc;
+    color: white;
+    font-size: 3.5em;
+    width: 38.67%;
+    border-radius: 1em;
+    margin-left: 30.67%;
+    margin-top: 11.2%;
+    height: 3.5em;
+    float: left;
+    border-style: none;
+}
+
+/*灰色的大button下的灰色提示信息字样*/
+.noGroup {
+    color: #ccc;
+    font-size: 2em;
+    float: left;
+    margin-left: 21.3%;
+    border-style: none;
+}

@@ -1,0 +1,69 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="divport" content="width=device-width,
+                                     initial-scale=1.0,
+                                     maximum-scale=1.0">
+    <title>Course</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="~/css/CourseUI.css" rel="stylesheet" type="text/css">
+</head>
+<body class="body">
+    <div class="topBox">
+        <span class="title"> OOAD</span>
+    </div>
+    <div id="list">
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/courseui',
+                    data: '',
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    success: function (result) {
+                        $.each(result.Data, function (i, value) {
+                            if (i == 0) {
+                                $("#list").append(
+                                    '<div class="blueBox">' +
+                                    '<p class="LeftBoxText" >' + "讨论课" + i + '</p ><!--蓝色选择框-->' +
+                                    '<p class="RightBoxText1" style="margin-left: 60%;margin-top: 3%" >' + value.startTime + "到" + value.endTime + '</p>' +
+                                    '<p class="RightBoxText2" style="margin-left: 60%;margin-top: 12%"> ' + value.groupingMethod + '</p>' +
+                                    '<p class="RightBoxText3" style="margin-left: 60%;margin-top: 21%"> ' + value.grade + '</p></div>')
+                            }
+                            else {
+                                $("#list").append(
+                                    '<div class="blueBox">' +
+                                    '<p class="LeftBoxText"" >' + "讨论课" + i + '</p ><!--蓝色选择框-->' +
+                                    '<p class="RightBoxText1" style="margin-left: 60%;margin-top: 3%" >' + value.startTime + "到" + value.endTime + '</p>' +
+                                    '<p class="RightBoxText2" style="margin-left: 60%;margin-top: 12%"> ' + value.groupingMethod + '</p>' +
+                                    '<p class="RightBoxText3" style="margin-left: 60%;margin-top: 21%"> ' + value.grade + '</p></div>')
+                            }
+                        });
+                    }
+                })
+            });
+        </script>
+        <script>
+            $(document).on("click", ".blueBox", function () {
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/courseui',
+                    data: "",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        $(window).attr("location", '/Seminar/Seminar');
+                    }
+                })
+            })
+        </script>
+    </div>
+</body>
+
+</html>
+

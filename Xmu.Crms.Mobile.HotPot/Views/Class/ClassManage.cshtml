@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="divport" content="width=device-width,
+                                     initial-scale=1.0,
+                                     maximum-scale=1.0">
+    <title>ClassManage</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/ClassManage.css">
+    <script src="~/Scripts/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script type="text/javascript" >
+        $(document).ready(function () {
+            $("#ClassImage").click(function () {
+                var GroupType = "@ViewBag.GroupType";
+                if (GroupType == "固定分组")
+                    window.location('/Class/FixedRollStartCallUI');
+                else
+                    window.location('/Class/RandomRollStartCallUI');
+            });
+        })
+    </script>
+</head>
+<body class="body">
+<!--设置蓝色上方-->
+<div class="topBox">
+    <span class="title">@ViewBag.CourseName</span>
+    <span class="seminarText">@ViewBag.SeminarName</span>
+</div>
+
+<!--讨论课的时间和分组方式-->
+<div class="clockAndGroupDiv" >
+    <img src="~/images/clock.png" class="icon">
+    <span>@ViewBag.Time</span>
+</div>
+
+<div class="clockAndGroupDiv">
+    <img src="~/images/clip.png" class="icon">
+    <span>@ViewBag.GroupType</span>
+</div>
+
+<!--班级Icon及名字,增加新班级就复制一个div-->
+<div class="class" >
+    
+        <img src="~/images/ClassManage.png" class="classIcon"  id="ClassImage">
+   
+  <p class="className">班级1</p>
+</div>
+
+<div class="class">
+    <a href="@Url.Action("Class","Class")">
+        <img src="~/images/ClassManage.png" class="classIcon">
+    </a>
+        <p class="className">班级2</p>
+    
+</div>
+
+<div class="class">
+    <img src="~/images/ClassManage.png" class="classIcon">
+    <p class="className">班级3</p>
+</div>
+
+
+</body>
+</html>

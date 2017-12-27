@@ -1,0 +1,121 @@
+/* CreateSchoolUI.wxss */
+/*上方的风景模块*/
+.body{
+	width:100%;
+}
+.topBoardView
+{
+
+    width: 100%;
+    height: 250px;
+}
+.topIcon
+{
+  position:absolute;
+  left:40px;
+  top:40px;
+  width:55px;
+}
+/*上面的灯*/
+.topLight
+{
+  position:absolute;
+  left:40px;
+  top:40px;
+  width:55px;
+}
+/*上面的线*/
+.topLine
+{
+  position:absolute;
+  width:70%;
+  left: 40px;
+  top:12%;
+  border-bottom:2px #212121 solid;
+}
+/*上面的提示框*/
+.topTips
+{
+  font-weight:bold;
+  position:absolute;
+  font-size: 18px;
+  left: 100px;
+  top:60px;
+  z-index: 2;
+  
+}
+/*下方的主要选择页面*/
+.mainView
+{
+	
+  background-color: #6cf;
+  width:100%;
+  height:500px;
+  text-align:center;
+}
+/*选择老师的按钮*/
+.teacherButton
+{
+  width:50%;
+  height:65px;
+  font-size: 25px;
+  margin-top:20%;
+  background-color:white;
+  left: 4%;
+  border-radius: 15px;
+  border:1px #EEEEEE solid;
+}
+ /*选择同学的按钮*/
+/*学校名的标签*/
+.schoolName
+{
+  position:absolute;
+  font-size: 20px;
+  left:20%;
+  top:40%;
+  z-index: 2;
+}
+/*学校名输入框*/
+.inputSchool
+{
+  position:absolute;
+  background: #fff;
+  width: 175px;
+  height: 50px;
+  font-size:20px;
+  left:40%;
+  top:39%;
+  z-index:2;
+
+}
+/*确定按钮*/
+.confirmButton
+{
+position:relative;
+  width:150px;
+  height:65px;
+  font-size: 25px;
+  top:50%;
+  border-radius:15px;
+  background-color:white;
+  border:1px #EEE solid;
+}
+.tipIcon
+{
+  position: absolute;
+  width: 5%;
+  height: 3%;
+  left: 40%;
+  top:50%;
+  z-index: 2;
+  
+}
+.tipFont
+{
+    position: absolute;
+  font-size: 14px;
+  color: red;
+  left: 48%;
+  top:50%;
+  z-index: 2;
+}

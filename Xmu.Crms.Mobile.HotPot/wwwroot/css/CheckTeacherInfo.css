@@ -1,0 +1,138 @@
+/* CheckTeacherInfo.css */
+
+html{
+  font-family:"微软雅黑";
+  font-size:100px;
+  height:100%;
+  width: 100%;
+}
+.body{
+  height: 100%;
+  background-color: rgba(102, 204, 255, 0.5);  
+}
+/* 灯泡img */
+.user{
+  position:absolute;margin-left: 8%;margin-top: 12%;
+  width:17%;
+  height:30%;
+}
+/* 背景img */
+.Picture{
+  width:100%;
+  height:100%;
+}
+/* 老师姓名 */
+.name{
+  margin-left: 32%;
+  color: #000000;
+  margin-top: 12%;
+  font-size: 2.5em;
+  font-weight: bolder;
+  position:absolute;
+  z-index:2; 
+  top:7%
+}
+/* 老师姓名 */
+.teacherID{
+  margin-left: 32%;
+  color: #000000;
+  margin-top: 18%;
+  font-size: 2.5em;
+  font-weight: bolder;
+  position:absolute;
+  z-index:2; 
+  top:7%
+}
+/*修改头像的备注*/
+.unbindTip{
+  color: grey;
+  position:absolute;
+  font-size: 2.5em;
+  left: 7.5%;
+  top: 54%;
+}
+/* 背景图的view*/
+.PictureDiv{  
+  left: 0rpx;
+  width: 100%;
+  position:relative;
+  height:30%;
+}
+.lowBox{
+  width: 100%;
+  height: 80%;
+
+}
+/*下方的主要选择页面*/
+.mainView
+{
+  background-color: #6cf;
+  width:100%;
+  height: 500px;
+}
+/*号的标签*/
+.ID
+{
+  position:absolute;
+  font-size: 2.5em;
+  left:15%;
+  font-weight: bolder;
+  top:50%;
+  z-index: 2;
+}
+/*姓名的标签*/
+.name1
+{
+  position:absolute;
+  font-size: 2.5em;
+  left:15%;font-weight: bolder;
+  top:70%;
+  z-index: 2;
+}
+/*学校的标签*/
+.school
+{
+  position:absolute;
+  font-size: 2.5em;font-weight: bolder;
+  left:15%;
+  top:60%;
+  z-index: 2;
+}
+/*手机*/
+.phone1
+{
+  position:absolute;
+  font-size: 2.5em;
+  left:15%;
+  font-weight: bolder;
+  top:40%;
+  z-index: 2;
+}
+/*退出按钮*/
+.exitBtn
+{
+  background-color: white;
+  color:#0066FF;
+  font-weight: bolder;
+  width:7em;
+  height:3em;
+  font-size: 3em;
+  border-radius: 0.6em;
+  position: absolute;
+  left: 20%;
+  top:80%;
+}
+/*解绑按钮*/
+.UnbindBtn
+{
+  background-color: white;
+  color:#FF0000;
+  font-weight: bolder;
+  width:7em;
+  height:3em;
+  font-size: 3em;
+  border-radius: 0.6em;
+  position: absolute;
+  left: 55%;
+  top:80%;
+}

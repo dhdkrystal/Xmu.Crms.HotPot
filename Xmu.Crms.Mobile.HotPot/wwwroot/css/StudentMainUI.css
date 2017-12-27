@@ -1,0 +1,103 @@
+
+html {
+    font-family: "微软雅黑";
+    font-size: 100px;
+    height: 100%;
+    width: 100%;
+}
+
+.body {
+    height: 100%
+}
+/* 灯泡img */
+.user {
+    position: absolute;
+    margin-left: 8%;
+    margin-top: 12%;
+    width: 17%;
+    height: 30%;
+}
+/* 背景img */
+.Picture {
+    width: 100%;
+    height: 100%;
+}
+/* 老师姓名 */
+.name {
+    margin-left: 28%;
+    color: #000000;
+    margin-top: 12%;
+    font-size: 2em;
+    position: absolute;
+    z-index: 2;
+    top: 7%
+}
+/* 老师姓名 */
+.studentID {
+    margin-left: 28%;
+    color: #000000;
+    margin-top: 18%;
+    font-size: 2em;
+    position: absolute;
+    z-index: 2;
+    top: 7%
+}
+
+
+/* 背景图的view*/
+.PictureDiv {
+    left: 0rpx;
+    width: 100%;
+    position: relative;
+    height: 30%;
+}
+
+.lowBox {
+    width: 100%;
+    height: 80%;
+}
+/*蓝色选择框的div*/
+.blueBox {
+    position: relative;
+    margin-left: 5%;
+    width: 90%;
+    background-color: #66CCFF;
+    margin-top: 5%;
+    padding-bottom: 25%;
+    border-radius: 15px;
+}
+/*灰色选择框的div*/
+.greyBox {
+    position: relative;
+    margin-left: 5%;
+    width: 90%;
+    background-color: #CCCCCC;
+    margin-top: 5%;
+    padding-bottom: 25%;
+    border-radius: 15px;
+}
+/*蓝色框内文字*/
+.text {
+    position: absolute;
+    color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+    margin-top: 0.6em; /*负的自身高度一半*/
+}
+/*左侧的文字*/
+.leftText {
+    font-size: 6em;
+    position: absolute;
+    color: #FFFFFF;
+    height: 10px;
+    margin-left: 10%;
+    margin-top: 1em
+}
+/*右侧的文字*/
+.rightText {
+    font-size: 3em;
+    position: absolute;
+    color: #666666;
+    margin-left: 60%;
+    margin-top: 11%;
+}

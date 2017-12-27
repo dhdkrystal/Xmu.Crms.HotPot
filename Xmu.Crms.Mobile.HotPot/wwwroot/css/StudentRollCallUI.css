@@ -1,0 +1,97 @@
+@charset "utf-8";
+/* 背景色 */
+body {
+    background: rgba(102, 204, 255, 0.5);
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* 左上角的users图标和文字的容器*/
+
+.blueUsersDiv {
+    width: 60%;
+    height: 10%;
+    float: left;
+    margin-top: 5%;
+    margin-left: 10%;
+
+    font-size: 14px;
+}
+
+/* 左上角的蓝色users图标大小*/
+
+.blueUsersIcon {
+    width: 40%;
+    height: 100%;
+    margin-right: 10%;
+    margin-top: 50% ;
+}
+
+/*黑色线的样式*/
+.hrDiv {
+    height: 1.5%;
+    width: 80%;
+    margin: auto;
+    border: 1px solid black;
+    background-color: black;
+    color: black;
+    float: right;
+    margin-right: 10%;
+    margin-top: 7.5%;
+    margin-bottom: 7.5%;
+}
+
+/*课程信息的文本+ICon的容器*/
+.courseInfoDiv {
+    width: 80%;
+    height: 5%;
+    float: left;
+    margin-top: 5%;
+    margin-left: 15%;
+    font-size: 14px;
+
+}
+
+/*课程信息的Icon*/
+.courseInfoIcon {
+    width: 10%;
+    height: 60%;
+    margin-right: 10%;
+    margin-left: 20%;
+}
+
+/*成功签到情况下的图标+文本容器*/
+.successCall {
+    width: 80%;
+    height: 5%;
+    float: left;
+    margin-top: 15%;
+    margin-left: 15%;
+    font-size: 14px;
+}
+
+/*迟到签到情况下的图标+文本容器*/
+.lateCall {
+    width: 80%;
+    height: 5%;
+    float: left;
+    margin-top: 15%;
+    margin-left: 15%;
+    font-size: 14px;
+    color: #FA8888
+}
+
+/*蓝色的大button，显示 签到 */
+.blueBigBtn {
+    background-color: rgba(102, 204, 255, 1);
+    color: white;
+    font-size: 24px;
+    width: 38.6%;
+    border-radius: 20px;
+    margin-left: 30.6%;
+    margin-top: 11.2%;
+    float: left;
+    border-style: none;
+}

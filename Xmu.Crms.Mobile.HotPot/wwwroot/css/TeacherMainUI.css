@@ -1,0 +1,92 @@
+
+html{
+	font-family:"微软雅黑";
+	font-size:100px;
+	height:100%;
+	width: 100%;
+}
+.body{
+	height: 100%
+}
+/* 灯泡img */
+.user{
+  position:absolute;margin-left: 8%;margin-top: 12%;
+  width:17%;
+  height:30%;
+}
+/* 背景img */
+.Picture{
+  width:100%;
+  height:100%;
+}
+/* 老师姓名 */
+.name{
+	margin-left: 28%;
+	color: #000000;
+	margin-top: 12%;
+	font-size: 2em;
+	position:absolute;
+	z-index:2; 
+	top:7%
+}
+/* 老师姓名 */
+.teacherID{
+	margin-left: 28%;
+	color: #000000;
+	margin-top: 18%;
+	font-size: 2em;
+	position:absolute;
+	z-index:2; 
+	top:7%
+}
+
+
+/* 背景图的view*/
+.PictureDiv{  
+	left: 0rpx;
+	width: 100%;
+	position:relative;
+	height:30%;
+}
+.lowBox{
+	width: 100%;
+	height: 80%;
+
+}
+/*蓝色选择框的div*/
+.blueBox{
+	position:relative;
+	margin-left: 5%;
+	width: 90%;
+	background-color:#66CCFF;
+	color: #FFFFFF;
+	margin-top: 5%;
+	font-size: 6em;
+    border-radius: 0.5em;
+	height: 2.5em;
+    text-align: center;
+	
+}
+/*灰色选择框的div*/
+.greyBox{
+	position:relative;
+	margin-left: 5%;
+	width: 90%;
+	background-color:#CCCCCC;
+	color: #FFFFFF;
+	margin-top: 5%;
+	font-size: 6em;
+    border-radius: 0.5em;
+	height: 2.5em;
+    text-align: center;
+	
+}
+/*蓝色框内文字*/
+.text
+{
+	position: absolute;
+	color: #FFFFFF;
+	width: 100%;
+	height: 100%;
+    margin-top: 0.6em;/*负的自身高度一半*/
+}

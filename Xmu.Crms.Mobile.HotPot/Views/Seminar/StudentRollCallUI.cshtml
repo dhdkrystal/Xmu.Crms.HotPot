@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "StudentRollCallUI";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="divport" content="width=device-width,
+                                     initial-scale=1.0,
+                                     maximum-scale=1.0">
+    <title>StudentRollCall</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/css/StudentRollCallUI.css">
+
+
+
+</head>
+<body>
+    <script>
+        //GET /seminar/{seminarId}/detail 获取讨论课详情
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/api/seminar/32/detail',
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                success: function (result) {
+                    $("#teacherName").text(result.Data.teacherName);
+                    $("#teacherEmail").text(result.Data.teacherEmail);
+                    $("#startTime").text(result.Data.startTime);
+                    $("#site").text(result.Data.site);
+                }
+            })
+        });
+
+        //PUT /seminar/{seminarId}/class/{classId}/attendance/{studentId} 请求数据：GPS位置
+        $(document).on("click", ".blueBigBtn", function () {
+            $.ajax({
+                type: 'PUT',
+                url: '/api/seminar/32/class/1/attendance/8888',
+                data:'',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                success: function (result) {
+                    if(result.Data.status=="late") 
+                        $(window).attr("location", '/Seminar/StudentRollCallLateUI');
+                    else
+                        $(window).attr("location", '/Seminar/StudentRollCallEndUI');
+                }
+            })
+        })
+    </script>
+    <!--设置左上角的blueBoardIcon-->
+    <div class="blueUsersDiv">
+        <img src="~/images/blueBoard.png" class='blueUsersIcon' />
+        <strong>讨论课信息</strong>
+    </div>
+
+    <!--细线，hr不好设置css，用一个高度很小的div来代替-->
+    <div class="hrDiv">
+    </div>
+
+    <!--课堂信息，由一个icon和一行文字组成-->
+    <div class="courseInfoDiv">
+        <img src="~/images/teacher.png" class='courseInfoIcon' />
+        <strong id="teacherName"></strong>
+    </div>
+    <div class="courseInfoDiv">
+        <img src="~/images/mail.png" class='courseInfoIcon' />
+        <strong id="teacherEmail"></strong>
+    </div>
+    <div class="courseInfoDiv">
+        <img src="~/images/date.png" class='courseInfoIcon' />
+        <strong id="startTime"></strong>
+    </div>
+    <div class="courseInfoDiv">
+        <img src="~/images/site.png" class='courseInfoIcon' />
+        <strong id="site"></strong>
+    </div>
+
+    <div>
+        <button type="button" class="blueBigBtn" id="rollCall">
+            签到
+        </button>
+    </div>
+
+
+</body>
+</html>

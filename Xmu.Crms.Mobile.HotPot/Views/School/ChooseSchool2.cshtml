@@ -1,0 +1,84 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="divport" content="width=device-width,
+                                     initial-scale=1.0,
+                                     maximum-scale=1.0">
+    <title>StudentRollCallUI</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/css/test.css">
+
+
+
+</head>
+
+
+<body style="background=#000000">
+	<div class="box5" style="position:relative;"><!-- 背景图的div -->
+		<div style="position:absolute;margin-left: 7%;margin-top: 18%; z-index:2" class=hrDiv></div>
+		<img style="position:absolute;margin-left: 5%;margin-top: 9%" src="~/images/deng.png" width=5% height=20%/> 
+		<img src="~/images/背景图2.jpg" width=100% height=100%/>  
+		<div class="FONT41" style="position:absolute; margin-left:12%;z-index:2; top:10px">请选择您的学校</div> 
+	</div>
+	
+	<div class="box6";style="background-color: =#66CCFF;">
+		<button class="button1" style="float: left;margin-left:3% ">福建</button>
+		<button class="button1" style="float: left;margin-left: 33%">厦门</button>
+		<button class="button1" style="float: left;margin-left: 63%">学校</button></div>
+		<div class="box7" id="list">
+            <script>
+                        $(document).ready(function () {
+                            $.ajax({
+                                type: 'GET',
+                                url: '/api/school2/32/detail',
+                                data: '',
+                                contentType: 'application/json;charset=utf-8',
+                                dataType: 'json',
+                                success: function (result) {
+                                    $.each(result.Data, function (i, value) {
+                                        $("#list").append(
+                                            '<div class="box8"><button class="button2" style="">' +
+                                            value + '</button ></div >')
+
+                                    });
+                                }
+                            })
+                        });
+            </script>
+            <div class="box9"><button class="box8">无学校？选择创建</button></div>
+            </div>
+    <script>
+        $(document).on("click", ".button2", function () {
+
+            $.ajax({
+                type: 'GET',
+                url: '/api/school1/32/detail',
+                data: "",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    $(window).attr("location", '/Account/StudentBinding');
+                }
+            })
+        })
+    </script>
+    <script>
+        $(document).on("click", ".box9", function () {
+
+            $.ajax({
+                type: 'GET',
+                url: '/api/school1/32/detail',
+                data: "",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    $(window).attr("location", '/School/CreateSchoolUI');
+                }
+            })
+        })
+</script>
+	</body>
+	</html>

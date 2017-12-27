@@ -1,0 +1,54 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="divport" content="width=device-width,
+                                     initial-scale=1.0,
+                                     maximum-scale=1.0">
+    <title>Check Teacher Info</title>
+	<link href="~/css/CheckTeacherInfo.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+</head>
+
+<body class="body">
+    <div class="PictureDiv">
+        <!-- 背景图的div -->
+        <img class="user" src="~/images/user.png" />
+        <div class="unbindTip">点击头像修改</div>
+        <img src="~/images/background.jpg" class="Picture" />
+        <div class="name" id="name">姓名：</div>
+        <div class="teacherID" id="number">教工号：</div>
+    </div>
+    <div class="phone1" id="phone">手机号：&nbsp;&nbsp;&nbsp;&nbsp;</div>
+    <div class="ID" id="number1">教工号：&nbsp;&nbsp;&nbsp;&nbsp; </div>
+    <div class="school" id="school">学校：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+    <div class="name1" id="name1">姓名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+    <button class="exitBtn" onclick="location.href='/Account/Login'">退出登录</button>
+    <button class="UnbindBtn" onclick="location.href='/Account/Login'">解绑账号</button>
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: '/me',
+                type: 'GET',
+                success: function (data) {
+                    $('#name').append(data.Name);
+                    $('#name1').append(data.Name);
+                    $('#number').append(data.Number);
+                    $('#number1').append(data.Number);
+                    $('#phone').append(data.Phone);
+                    $('#school').append(data.School);
+                },
+                error: function (data) {
+                    alert("加载学生信息出错");
+                }
+            })
+        });
+    </script>
+
+</body>
+</html>
+
+

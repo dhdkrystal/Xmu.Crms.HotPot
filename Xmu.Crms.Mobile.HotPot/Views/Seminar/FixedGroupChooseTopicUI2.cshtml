@@ -1,0 +1,90 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="divport" content="width=device-width,
+                                     initial-scale=1.0,
+                                     maximum-scale=1.0">
+    <title>Fixed Group</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/css/fixGroupChooseTopicUI2.css">
+
+<body>
+    <script>
+        //GET:/seminar/{seminarId}/topic 按ID获取讨论课的话题
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/api/seminar/32/topic',
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                success: function (result) {
+                    $("#topicNmu").text("话题" + result.Data.serial);
+                    $("#topicName").text(result.Data.name);
+                    $("#groupLeft").text(result.Data.groupLeft);
+                    $("#groupLimit").text(result.Data.groupLimit);
+                   
+                }
+            })
+        });
+
+        $(document).on("click", ".nineIcon", function () {
+            $.ajax({
+                type: 'GET',
+                url: '/api/seminar/32/topic',
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                success: function (result) {
+                    if ($("#des").children('span').length > 0)
+                        $("#description").remove();
+                    else 
+                        $("#des").append('<span class="topicDescribeTitle" id="description">'+result.Data.description+'</span>');
+                    
+                }
+            })
+        });
+
+        $(document).on("click", ".leftNumWhite", function () {
+            $.ajax({
+                type: 'POST',
+                url: '/api/group/28/topic',
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                success: function () {
+                    $(window).attr("location", '/Seminar/FixedGroupLeaderUI');
+                }
+            })
+        });
+    </script>
+    <!--设置左上角的usersIcon-->
+    <div class="blueUsersDiv">
+        <img src="../images/users.png" class='blueUsersIcon' />
+        <strong>请为您的队伍选题</strong>
+    </div>
+
+    <!--细线，hr不好设置css，用一个高度很小的div来代替-->
+    <div class="hrDiv">
+    </div>
+
+    <!--当选题未选完时框是蓝色的，要增加新框就直接复制-->
+    <div class="blueTopicDiv">
+        <span class="topic" id="topicNmu"></span>
+        <span class="topicName" id="topicName"></span>
+        <!--剩余选题数量大于等于2时-->
+        <span class="leftNumWhite">剩余：</span>
+        <span class="leftNumWhite" id="groupLeft"></span>
+        <span class="leftNumWhite">/</span>
+        <span class="leftNumWhite" id="groupLimit"></span>
+        <img src='../images/九点.png' class="nineIcon">
+    </div>
+
+    <!--当点击九点时出现topic的简介-->
+    <div class="topicDescribeDiv" id="des">
+    </div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Group</title>
+    <link rel="stylesheet" href="~/css/fixgroup.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body class="fullbackground">
+    <script>
+        //GET /seminar/{seminarId}/group/my 按讨论课ID获取学生所在小组详情
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/api/seminar/28/group/my',
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                success: function (result) {
+                    
+                    $.each(result.Data.members, function (i, value) {
+                        $("#members").append('<div class="block">' +
+                            '<div class="panel-body">' +
+                            '<div class="column1">' +
+                            '<img src="../images/user.png">' +
+                            '</div><div class="column2">' + value.name + '<br/>'
+                            + value.id + '</div>' +
+                            '</div>' +
+                            '</div>');
+                    });
+                    $("#members").append('<div class="block">' +
+                        '<div class="panel-body">' +
+                        '<div class="column1">' +
+                        '<img src="../images/user.png">' +
+                        '</div><div class="column2">' + result.Data.leader.name + '<br/>'
+                        + result.Data.leader.id + '</div>' +
+                        '</div>' +
+                        '</div>');
+                }
+            })
+        });
+        $(document).on("click", ".btnleader", function () {
+            $.ajax({
+                type: 'PUT',
+                url: '/api/group/23/assign',
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                success: function (result) {
+                    $(window).attr("location", '/Seminar/RandomGroupLeaderUI2');
+
+                }
+            })
+        });
+    </script>
+    <div class="seminarblock">
+        <div class="panel-body">
+            <div class="column0"><img src="~/images/users.png"></div>
+            <div class="column2">讨论课<br />随机分组</div>
+        </div>
+    </div>
+
+    <div class="whitetitle">
+        <div class="panel-body">
+            <div class="column4">队伍信息：</div>
+        </div>
+    </div>
+    <ol id="members">
+        
+        <!--每有一个成员复制一个-->
+    </ol>
+
+
+    <div class="whitetitle">
+        <div class="panel-body">
+            <div>选题：</div>
+        </div>
+    </div>
+    <div class="middlediv">
+        <button type="button" class="btnleader">成为队长</button>
+    </div>
+    <div class="middlediv"><p class="downp">您的队伍还没有队长，您可以选择成为队长。</p></div>
+</body>
+</html>

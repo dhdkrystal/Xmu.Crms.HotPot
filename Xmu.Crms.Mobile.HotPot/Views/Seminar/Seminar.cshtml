@@ -1,0 +1,67 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="divport" content="width=device-width,
+                                     initial-scale=1.0,
+                                     maximum-scale=1.0"
+                                    >
+<title>Seminar</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="~/css/Seminar.css" rel="stylesheet" type="text/css">
+</head>
+<body class="body">
+    <script>
+        $(document).on("click", ".ScoreBox", function () {
+            $.ajax({
+                type: 'GET',
+                url: '/api/seminar/32/my',
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                success: function (result) {
+                    $(window).attr("location", '/Seminar/GradePresentationUI');
+                }
+            })
+        });
+        $(document).on("click", ".CallBox", function () {
+            $.ajax({
+                type: 'GET',
+                url: '/api/seminar/32/my',
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                success: function () {
+                    $(window).attr("location", '/Seminar/StudentRollCallUI');
+                }
+            })
+        });
+        $(document).on("click", ".GroupBox", function () {
+            $.ajax({
+                type: 'GET',
+                url: '/api/seminar/32/my',
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                success: function () {
+                    $(window).attr("location", '/Seminar/RandomGroupNoLeaderUI');
+                }
+            })
+        });
+    </script>
+	<div class="topBox">
+	<span class="title"> OOAD</span>
+		<span class="title2"> 讨论课4</span>
+	</div>
+	<div class="ScoreBox">
+<span class="ScoreText">打分</span></div>
+<div class="CallBox">
+  <span class="CallText">签到</span>
+</div>
+	<div class="GroupBox" >
+	<span class="GroupText">组队和选题</span></div>
+</body>
+</html>
+

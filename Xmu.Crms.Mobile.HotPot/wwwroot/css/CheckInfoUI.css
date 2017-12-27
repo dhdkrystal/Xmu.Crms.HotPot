@@ -1,0 +1,220 @@
+/* StudentBindingUI.css */
+/*上方的风景模块*/
+.body{
+	width:100%;
+}
+.topBoardView
+{
+
+    width: 100%;
+    height: 250px;
+}
+.topIcon
+{
+  position:absolute;
+  left:40px;
+  top:40px;
+  width:55px;
+}
+/*上面的灯*/
+.topLight
+{
+  position:absolute;
+  left:40px;
+  top:40px;
+  width:55px;
+}
+/*上面的线*/
+.topLine
+{
+  position:absolute;
+  width:70%;
+  left: 40px;
+  top:12%;
+  border-bottom:2px #212121 solid;
+}
+/*上面的提示框*/
+.topTips
+{
+  font-weight:bold;
+  position:absolute;
+  font-size: 18px;
+  left: 100px;
+  top:60px;
+  z-index: 2;
+  
+}
+/*下方的主要选择页面*/
+.mainView
+{
+position:absolute;
+  background-color: #6cf;
+  width:100%;
+  height:500px;
+  text-align:center;
+}
+/*手机号的标签*/
+.phone1
+{
+  position:absolute;
+  font-size: 20px;
+  left:20%;
+  top:12%;
+  z-index: 2;
+}
+/*教工号的标签*/
+.ID1
+{
+  position:absolute;
+  font-size: 20px;
+  left:20%;
+  top:24%;
+  z-index: 2;
+}
+/*学校的标签*/
+.school1
+{
+  position:absolute;
+  font-size: 20px;
+  left:20%;
+  top:36%;
+  z-index: 2;
+}
+/*姓名的标签*/
+.name1
+{
+  position:absolute;
+  font-size: 20px;
+  left:20%;
+  top:48%;
+  z-index: 2;
+}
+/*手机号的标签*/
+.phone
+{
+  position:absolute;
+  font-size: 20px;
+  left:55%;
+  top:12%;
+  z-index: 2;
+}
+/*教工号的标签*/
+.ID
+{
+  position:absolute;
+  font-size: 20px;
+  left:55%;
+  top:24%;
+  z-index: 2;
+}
+/*学校的标签*/
+.school
+{
+  position:absolute;
+  font-size: 20px;
+  left:55%;
+  top:36%;
+  z-index: 2;
+}
+/*姓名的标签*/
+.name
+{
+  position:absolute;
+  font-size: 20px;
+  left:55%;
+  top:48%;
+  z-index: 2;
+}
+/*教工号输入框*/
+.inputStudentID
+{
+  position:absolute;
+  background: #fff;
+  width: 150px;
+  height: 45px;
+  font-size:20px;
+  left:39%;
+  top:38%;
+  z-index:2;
+}
+/*姓名输入框*/
+.inputName
+{
+  position:absolute;
+  background: #fff;
+  width: 150px;
+  height: 45px;
+  font-size:20px;
+  left:39%;
+  top:52%;
+  z-index:2;
+}
+/*学校输入框*/
+.inputSchool
+{
+  position:absolute;
+  background: #fff;
+  width: 150px;
+  height: 45px;
+  font-size:20px;
+  left:39%;
+  top:62%;
+  z-index:2;
+}
+/*确定按钮*/
+.exitButton
+{
+  position:absolute;
+  width:30%;
+  height:60px;
+  left:15%;
+  font-size: 25px;
+  top:75%;
+  border-radius:15px;
+  background-color:white;
+  border:1px #EEE solid;
+}
+/*确定按钮*/
+.unbindingButton
+{
+  position:absolute;
+  width:30%;
+  height:60px;
+  left:55%;
+  font-size: 25px;
+  top:75%;
+  border-radius:15px;
+  background-color:white;
+  border:1px #EEE solid;
+}
+/*提示图标*/
+.tipIcon
+{
+  position: absolute;
+  width: 5%;
+  height: 3%;
+  left: 40%;
+  top:47%;
+  z-index: 2;
+}
+/*提示文字自体*/
+.tipFont
+{
+  position: absolute;
+  font-size: 14px;
+  color: red;
+  left: 48%;
+  top:47%;
+  z-index: 2;
+}
+/*选择学校按钮*/
+.selectSchoolIcon
+{
+  position:absolute;
+  background: #fff;
+  width: 38px;
+  height: 38px;
+  left:61%;
+  top:63%;
+  z-index:2;
+}

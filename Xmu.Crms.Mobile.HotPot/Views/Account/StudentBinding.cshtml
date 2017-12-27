@@ -1,0 +1,72 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Student Binding</title>
+    <link href="~/css/StudentBindingUI.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+</head>
+
+<body class="body">
+    <div class="PictureDiv">
+        <!-- 背景图的div -->
+        <img class="bulb" src="~/images/bulb.png" />
+        <img src="~/images/background.jpg" class="Picture" />
+        <div class="title">请先绑定您的账号</div>
+    </div>
+    <div class="hrDiv"></div>
+    <div class="mainView">
+        <div class="studentID">学号 :</div>
+        <input class="inputstudentID" id="number">
+        <img class="tipIcon" src="~/images/warning.png
+		">
+        <div class="tipFont">提交后不能修改</div>
+        <div class="Name" >姓名 :</div>
+        <input class="inputName"id="name">
+        <div class="school">
+            学校 :
+        </div>
+        <input class="inputSchool" id="school"><img class="selectSchoolIcon" src="~/images/ninedot.png"></input>
+        <div class="comfirmDiv">
+            <button class="confirmButton" id="studentBinding">绑定</button>
+        </div>
+    </div>
+
+    <script>
+     $(document).ready(function () {
+         $("#studentBinding").click(function () {
+             var number = $("#number").val();
+             var name = $("#name").val();
+             var school = $("#schoool").val();
+             if (number == '' || name == ''||school=='') {
+                 alert("请填写完整");
+             } else {
+                 $.ajax({
+                     url: '/me',
+                     type: 'PUT',
+                     data: {
+                         'number': number,
+                         'name': name,
+                         'school':school,
+                     },
+                     dateType: 'json',
+                     success: function (data) {
+                         document.location.href = '/Account/Login';
+                     },
+                     error: function (mesg) {
+                         alert(mesg);
+                     }
+                 });
+             }
+         });
+     });
+    </script>
+
+
+	
+</body>
+</html>
+
+

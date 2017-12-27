@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Teacher";
+}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="divport" content="width=device-width,
+                                     initial-scale=1.0,
+                                     maximum-scale=1.0">
+    <title>Teacher</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <link href="~/css/TeacherMainUI.css" rel="stylesheet" type="text/css">
+</head>
+<body class="body">
+    <div class="PictureDiv">
+        <!-- 背景图的div -->
+        <img class="user" src="~/images/user.png" />
+        <img src="~/images/background.jpg" class="Picture" />
+        <div class="name">姓名：邱明</div>
+        <div class="teacherID">教工号：243201522xxxx</div>
+    </div>
+
+    <div class="lowBox" id="course_container">
+        <script>
+             $(document).ready(function () {
+                 $.ajax({
+                     url: '/me',
+                     type: 'GET',
+                     success: function (data) {
+                         $('#name').append(data.Name);
+                         $('#number').append(data.Phone);
+                     },
+                     error: function (data) {
+                         alert("加载学生信息出错");
+                     }
+                 })
+
+                 $.ajax({
+                     url: '/course',
+                     type: 'GET',
+                     success: function (data) {
+                         for (i = 0; i < data.length; i++) {
+                             var course = data[i];
+                             template = "<div class=\"blueBox\" onclick=\"location.href = '/Class/ClassManage'\">\n";
+                             template += "<p class=\"leftText\">";
+                             template += course.Name;
+                             template += "</p></div >";
+                             $('#course_container').append(template);
+                         }
+
+                     },
+                     error: function (data) {
+                         alert("加载课程信息出错");
+                     }
+                 })
+             });
+        </script>
+    </div>
+</body>
+
+
+
+</html>
+
+
+
