@@ -9,17 +9,6 @@
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/ClassManage.css">
     <script src="~/Scripts/jquery-1.11.3.min.js" type="text/javascript"></script>
-    <script type="text/javascript" >
-        $(document).ready(function () {
-            $("#ClassImage").click(function () {
-                var GroupType = "@ViewBag.GroupType";
-                if (GroupType == "固定分组")
-                    window.location('/Class/FixedRollStartCallUI');
-                else
-                    window.location('/Class/RandomRollStartCallUI');
-            });
-        })
-    </script>
 </head>
 <body class="body">
 <!--设置蓝色上方-->
@@ -39,27 +28,40 @@
     <span>@ViewBag.GroupType</span>
 </div>
 
-<!--班级Icon及名字,增加新班级就复制一个div-->
-<div class="class" >
-    
-        <img src="~/images/ClassManage.png" class="classIcon"  id="ClassImage">
-   
-  <p class="className">班级1</p>
+<div id="classList">
+    <!--班级Icon及名字,增加新班级就复制一个div-->
+    <div class="class">
+        <img src="~/images/ClassManage.png" class="classIcon" >
+        <p class="className">班级1</p>
+    </div>
+
+    <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
+        $(function () {
+            $.ajax({
+                url: '/course/{courseId}/class',
+                type: 'GET',
+                dataType: 'json',
+                headers: { "Authorization": "Bearer " + token },
+                success: function (result) {
+                    for (var i = 1; i <= result.length; i++) {
+                        $("#classList").append(
+                            '<div class="class" classId='+result[i].id+'>' +
+                            '<img src="~/images/ClassManage.png" class="classIcon" >' +
+                            '<p class="className">' + "班级" + i + '</p>' +
+                            '</div>'
+                        );
+                    }
+                    $(".class").click(function () {
+                        if ($(this).attr("classId")) {
+                            window.location.href="/"
+                        }
+                    })
+                }
+
+            })
+        })
+    </script>
 </div>
-
-<div class="class">
-    <a href="@Url.Action("Class","Class")">
-        <img src="~/images/ClassManage.png" class="classIcon">
-    </a>
-        <p class="className">班级2</p>
-    
-</div>
-
-<div class="class">
-    <img src="~/images/ClassManage.png" class="classIcon">
-    <p class="className">班级3</p>
-</div>
-
-
 </body>
 </html>

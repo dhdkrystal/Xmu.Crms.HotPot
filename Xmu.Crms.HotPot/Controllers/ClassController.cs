@@ -1,27 +1,32 @@
-﻿using Xmu.Crms.Shared.Models;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using Xmu.Crms.Shared.Models;
 using Xmu.Crms.Services.HotPot;
 using Xmu.Crms.Shared.Service;
 using Xmu.Crms.Shared.Exceptions;
 
 namespace Xmu.Crms.HotPot.Controllers
 {
-    /*
     [Route("")]
     [Produces("application/json")]
     public class ClassController : Controller
     {
-        private IClassService classService;
-        private IFixGroupService fixGroupService;
-        private IUserService userService;
-        private readonly JwtHeader  _head;
+        private readonly ICourseService _courseService;
+        private readonly IClassService _classService;
+        private readonly IFixGroupService _fixGroupService;
+        private readonly IUserService _userService;
 
-        public ClassController(IClassService classService,IFixGroupService fixGroupService,
-            IUserService userService, JwtHeader header)
+        public ClassController(IClassService classService, ICourseService courseService,
+            IFixGroupService fixGroupService, IUserService userService)
         {
-            this.classService = classService;
-            this.fixGroupService = fixGroupService;
-            this.userService = userService;
-            this._head=header;
+            _classService = classService;
+            _courseService = courseService;
+            _fixGroupService = fixGroupService;
+            _userService = userService;
         }
 
         /// <summary>
@@ -29,19 +34,26 @@ namespace Xmu.Crms.HotPot.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("/class")]
-        public IActionResult GetUserClasses([FromBody]string courseName,[FromBody]string teacherName)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public IActionResult GetUserClasses([FromBody]string courseName, [FromBody]string teacherName)
         {
-            var c1 = new ClassInfo
+            IList<ClassInfo> classes = new List<ClassInfo> { };
+            //按课程名称获取班级列表.
+            foreach (ClassInfo c in _courseService.ListClassByCourseName(courseName))
             {
-                Name= "周三1-2节",
-                Site="公寓405"
-            };
-            var c2 = new ClassInfo
+                classes.Add(c);
+            }
+            //按教师名称获取班级列表
+            foreach (ClassInfo c in _courseService.ListClassByCourseName(teacherName))
             {
-                Name = "一班",
-                Site = "海韵202"
-            };
-            return Json(new List<ClassInfo> {c1, c2});
+                classes.Add(c);
+            }
+            //按课程名称和教师名称获得班级列表
+            foreach (ClassInfo c in _courseService.ListClassByName(courseName, teacherName))
+            {
+                classes.Add(c);
+            }
+            return Json(classes);
         }
 
 
@@ -51,13 +63,15 @@ namespace Xmu.Crms.HotPot.Controllers
         /// <param name="classId"></param>
         /// <returns></returns>
         [HttpGet("/class/{classId:long}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult GetClassById([FromRoute] long classId)
         {
             try
             {
-                var c2 = classService.GetClassByClassId(classId);
+                var c2 = _classService.GetClassByClassId(classId);
                 return Json(c2);
-            }catch(ClassNotFoundException)
+            }
+            catch (ClassNotFoundException)
             {
                 return StatusCode(404, new { msg = "未找到班级" });
             }
@@ -70,11 +84,16 @@ namespace Xmu.Crms.HotPot.Controllers
         /// <param name="updated"></param>
         /// <returns></returns>
         [HttpPut("/class/{classId:long}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult UpdateClassById([FromRoute] long classId, [FromBody] ClassInfo updated)
         {
+            if (User.Type() != Type.Teacher)
+            {
+                return StatusCode(403, new { msg = "权限不足" });
+            }
             try
             {
-                classService.UpdateClassByClassId(classId, updated);
+                _classService.UpdateClassByClassId(classId, updated);
                 return NoContent();
             }
             catch (ClassNotFoundException)
@@ -89,13 +108,19 @@ namespace Xmu.Crms.HotPot.Controllers
         /// <param name="classId"></param>
         /// <returns></returns>
         [HttpDelete("/class/{classId:long}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult DeleteClassById([FromRoute] long classId)
         {
+            if (User.Type() != Type.Teacher)
+            {
+                return StatusCode(403, new { msg = "权限不足" });
+            }
             try
             {
-                classService.DeleteClassByClassId(classId);
+                _classService.DeleteClassByClassId(classId);
                 return NoContent();
-            }catch(ClassNotFoundException)
+            }
+            catch (ClassNotFoundException)
             {
                 return StatusCode(404, new { msg = "未找到班级" });
             }
@@ -107,10 +132,11 @@ namespace Xmu.Crms.HotPot.Controllers
         /// <param name="classId"></param>
         /// <returns></returns>
         [HttpGet("/class/{classId:long}/student")]
-        public IActionResult GetStudentsByClassId([FromRoute] long classId,[FromBody]string  numBeginWith,
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public IActionResult GetStudentsByClassId([FromRoute] long classId, [FromBody]string numBeginWith,
             [FromBody] string nameBeginWith)
         {
-            IList<UserInfo> students = userService.ListUserByClassId(classId,numBeginWith,nameBeginWith);
+            IList<UserInfo> students = _userService.ListUserByClassId(classId, numBeginWith, nameBeginWith);
             return Json(students);
         }
 
@@ -121,10 +147,11 @@ namespace Xmu.Crms.HotPot.Controllers
         /// <param name="student"></param>
         /// <returns></returns>
         [HttpPost("/class/{classId:long}/student")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult SelectClass([FromRoute] long classId, [FromBody] UserInfo student)
         {
-            classService.InsertCourseSelectionById(student.Id,classId);
-            return Created("/class/{classId}/student/1", new Dictionary<string, string> {["url"] = " /class/1/student/1"});
+            _classService.InsertCourseSelectionById(student.Id, classId);
+            return Created("/class/{classId}/student/1", new Dictionary<string, string> { ["url"] = " /class/{classId}/student/1" });
         }
 
         /// <summary>
@@ -134,9 +161,10 @@ namespace Xmu.Crms.HotPot.Controllers
         /// <param name="studentId"></param>
         /// <returns></returns>
         [HttpDelete("/class/{classId:long}/student/{studentId:long}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult DeselectClass([FromRoute] long classId, [FromRoute] long studentId)
         {
-            classService.DeleteCourseSelectionById(studentId,classId);
+            _classService.DeleteCourseSelectionById(studentId, classId);
             return NoContent();
         }
 
@@ -149,23 +177,24 @@ namespace Xmu.Crms.HotPot.Controllers
         /// <param name="showAbsent"></param>
         /// <returns></returns>
         [HttpGet("/class/{classId:long}/attendance")]
-        public IActionResult GetAttendanceByClassId([FromRoute] long classId,[FromBody]long seminarId,
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public IActionResult GetAttendanceByClassId([FromRoute] long classId, [FromBody]long seminarId,
             [FromBody] bool showPresent,
-            [FromBody]bool showLate,[FromBody] bool showAbsent)
+            [FromBody]bool showLate, [FromBody] bool showAbsent)
         {
             if (showPresent)
             {
-                IList<UserInfo> presentList = userService.ListPresentStudent(seminarId,classId);
+                IList<UserInfo> presentList = _userService.ListPresentStudent(seminarId, classId);
                 return Json(presentList);
             }
-            if(showLate)
+            if (showLate)
             {
-                IList<UserInfo> lateList = userService.ListLateStudent(seminarId,classId);
+                IList<UserInfo> lateList = _userService.ListLateStudent(seminarId, classId);
                 return Json(lateList);
             }
-            if(showAbsent)
+            if (showAbsent)
             {
-                IList<UserInfo> absentList = userService.ListAbsenceStudent(seminarId,classId);
+                IList<UserInfo> absentList = _userService.ListAbsenceStudent(seminarId, classId);
                 return Json(absentList);
             }
             return Json(new List<ClassInfo>());
@@ -179,14 +208,16 @@ namespace Xmu.Crms.HotPot.Controllers
         /// <param name="loc"></param>
         /// <returns></returns>
         [HttpPut("/class/{classId:long}/attendance/{studentId:long}")]
-        public IActionResult UpdateAttendanceByClassId([FromRoute] long classId,[FromBody]long seminarId,
-            [FromRoute] long studentId,  [FromBody] Location loc)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public IActionResult UpdateAttendanceByClassId([FromRoute] long classId, [FromBody]long seminarId,
+            [FromRoute] long studentId, [FromBody] Location loc)
         {
             try
             {
-                userService.InsertAttendanceById(classId, seminarId, studentId, loc.Longitude, loc.Latitude);
+                _userService.InsertAttendanceById(classId, seminarId, studentId, (double)loc.Longitude, (double)loc.Latitude);
                 return NoContent();
-            }catch(UserNotFoundException)
+            }
+            catch (UserNotFoundException)
             {
                 return StatusCode(404, new { msg = "不存在这个学生或班级" });
             }
@@ -198,10 +229,11 @@ namespace Xmu.Crms.HotPot.Controllers
         /// <param name="classId"></param>
         /// <returns></returns>
         [HttpGet("/class/{classId}/classgroup")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult GetUserClassGroupByClassId([FromRoute] long classId)
         {
 
-            IList<FixGroup> groups = fixGroupService.ListFixGroupByClassId(classId);
+            IList<FixGroup> groups = _fixGroupService.ListFixGroupByClassId(classId);
             return Json(groups);
         }
 
@@ -211,12 +243,12 @@ namespace Xmu.Crms.HotPot.Controllers
         /// <param name="classId"></param>
         /// <returns></returns>
         [HttpPut("/class/{classId}/classgroup")]
-        public IActionResult UpdateUserClassGroupByClassId([FromRoute] long classId,[FromBody]long groupId,
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public IActionResult UpdateUserClassGroupByClassId([FromRoute] long classId, [FromBody]long groupId,
             [FromBody]FixGroup fixGroupBo)
         {
-            fixGroupService.UpdateFixGroupByGroupId(groupId,fixGroupBo);
+            _fixGroupService.UpdateFixGroupByGroupId(groupId, fixGroupBo);
             return NoContent();
         }
     }
-    */
 }
