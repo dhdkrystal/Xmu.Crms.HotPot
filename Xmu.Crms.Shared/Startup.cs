@@ -36,10 +36,10 @@ namespace Xmu.Crms.Shared
 
         private TokenValidationParameters _tokenValidationParameters;
 
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IHostingEnvironment env, CrmsStartupConfig crmsStartupConfig)
         {
             _hostingEnvironment = env;
-            _startupConfig = new CrmsStartupConfig();
+            _startupConfig = crmsStartupConfig;
             _configuration = configuration;
         }
 
