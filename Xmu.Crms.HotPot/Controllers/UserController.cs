@@ -7,20 +7,26 @@ using System.Security.Claims;
 using Xmu.Crms.Shared.Models;
 using Xmu.Crms.Shared.Service;
 using Xmu.Crms.Shared.Exceptions;
+using Xmu.Crms.Mobile;
+using Xmu.Crms.Mobile.HotPot.ViewModels;
 
 namespace Xmu.Crms.HotPot.Controllers
 {
+    /// <summary>
+    /// @author dhd
+    /// </summary>
     [Route("")]
     [Produces("application/json")]
     public class UserController : Controller
-    {/*
-        private readonly IUserService _service;
+    {
+        private readonly IUserService _userService;
         private readonly ILoginService _loginService;
         private readonly JwtHeader _header;
 
-        public UserController(IUserService service, JwtHeader header)
+        public UserController(IUserService userService,ILoginService loginService,JwtHeader header)
         {
-            _service = service;
+            _userService = userService;
+            _loginService = loginService;
             _header = header;
         }
 
@@ -34,7 +40,7 @@ namespace Xmu.Crms.HotPot.Controllers
         {
             try
             {
-                var user = _service.GetUserByUserId(Shared.Models.User.Id);
+                var user = _userService.GetUserByUserId(); ;
                 return Json(user, Utils.Ignoring("City", "Province"));
             }
             catch (UserNotFoundException)
@@ -62,12 +68,12 @@ namespace Xmu.Crms.HotPot.Controllers
         {
             try
             {
-                var user = _loginService.SignUpPhone(new User {Phone = uap.Phone, Password = uap.Password});
+                var user = _loginService.SignUpPhone(new UserInfo {Phone = uap.Phone, Password = uap.Password});
                 return Json(new SigninResult
                 {
-                    Exp = DateTime.UtcNow.AddDays(7)
-                              .Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).Ticks /
-                          TimeSpan.TicksPerSecond,
+                    //Exp = DateTime.UtcNow.AddDays(7)
+                    //          .Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).Ticks /
+                    //      TimeSpan.TicksPerSecond,
                     Id = user.Id,
                     //Type = user.Type;
                     Name = user.Name,
@@ -106,25 +112,6 @@ namespace Xmu.Crms.HotPot.Controllers
         [HttpPost("/upload/avatar")]
         public IActionResult UploadAvatar(IFormFile file) =>
             Created("/upload/avatar.png", new {url = "/upload/avatar.png"});
-
-        public class UsernameAndPassword
-        {
-            public string Phone { get; set; }
-            public string Password { get; set; }
-        }
-
-        public class SigninResult
-        {
-            public long Id { get; set; }
-
-            //public Xmu.Crms.Shared.Models.Type Type { get; set; }
-
-            public string Name { get; set; }
-
-            public long Exp { get; set; }
-
-            public string Jwt { get; set; }
-        }
-        */
+            
     }
 }

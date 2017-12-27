@@ -15,17 +15,33 @@ namespace Xmu.Crms.HotPot.Controllers
     public class TestController : Controller
     {
         public IClassService _cs;
+
         //public CrmsContext _db;
         // GET: api/values
-        public TestController(IClassService classService)
+        public TestController(IClassService classService,ILoginService l,IGradeService gradeService)
         {
             _cs = classService;
         }
         [HttpGet(("/test"))]
         public void Get()
         {
+            /*
+             * 测试UpdateClassByClassId
+            ClassInfo classInfo = new ClassInfo() {
+                Id = 1,
+                Name = "OOAD英文班",
+                Site = "海韵101",
+                ClassTime = "星期一下午五六节",
+                ReportPercentage = 50,
+                PresentationPercentage=50,
+                FourPointPercentage=30,
+                FivePointPercentage=20
+            };
             var c=_cs.ListClassByCourseId(1);
-            System.Diagnostics.Debug.WriteLine("result"+c.First().Name);
+            _cs.UpdateClassByClassId(c.First().Id, classInfo);
+            */
+            _cs.EndCallRollById(1, 1);
+            System.Diagnostics.Debug.WriteLine("result");
 
         }
 

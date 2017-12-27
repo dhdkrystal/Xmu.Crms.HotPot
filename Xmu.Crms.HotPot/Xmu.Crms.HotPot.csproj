@@ -21,6 +21,14 @@
 
   <ItemGroup>
 
+    <ProjectReference Include="..\Xmu.Crms.Mobile.HotPot\Xmu.Crms.Mobile.HotPot.csproj" />
+
+    <ProjectReference Include="..\Xmu.Crms.Services.1-7\Xmu.Crms.Services.Group1_7.csproj" />
+
+    <ProjectReference Include="..\Xmu.Crms.Services.1-9\Xmu.Crms.Services.SmartFive.csproj" />
+
+    <ProjectReference Include="..\Xmu.Crms.Services.2-10\Xmu.Crms.Services.Group2_10.csproj" />
+
     <ProjectReference Include="..\Xmu.Crms.Services.HotPot\Xmu.Crms.Services.HotPot.csproj" />
 
     <ProjectReference Include="..\Xmu.Crms.Shared\Xmu.Crms.Shared.csproj" />

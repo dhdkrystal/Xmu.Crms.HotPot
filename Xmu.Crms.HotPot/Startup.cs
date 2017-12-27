@@ -5,13 +5,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Xmu.Crms.Shared.Models;
 using System;
+using Microsoft.IdentityModel.Tokens;
+
 namespace Xmu.Crms.HotPot
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+        //private SymmetricSecurityKey _signingKey;
+       // private TokenValidationParameters _tokenValidationParameters;
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -19,7 +25,21 @@ namespace Xmu.Crms.HotPot
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connStr = Configuration.GetConnectionString("MYSQL57");
+            //JWT参数
+            //_signingKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(_configuration["Keys:ServerSecretKey"]));
+            //_tokenValidationParameters = new TokenValidationParameters
+            //{
+            //    ValidateIssuerSigningKey = true,
+            //    IssuerSigningKey = _signingKey,
+            //    RequireExpirationTime = true,
+            //    ValidateLifetime = true,
+            //    ValidateAudience = false,
+            //    ValidateActor = false,
+            //    ValidateIssuer = false
+
+            //};
+
+            var connStr = _configuration.GetConnectionString("MYSQL57");
             System.Diagnostics.Debug.WriteLine(connStr+" hhhhh");
             services.AddDbContext<CrmsContext>(options => options.UseMySql(connStr));
             

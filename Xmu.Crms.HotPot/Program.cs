@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-
 using Xmu.Crms.Shared;
 
 
@@ -22,7 +21,28 @@ namespace Xmu.Crms.HotPot
 
         WebHost.CreateDefaultBuilder(args)
                 .UseIISIntegration()
-                .ConfigureServices(services => services.AddHotPotClassService())
+                .ConfigureServices(services => 
+                {
+                    services
+                    //HotPot小组
+                    .AddHotPotClassService()
+                    .AddHotPotGradeService()
+                    .AddHotPotLoginService()
+
+                    //Group1_7
+                    .AddGroup1_7SeminarService()
+                    .AddGroup1_7SchoolService()
+                    .AddGroup1_7CourseService()
+
+                    //Group2_10
+                    .AddGroup2_10SeminarGroupService()
+                    .AddGroup2_10TopicService()
+
+                    //SmartFive
+                    .AddSmartFiveFixGroupService()
+                    .AddSmartFiveUserService();
+
+                })
                 .UseStartup<Startup>()
                 .Build(); 
     }
