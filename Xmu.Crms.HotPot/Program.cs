@@ -21,6 +21,7 @@ namespace Xmu.Crms.HotPot
 
         WebHost.CreateDefaultBuilder(args)
                 .UseIISIntegration()
+                .UseStartup<Xmu.Crms.Shared.Startup>()
                 .ConfigureServices(services => 
                 {
                     services
@@ -42,8 +43,7 @@ namespace Xmu.Crms.HotPot
                     .AddSmartFiveFixGroupService()
                     .AddSmartFiveUserService();
 
-                })
-                .UseStartup<Startup>()
+                })              
                 .Build(); 
     }
 }
