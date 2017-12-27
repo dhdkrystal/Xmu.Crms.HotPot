@@ -1,25 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
-namespace Xmu.Crms.Mobile.HotPot
+namespace Xmu.Crms.Web.Group1_7
 {
     public class Program
     {
+        //示例界面，这个Main函数得有但是没作用
+        //将静态文件放在 wwwroot 目录
+        //模版文件放在 Views 目录
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            throw new NotSupportedException();
         }
-
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
     }
 }

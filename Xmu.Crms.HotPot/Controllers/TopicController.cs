@@ -8,7 +8,7 @@ namespace Xmu.Crms.HotPot.Controllers
     [Route("")]
     [Produces("application/json")]
     public class TopicController : Controller
-    {
+    {/*
         private readonly ITopicService _topicService;
 
         public TopicController(ITopicService topicService)
@@ -56,6 +56,6 @@ namespace Xmu.Crms.HotPot.Controllers
                 new {id = 65, name = "2A2"},
             });
         }
-        
+     */   
     }
 }

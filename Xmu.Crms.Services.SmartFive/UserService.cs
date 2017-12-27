@@ -50,6 +50,11 @@ namespace Xmu.Crms.Services.SmartFive
             return u;
         }
 
+        public UserInfo GetUserByUserNumber(string userNumber)
+        {
+            throw new NotImplementedException();
+        }
+
         public void InsertAttendanceById(long classId, long seminarId, long userId, double longitude, double latitude)//测试成功时间
         {
             if (classId <= 0 || seminarId <= 0 || userId <= 0)

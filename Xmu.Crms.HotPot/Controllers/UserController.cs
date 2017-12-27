@@ -19,6 +19,7 @@ namespace Xmu.Crms.HotPot.Controllers
     [Produces("application/json")]
     public class UserController : Controller
     {
+        /*
         private readonly IUserService _userService;
         private readonly ILoginService _loginService;
         private readonly JwtHeader _header;
@@ -112,6 +113,6 @@ namespace Xmu.Crms.HotPot.Controllers
         [HttpPost("/upload/avatar")]
         public IActionResult UploadAvatar(IFormFile file) =>
             Created("/upload/avatar.png", new {url = "/upload/avatar.png"});
-            
+            */
     }
 }

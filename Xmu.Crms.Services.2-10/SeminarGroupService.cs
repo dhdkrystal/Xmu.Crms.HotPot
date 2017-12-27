@@ -12,16 +12,12 @@ namespace Xmu.Crms.Services.Group2_10
     public class SeminarGroupService : ISeminarGroupService
     {
         private CrmsContext _db;
-        //private IUserService _us;
+        private IUserService _us;
 
-        /*
-         *用到UserService的方法：AutomaticallyGrouping
-         */
-
-        public SeminarGroupService(CrmsContext db)
+        public SeminarGroupService(CrmsContext db, IUserService us)
         {
             _db = db;
-            //_us = us;
+            _us = us;
         }
 
         /*
@@ -51,8 +47,8 @@ namespace Xmu.Crms.Services.Group2_10
             if ((_user = _db.UserInfo.Find(userId)) == null) throw new UserNotFoundException();
 
             //找到group并连接user
-            _group = _db.SeminarGroup.Include(sg => sg.Leader).Single(sg => sg.Id== groupId);
-            if (_group == null) throw new FixGroupNotFoundException();
+            _group = _db.SeminarGroup.Include(sg => sg.Leader).Single(sg => sg.Id == groupId);
+            if (_group == null) throw new GroupNotFoundException();
 
             //已经有组长，抛出异常
             if (_group.Leader != null) throw new System.InvalidOperationException("已经有组长了");
@@ -64,15 +60,95 @@ namespace Xmu.Crms.Services.Group2_10
             _db.SaveChanges();
         }
 
+        ///新增定时器方法.
+        ///<p>随机分组情况下，签到结束后十分钟给没有选择话题的小组分配话题<br>
+        ///@author qinlingyun
+        /// @param seminarId 讨论课的id
+        /// @param seminarGroupId 小组的id
+        /// @exception IllegalArgumentException 信息不合法，id格式错误
+        /// @exception SeminarNotFoundException 未找到讨论课
+        ///@exception GroupNotFoundException 未找到小组
         public void AutomaticallyAllotTopic(long seminarId)
         {
-            throw new NotImplementedException();
+            if (seminarId <= 0)
+                throw new System.ArgumentException("id格式错误");
+
+            if (_db.Seminar.Find(seminarId) == null)
+                throw new SeminarNotFoundException();//未找到讨论课
+
+            //还没有选题的小组列表
+            List<SeminarGroup> grouplist_not_have_topic = new List<SeminarGroup>();
+
+            //筛选出这堂讨论课的小组列表
+            List<SeminarGroup> grouplist_this_seminar = _db.SeminarGroup
+                .Include(sg => sg.Seminar)
+                .Where(sg => sg.Seminar.Id == seminarId)
+                .ToList();
+
+            //对每个SeminarGroup
+            foreach (SeminarGroup sg in grouplist_this_seminar)
+            {
+                if (_db.SeminarGroupTopic
+                    .Include(sgt => sgt.SeminarGroup)
+                    //如果和它的Id相同的SeminarGroupTopic.SeminarGroup.Id行数为0
+                    .Where(sgt => sg.Id == sgt.SeminarGroup.Id)
+                    .Count() == 0)
+                    //说明该小组未选题记录，
+                    //将其添加进没有选题的小组列表
+                    grouplist_not_have_topic.Add(sg);
+            }
+
+            //准备添加的SeminarGroupTopic表项
+            SeminarGroupTopic new_sgt = new SeminarGroupTopic();
+
+            //筛选出这堂讨论课的话题列表
+            List<Topic> topiclist_this_seminar = _db.Topic
+                .Include(tp => tp.Seminar)
+                .Where(tp => tp.Seminar.Id == seminarId)
+                .ToList();
+
+            foreach (SeminarGroup sg_to_allot_topic in grouplist_not_have_topic)
+            {
+                new_sgt.SeminarGroup = sg_to_allot_topic;
+
+                //被选择最少的话题
+                Topic topic_be_chosen_least = null;
+                int min_chosen_count = int.MaxValue;
+
+                //对话题表中的每个话题
+                foreach (Topic tp in topiclist_this_seminar)
+                {
+                    //统计被选择次数
+                    int chosen_count = _db.SeminarGroupTopic
+                        .Include(sgt => sgt.Topic)
+                        .Where(sgt => sgt.Topic.Id == tp.Id)
+                        .Count();
+
+                    if (chosen_count < min_chosen_count)
+                    {
+                        min_chosen_count = chosen_count;
+                        topic_be_chosen_least = tp;
+                    }
+                }//循环完之后，就找出当前被选择最少的话题
+
+                //新表项的话题就是这个最少话题
+                new_sgt.Topic = topic_be_chosen_least;
+
+                //添加新表项
+                _db.SeminarGroupTopic.Add(new_sgt);
+
+                _db.SaveChanges();
+
+            }//为没有选题的小组列表中所有组分配完话题
+
         }
 
         /// <summary>
         /// 定时器方法：自动分组.
         /// </summary>
+        /// 
         /// 根据讨论课id和班级id，对签到的学生进行自动分组
+        /// 
         /// <param name="seminarId">讨论课的id</param>
         /// <param name="classId">班级的id</param>
         /// <returns>Boolean 自动分组成功返回true，否则返回false</returns>
@@ -80,9 +156,10 @@ namespace Xmu.Crms.Services.Group2_10
         /// <exception cref="T:System.ArgumentException">id格式错误</exception>
         /// <exception cref="T:Xmu.Crms.Shared.Exceptions.SeminarNotFoundException">未找到讨论课</exception>
         /// <exception cref="T:Xmu.Crms.Shared.Exceptions.ClassNotFoundException">未找到班级</exception>
-        public bool AutomaticallyGrouping(long seminarId, long classId)
+        public void AutomaticallyGrouping(long seminarId, long classId)
         {
-            /*List<Attendance> attendances;
+
+            List<Attendance> attendances;
             List<SeminarGroup> groups;
             Seminar seminar;
             ClassInfo classInfo;
@@ -96,7 +173,7 @@ namespace Xmu.Crms.Services.Group2_10
 
             //获取班级
             if ((classInfo = _db.ClassInfo.Find(classId)) == null)
-                throw new ClassesNotFoundException();
+                throw new ClassNotFoundException();
 
             //获取该讨论课的所有队伍
             groups = _db.SeminarGroup
@@ -109,39 +186,51 @@ namespace Xmu.Crms.Services.Group2_10
             {
                 //如果是出勤或迟到状态，进入分配
                 if (atten.AttendanceStatus == AttendanceStatus.Present
-                    || atten.AttendanceStatus == AttendanceStatus.Late) 
+                    || atten.AttendanceStatus == AttendanceStatus.Late)
                 {
                     //获取该学生（需要返回的list有include学生对象）
                     UserInfo student = atten.Student;
 
-                    //记录当前小组的最少人数和对应的组
-                    int MinNum = -1;
-                    SeminarGroup InsertGroup = null;
-
-                    //找到每个组的成员个数
-                    foreach (SeminarGroup group in groups)
+                    try
                     {
-                        int num = 0;
-                        //找到该组的成员个数
-                        num = _db.SeminarGroupMember.Include(x => x.SeminarGroup)
-                            .Where(x => x.SeminarGroup == group).ToList().Count;
+                        //如果该学生已经分配了小组，就不需要再分配
+                        GetSeminarGroupById(seminarId, student.Id);
+                        continue;
+                    }
+                    //抛异常说明没有分配，则进入分配
+                    catch (GroupNotFoundException)
+                    {
+                        //记录当前小组的最少人数和对应的组
+                        int MinNum = 99999;
+                        SeminarGroup InsertGroup = null;
 
-                        //如果个数少于当前最少个数，赋值给MinNum和InsertGroup
-                        if (num<MinNum)
+                        //找到每个组的成员个数
+                        foreach (SeminarGroup group in groups)
                         {
-                            MinNum = num;
-                            InsertGroup = group;
+                            int num = 0;
+                            //找到该组的成员个数
+                            num = _db.SeminarGroupMember.Include(x => x.SeminarGroup)
+                                .Where(x => x.SeminarGroup == group).ToList().Count;
+
+                            //如果个数少于当前最少个数，赋值给MinNum和InsertGroup
+                            if (num < MinNum)
+                            {
+                                MinNum = num;
+                                InsertGroup = group;
+                            }
                         }
+
+                        //如果出错，返回false
+                        if (MinNum == 99999 || InsertGroup == null) throw new InvalidOperationException("随机分组失败");
+
+                        //往人数最少的组添加一个成员
+                        InsertSeminarGroupMemberById(student.Id, InsertGroup.Id);
                     }
 
-                    //如果出错，返回false
-                    if (MinNum == -1 || InsertGroup == null) return false;
-
-                    //往人数最少的组添加一个成员
-                    InsertSeminarGroupMemberById(student.Id, InsertGroup.Id);
                 }
-            }*/
-            return true;
+            }
+            return;
+
         }
 
 
@@ -163,12 +252,12 @@ namespace Xmu.Crms.Services.Group2_10
 
             //找到小组
             if ((group = _db.SeminarGroup.Find(seminarGroupId)) == null)
-                throw new FixGroupNotFoundException();
+                throw new GroupNotFoundException();
 
             //找到SeminarGroupMember
             GroupMemberss = _db.SeminarGroupMember.Include(x => x.SeminarGroup)
-                .Where(x => x.SeminarGroup==group).ToList();
-            
+                .Where(x => x.SeminarGroup == group).ToList();
+
             //找到SeminarGroupTopic
             GroupTopics = _db.SeminarGroupTopic.Include(x => x.SeminarGroup)
                 .Where(x => x.SeminarGroup == group).ToList();
@@ -235,16 +324,51 @@ namespace Xmu.Crms.Services.Group2_10
         {
             List<SeminarGroupMember> members;
 
+            //找不到小组
+            if (_db.SeminarGroup.Find(seminarGroupId) == null)
+                throw new GroupNotFoundException();
+
             //找到成员信息
             members = _db.SeminarGroupMember.Include(x => x.SeminarGroup)
                 .Where(x => x.SeminarGroup.Id == seminarGroupId).ToList();
 
             //删除成员
-            _db.RemoveRange(members);
+            _db.SeminarGroupMember.RemoveRange(members);
 
             //保存更改
             _db.SaveChanges();
         }
+
+        ///<summary>
+        ///删除小组成员.
+        ///在指定小组成员表下删除一个小组成员信息
+        ///</summary>
+        ///<param name="seminarGroupId">小组的id</param>
+        ///<param name="userId">成员id</param>
+        public void DeleteSeminarGroupMemberById(long seminarGroupId, long userId)
+        {
+            SeminarGroupMember record;
+
+            //找不到小组
+            if (_db.SeminarGroup.Find(seminarGroupId) == null)
+                throw new GroupNotFoundException();
+
+            //找不到用户
+            if (_db.UserInfo.Find(userId) == null)
+                throw new UserNotFoundException();
+
+            //找到要删除的记录
+            record = _db.SeminarGroupMember
+                        .Include(x => x.SeminarGroup)
+                        .Include(x => x.Student)
+                        .Single(x => x.SeminarGroup.Id == seminarGroupId && x.Student.Id == userId);
+
+            //删除记录
+            _db.SeminarGroupMember.Remove(record);
+
+            _db.SaveChanges();
+        }
+
 
         /// <summary>
         /// 查询讨论课小组.
@@ -275,10 +399,10 @@ namespace Xmu.Crms.Services.Group2_10
                     //取出小组
                     .Single(x => x.Id == groupId);
             }
-            catch(Exception e)
+            catch (Exception e)
 
             {
-                throw new FixGroupNotFoundException();
+                throw new GroupNotFoundException();
             }
 
             return group;
@@ -329,7 +453,7 @@ namespace Xmu.Crms.Services.Group2_10
             }
 
             //没找到小组，抛出异常
-            throw new FixGroupNotFoundException();
+            throw new GroupNotFoundException();
         }
 
         /// <summary>
@@ -345,8 +469,8 @@ namespace Xmu.Crms.Services.Group2_10
 
             //找到group并连接leader
             if ((group = _db.SeminarGroup.Include(x => x.Leader)
-                .Single(x => x.Id == groupId)) == null) 
-                throw new FixGroupNotFoundException();
+                .Single(x => x.Id == groupId)) == null)
+                throw new GroupNotFoundException();
 
             return group.Leader.Id;
         }
@@ -371,7 +495,7 @@ namespace Xmu.Crms.Services.Group2_10
             return group.Leader.Id;
         }
 
-/***************************我是萌萌哒的分界线*******************************************/
+        /***************************我是萌萌哒的分界线*******************************************/
         /*
          * author：孙仲玄
          * QQ：1731744887
@@ -385,23 +509,23 @@ namespace Xmu.Crms.Services.Group2_10
         /// <returns>long 返回该小组的id</returns>
         /// <seealso cref="M:Xmu.Crms.Shared.Service.ISeminarGroupService.InsertSeminarGroupMemberById(System.Int64,System.Int64)"/>
         /// <exception cref="T:System.ArgumentException">id格式错误</exception>
-        public long InsertSeminarGroupBySeminarId(long seminarId, SeminarGroup seminarGroup)
+        public long InsertSeminarGroupBySeminarId(long seminarId, long classId, SeminarGroup seminarGroup)
         {
             //id <= 0
-            if (seminarId <= 0)  throw new ArgumentException("seminarId格式错误");
+            if (seminarId <= 0 || classId <= 0) throw new ArgumentException("id格式错误");
             Seminar seminar = _db.Seminar.Find(seminarId);
             if (seminar == null) throw new SeminarNotFoundException();
+            ClassInfo classInfo = _db.ClassInfo.Find(classId);
+            if (classInfo == null) throw new ClassNotFoundException();
 
             seminarGroup.Seminar = seminar;
+            seminarGroup.ClassInfo = classInfo;
             _db.SeminarGroup.Add(seminarGroup);
             _db.SaveChanges();
 
-            return seminarGroup.Id;
-        }
+            return seminarGroup.Id
 
-        public long InsertSeminarGroupBySeminarId(long seminarId, long classId, SeminarGroup seminarGroup)
-        {
-            throw new NotImplementedException();
+;
         }
 
 
@@ -416,10 +540,10 @@ namespace Xmu.Crms.Services.Group2_10
         {
             if (groupId <= 0) throw new ArgumentException("groupId格式错误");
             SeminarGroup sg = _db.SeminarGroup.Find(groupId);
-            if (sg == null) throw new FixGroupNotFoundException();
+            if (sg == null) throw new GroupNotFoundException();
 
             seminarGroupMember.SeminarGroup = sg;
-            _db.SeminarGroupMember.Add(seminarGroupMember);      
+            _db.SeminarGroupMember.Add(seminarGroupMember);
             _db.SaveChanges();
 
             return seminarGroupMember.Id;
@@ -447,7 +571,7 @@ namespace Xmu.Crms.Services.Group2_10
 
             //未找到小组
             if ((_sg = _db.SeminarGroup.Find(groupId)) == null)
-                throw new FixGroupNotFoundException();
+                throw new GroupNotFoundException();
 
             //不存在该学生
             if ((_user = _db.UserInfo.Find(userId)) == null)
@@ -490,7 +614,7 @@ namespace Xmu.Crms.Services.Group2_10
             //未找到小组
             SeminarGroup _sg;
             if ((_sg = _db.SeminarGroup.Find(groupId)) == null)
-                throw new FixGroupNotFoundException();
+                throw new GroupNotFoundException();
 
             //新建SeminarGroupTopic对象
             SeminarGroupTopic sgt = new SeminarGroupTopic();
@@ -610,7 +734,7 @@ namespace Xmu.Crms.Services.Group2_10
 
             //未找到小组
             if (_db.SeminarGroup.Find(groupId) == null)
-                throw new FixGroupNotFoundException();
+                throw new GroupNotFoundException();
 
             //加载SeminarGroup与Student
             List<SeminarGroupMember> memlist = _db.SeminarGroupMember
@@ -654,7 +778,7 @@ namespace Xmu.Crms.Services.Group2_10
             _group = _db.SeminarGroup.Include(sg => sg.Leader).Single(sg => sg.Id == groupId);
 
             //未找到小组
-            if (_group == null) throw new FixGroupNotFoundException();
+            if (_group == null) throw new GroupNotFoundException();
             //传入id和组长id不符
             if (_user.Id != _group.Leader.Id)
                 throw new System.InvalidOperationException("学生不是组长");
@@ -663,11 +787,6 @@ namespace Xmu.Crms.Services.Group2_10
             _group.Leader = null;
 
             _db.SaveChanges();
-        }
-
-        void ISeminarGroupService.AutomaticallyGrouping(long seminarId, long classId)
-        {
-            throw new NotImplementedException();
         }
 
         string ISeminarGroupService.InsertTopicByGroupId(long groupId, long topicId)

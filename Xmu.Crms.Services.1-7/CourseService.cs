@@ -177,6 +177,11 @@ namespace Xmu.Crms.Services.Group1_7
             return courses;
         }
 
+        public IList<Course> ListCourseByTeacherName(string teacherName)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// 按userId获取与当前用户相关联的课程列表.
         /// @author ZhouZhongjun

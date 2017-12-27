@@ -30,11 +30,11 @@ namespace Xmu.Crms.Services.Group2_10
         public void DeleteSeminarGroupTopicByTopicId(long topicId)
         {
             if (topicId <= 0) throw new ArgumentException("topicId格式错误");//topicId不合法时抛出异常
-            Topic topic=_db.Topic.Find(topicId);//根据topicId找到topic实体
+            Topic topic = _db.Topic.Find(topicId);//根据topicId找到topic实体
             if (topic == null) throw new TopicNotFoundException();//找不到topic时抛出
 
             //将两表连接起来查询
-            List<SeminarGroupTopic> sgtList = _db.SeminarGroupTopic.Include(x=> x.Topic).ToList();
+            List<SeminarGroupTopic> sgtList = _db.SeminarGroupTopic.Include(x => x.Topic).ToList();
 
             //根据topic实体找到SeminarGroupTopic实体集
             List<SeminarGroupTopic> sgtListToDelete = sgtList.FindAll(x => x.Topic == topic);
@@ -67,7 +67,7 @@ namespace Xmu.Crms.Services.Group2_10
             if (topic == null) throw new TopicNotFoundException();//找不到topic时抛出
 
             SeminarGroup group = _db.SeminarGroup.Find(groupId);//根据groupId找到group实体
-            if (group == null) throw new FixGroupNotFoundException();//找不到group时抛出
+            if (group == null) throw new GroupNotFoundException();//找不到group时抛出
 
             //链接三表查询
             List<SeminarGroupTopic> sgtList = _db.SeminarGroupTopic.Include(x => x.Topic)
@@ -153,7 +153,7 @@ namespace Xmu.Crms.Services.Group2_10
             if ((topic = _db.Topic.Find(topicId)) == null)
                 throw new TopicNotFoundException();
             if ((group = _db.SeminarGroup.Find(groupId)) == null)
-                throw new FixGroupNotFoundException();
+                throw new GroupNotFoundException();
 
             List<SeminarGroupTopic> sgList = _db.SeminarGroupTopic
                 .Include(x => x.Topic)
@@ -202,7 +202,7 @@ namespace Xmu.Crms.Services.Group2_10
 
             //将seminarId对应得seminar赋值给要插入的topic对象
             topic.Seminar = seminar;
-            
+
             //插入到Topic数据集中
             _db.Topic.Add(topic);
 
@@ -246,7 +246,7 @@ namespace Xmu.Crms.Services.Group2_10
             topicToUpdate.Name = topic.Name;
             topicToUpdate.Description = topic.Description;
             if (topic.GroupStudentLimit != null) topicToUpdate.GroupNumberLimit = topic.GroupNumberLimit;
-            if(topic.GroupStudentLimit!=null) topicToUpdate.GroupStudentLimit = topic.GroupStudentLimit;
+            if (topic.GroupStudentLimit != null) topicToUpdate.GroupStudentLimit = topic.GroupStudentLimit;
 
             _db.SaveChanges();//提交事务
         }
@@ -256,17 +256,16 @@ namespace Xmu.Crms.Services.Group2_10
             SeminarGroup group;
             if (groupId <= 0) throw new ArgumentException("groupId不合法");
             if ((group = _db.SeminarGroup.Find(groupId)) == null)
-                throw new FixGroupNotFoundException();
+                throw new GroupNotFoundException();
 
-            List<SeminarGroupTopic> sgtList=_db.SeminarGroupTopic.Include(x => x.Topic)
+            List<SeminarGroupTopic> sgtList = _db.SeminarGroupTopic.Include(x => x.Topic)
                 .Include(x => x.SeminarGroup)
                 .ToList();
             List<SeminarGroupTopic> sgtListToReturn = sgtList.FindAll(x => x.SeminarGroup == group);
             return sgtListToReturn;
         }
 
-        //该方法存疑，已经有一个类似的实现了
-        public void DeleteTopicById(long groupId, long topicId)
+        public int GetRestTopicById(long topicId, long classId)
         {
             throw new NotImplementedException();
         }
