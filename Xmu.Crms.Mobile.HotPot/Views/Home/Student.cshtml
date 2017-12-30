@@ -19,46 +19,53 @@
 <body class="body">
     <div class="PictureDiv">
         <!-- 背景图的div -->
-        <img class="user" src="~/images/user.png" />
+        <img class="user" src="~/images/user.png" onclick="location.href='/Student/CheckStudentInfo'"/>
         <img src="~/images/background.jpg" class="Picture" onclick="location.hrel=''" />
-        <div class="name" id="name">姓名：</div>
-        <div class="studentID" id="number">学号：</div>
+        <div class="name" id="name" onclick="location.href='/Student/CheckStudentInfo'">姓名：</div>
+        <div class="teacherID" id="number" onclick="location.href='/Student/CheckStudentInfo'">学号：</div>
     </div>
     <div class="lowBox"id="course_container">
         <script>
-            $(document).ready(function () {
+            var token = window.localStorage.getItem("jwt");
                 $.ajax({
                     url: '/me',
                     type: 'GET',
+                    contentType: 'application/json',
+                    headers: { "Authorization": "Bearer " + token },
                     success: function (data) {
-                        $('#name').append(data.Name);
-                        $('#number').append(data.Phone);
+                        $('#name').append(data.name);
+                        $('#number').append(data.number);
                     },
-                    error: function (data) {
-                        alert("加载学生信息出错");
+                    error: function (error) {
+                        alert(error.responseJSON.msg);
                     }
                 })
 
                 $.ajax({
                     url: '/course',
                     type: 'GET',
+                    contentType: 'application/json',
+                    headers: { "Authorization": "Bearer " + token },
                     success: function (data) {
                         for (i = 0; i < data.length; i++) {
                             var course = data[i];
                             template = "<div class=\"blueBox\" onclick=\"location.href = '/Course/CourseUI'\">\n";
                             template += "<p class=\"leftText\">";
-                            template += course.Name;
+                            template += course.name;
                             template += "</p>\n<p class=\"rightText\">老师：";
-                            template += course.Id;
+                            template += course.teacher.name;
                             template += "</p></div >";
                             $('#course_container').append(template);
                         }
+                        if (data.length == 0) {
+                            template = "<div>您没有任何课程</div>";
+                            $('#course_container').append(template);
+                        } 
                     },
-                    error: function (data) {
-                        alert("加载课程信息出错");
+                    error: function (error) {
+                        alert(error.responseJSON.msg);
                     }
                 })
-            });
         </script>
     </div>
 </body>

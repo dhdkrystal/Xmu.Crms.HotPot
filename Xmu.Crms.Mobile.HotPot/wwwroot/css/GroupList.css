@@ -1,0 +1,140 @@
+@charset "utf-8";
+/* CSS Document */
+
+html{
+    font-family:"微软雅黑";
+    font-size:100px;
+    height:100%;
+    width: 100%;
+}
+/* 背景色 */
+.fullbackground{	
+	background-color:rgba(102,204,255,0.5);
+}
+/*打分部分的边缘长度*/
+.scoremargin{
+	margin:10%;
+}
+/* “成为队长”按钮 */
+.btnleader{
+	margin: auto;
+	background-color:#66ccff;
+	color:#FFF;
+	font-size:3em;
+	height: 2em;
+	border-radius:1em;
+	width:50%;
+	border-style: none; 
+}
+/* “辞职”按钮 */
+.btnquit{
+	background-color:#66ccff;
+	color:#FFF;
+	border-radius:0.5em;
+	width:100%;
+	height:2em;
+	border-style: none; 
+}
+/* “提交”按钮 */
+.btnsubmit{
+	margin: auto;
+	margin-top:20%;
+	background-color:#66ccff;
+	color:#FFF;
+	font-size:2em;
+	border-radius:15px;
+	width:30%;
+	border-style: none; 
+}
+/* 居中div */
+.middlediv{
+	text-align: center;
+}
+/* 讨论课信息块 */
+.seminarblock{
+	
+	height:15%;
+	margin:0 7%;
+	position:relative;
+}
+/* 个人信息块 */
+.block{
+	margin:3% 7%;
+	border-radius:15px;
+	background-color:#FFF;
+	font-size:2em;
+}
+.column0{
+	float:left;
+	width:10%;
+	height:40%;
+	margin-top:2%;
+}
+.column1{
+	float:left;
+	width:25%
+}
+.column2{
+	float:left;
+	width:45%
+}
+.column3{
+	float:right;
+	width:30%;
+}
+.column4{
+	float:left;
+	width:70%;
+}
+/* 白色字：分组信息 选题 */
+.whiteword{
+	color:#FFF;
+	font-size:3em;
+	font-weight:bold ;
+	margin:0 7%;
+}
+/* 靠右蓝色字 队长*/
+.rightblueword{
+	font-size:2em;
+	color:#66ccff;
+}
+
+/*居中灰色文字*/
+.midgreyword{
+	margin: auto;
+	color:#ccccc;
+	font-size:2em;
+}
+/*左上角图标*/
+.UsersIcon {
+  margin:7%;
+  width: 6em;
+	float:left;
+}
+.columndisplay{
+	font-size:3em;
+	width: 100%;
+	height:20%;
+}
+div{
+	font-family:"微软雅黑";
+}
+html{
+	height:100%;
+}
+body{
+	height:100%;
+}
+img{
+	max-width:100%;
+	max-height:100%;
+	margin:3%
+}
+.seminarblackword {
+	margin-top: 15%;
+		float:left;
+}
+.middlegreyword{
+	font-size: 2em;
+	margin-top: 5%;
+}

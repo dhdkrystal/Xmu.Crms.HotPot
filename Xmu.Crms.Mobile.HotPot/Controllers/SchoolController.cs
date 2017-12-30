@@ -6,25 +6,25 @@ namespace Xmu.Crms.Web.HotPot.Controllers
     {
         // GET: School
 
-        [Route("/School/ChooseSchool")]
+        [Route("/Register/ChooseSchool")]
         public ActionResult ChooseSchool()
         {
             
             return View();
         }
-        [Route("/School/ChooseSchool1")]
+        [Route("/Register/ChooseSchool1")]
         public ActionResult ChooseSchool1()
         {
             return View();
         }
 
-        [Route("/School/ChooseSchoo2")]
+        [Route("/Register/ChooseSchoo2")]
         public ActionResult ChooseSchool2()
         {
             return View();
         }
 
-        [Route("/School/CreateSchoolUI")]
+        [Route("/Register/CreateSchoolUI")]
         public ActionResult CreateSchoolUI()
         {
             return View();

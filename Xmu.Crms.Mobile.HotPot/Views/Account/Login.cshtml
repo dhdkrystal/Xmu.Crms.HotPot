@@ -27,39 +27,41 @@
             <button type="submit" class="confirmButton" id="login">登录</button>
         </div>
         <div class="tip1">还没有账号？</div>
-        <div class="tip2" id="register" onclick="location.href = '/Account/Register'">请先注册</div>
+        <div class="tip2" id="register" onclick="location.href = '/Register'">请先注册</div>
     </div>
 
-    <script>
-        $(document).ready(function () {
+    <script type="text/javascript">
             $("#login").click(function () {
                 var phone = $("#phone").val();
                 var password = $("#password").val();
                 if (phone == '' || password == '') {
-                    alert("请填写手机号和密码啊啊啊啊");
+                    alert("请填写手机号和密码");
                 } else {
                     $.ajax({
                         url: '/signin',
                         type: 'POST',
-                        data: {
-                            'phone': phone,
-                            'password': password,
-                        },
+                        contentType: 'application/json',
+                        dateType:'json',
+                        data: JSON.stringify({
+                            phone: phone,
+                            password: password
+                        }),
                         dateType: 'json',
                         success: function (data) {
-                            
-                            if (data.Type=='student')
-                                document.location.href = '/Home/Student';
+                            window.localStorage.setItem('jwt', data.jwt);
+                            window.localStorage.setItem('id', data.id);
+                            window.localStorage.setItem('type', data.type);
+                            if (data.type=='Student')
+                                document.location.href = '/Student';
                             else
-                                document.location.href = '/Home/Teacher';
+                                document.location.href = '/Teacher';
                         },
-                        error: function (mesg) {
-                            alert(mesg);
+                        error: function (error) {
+                            alert(error.responseJSON.msg);
                         }
                     });
                 }
             });
-        });
     </script>
 
     

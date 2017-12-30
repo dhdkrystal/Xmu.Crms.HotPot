@@ -25,27 +25,33 @@
     <div class="ID" id="number1">教工号：&nbsp;&nbsp;&nbsp;&nbsp; </div>
     <div class="school" id="school">学校：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
     <div class="name1" id="name1">姓名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-    <button class="exitBtn" onclick="location.href='/Account/Login'">退出登录</button>
-    <button class="UnbindBtn" onclick="location.href='/Account/Login'">解绑账号</button>
+    <button class="exitBtn" id="signout">退出登录</button>
+
 
     <script>
-        $(document).ready(function () {
+        var token = window.localStorage.getItem("jwt");
             $.ajax({
                 url: '/me',
                 type: 'GET',
+                contentType: 'application/json',
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data) {
-                    $('#name').append(data.Name);
-                    $('#name1').append(data.Name);
-                    $('#number').append(data.Number);
-                    $('#number1').append(data.Number);
-                    $('#phone').append(data.Phone);
-                    $('#school').append(data.School);
+                    $('#name').append(data.name);
+                    $('#name1').append(data.name);
+                    $('#number').append(data.number);
+                    $('#number1').append(data.number);
+                    $('#phone').append(data.phone);
+                    $('#school').append(data.school.name);
                 },
-                error: function (data) {
-                    alert("加载学生信息出错");
+                error: function (error) {
+                    alert(error.responseJSON.msg);
                 }
+        })
+            $("#signout").click(function () {
+                window.localStorage.clear();
+                location.href = '/Login';
+
             })
-        });
     </script>
 
 </body>

@@ -117,7 +117,8 @@ namespace Xmu.Crms.Services.HotPot
             var u = _db.UserInfo.SingleOrDefault(c => c.Phone == user.Phone) ??
                  throw new UserNotFoundException();
             //判断密码是否正确
-            if (GetMd5(user.Password) == u.Password)
+            //if (GetMd5(user.Password) == u.Password)
+            if (user.Password == u.Password)
             {
                 return u;
             }
@@ -143,7 +144,7 @@ namespace Xmu.Crms.Services.HotPot
         public UserInfo SignUpPhone(UserInfo user)
         {
             //  user.Password = HashString(user.Password);
-            user.Password = GetMd5(user.Password);  //Md5加密
+            //user.Password = GetMd5(user.Password);  //Md5加密
             //判断手机号是否已经注册
             if (_db.UserInfo.Any(u => u.Phone == user.Phone))
             {

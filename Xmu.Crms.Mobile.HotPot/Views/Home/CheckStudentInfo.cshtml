@@ -19,34 +19,41 @@
         <div class="unbindTip">点击头像修改</div>
         <img src="~/images/background.jpg" class="Picture" />
         <div class="name" id="name">姓名：</div>
-        <div class="studentID" id="number">学号：</div>
+        <div class="teacherID''" id="number">学号：</div>
     </div>
 
         <div class="phone1" id="phone">手机号：</div>
         <div class="ID" id="number1">学号：</div>
         <div class="school" id="school">学校：</div>
         <div class="name1" id="name1">姓名：</div>
-        <button class="exitBtn" id="signout" onclick="location.href='/Account/Login'">退出登录</button>
-        <button class="UnbindBtn" id="unbind" onclick="location.href='/Account/Login'">解绑账号</button>
-   
+        <button class="exitBtn" id="signout">退出登录</button>
+
     <script>
-         $(document).ready(function () {
+        var token = window.localStorage.getItem("jwt");
              $.ajax({
                  url: '/me',
                  type: 'GET',
+                 contentType: 'application/json',
+                 headers: { "Authorization": "Bearer " + token },
                  success: function (data) {
-                     $('#name').append(data.Name);
-                     $('#name1').append(data.Name);
-                     $('#number').append(data.Number);
-                     $('#number1').append(data.Number);
-                     $('#phone').append(data.Phone);
-                     $('#school').append(data.School);
+                     $('#name').append(data.name);
+                     $('#name1').append(data.name);
+                     $('#number').append(data.number);
+                     $('#number1').append(data.number);
+                     $('#phone').append(data.phone);
+                     $('#school').append(data.school.name);
                  },
-                 error: function (data) {
-                     alert("加载学生信息出错");
+                 error: function (error) {
+                     alert(error.responseJSON.msg);
                  }
+        })
+
+             $("#signout").click(function () {
+                 window.localStorage.clear();
+                 location.href = '/Login';
+
              })
-         });
+
     </script>
  </body>
 

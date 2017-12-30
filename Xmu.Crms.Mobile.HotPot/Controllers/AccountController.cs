@@ -4,7 +4,7 @@ namespace Xmu.Crms.Web.HotPot.Controllers
 {
     public class AccountController : Controller
     {
-        [Route("/Account/Register")]
+        [Route("/Register")]
         public ActionResult Register()
         {
             return View();
@@ -16,19 +16,19 @@ namespace Xmu.Crms.Web.HotPot.Controllers
             return View();
         }
 
-        [Route("/Account/ChooseCharacter")]
+        [Route("/Register/ChooseCharacter")]
         public ActionResult ChooseCharacter()
         {
             return View();
         }
 
-        [Route("/Account/StudentBinding")]
+        [Route("/Register/StudentBinding")]
         public ActionResult StudentBinding()
         {
             return View();
         }
 
-        [Route("/Account/TeacherBinding")]
+        [Route("/Register/TeacherBinding")]
         public ActionResult TeacherBinding()
         {
             return View();

@@ -2,7 +2,15 @@
 /* CSS Document */
 
 /* 背景色 */
-
+html{
+    font-family:"微软雅黑";
+    font-size:100px;
+    height:100%;
+    width: 100%;
+}
+.body{
+  height: 100%;
+}
 body {
   background: rgba(102, 204, 255, 0.5);
   width: 100%;
@@ -11,15 +19,22 @@ body {
   overflow-y: auto;
 }
 
+.title{
+  font-weight: bolder;
+  font-size: 3em;
+  left:30%;
+  top:7%;
+  position: absolute;
+}
 /* 左上角的users图标和文字的容器*/
 
 .blueUsersDiv {
   width: 80%;
-  height: 20%;
+  height: 10%;
   float: left;
-  margin-top: 10%;
+  margin-top: 5%;
   margin-left: 10%;
-  font-size: 0.875em;
+  font-size: 14px;
 }
 
 /* 左上角的蓝色users图标大小*/
@@ -34,7 +49,7 @@ body {
 /*黑色线的样式*/
 
 .hrDiv {
-  height: 2px;
+  height: 1px;
   width: 80%;
   margin: auto;
   border: 0.5px solid black;
@@ -42,32 +57,32 @@ body {
   color: black;
   float: right;
   margin-right: 10%;
-  margin-top: 5%;
-  margin-bottom: 10%;
+  margin-top: 2.5%;
+  margin-bottom: 5%;
 }
 
 /*当选题未选完时的蓝色框*/
 
 .blueTopicDiv {
-  height: 30%;
+  height: 10%;
   background-color: #6cf;
   width: 90%;
   float: left;
   margin-left: 5%;
   border-radius: 25px;
-  margin-top: 10%;
+  margin-top: 5%;
 }
 
 /*当选题未选完时的灰色框*/
 
 .greyTopicDiv {
-  height: 30%;
+  height: 10%;
   background-color: #ccc;
   width: 90%;
   float: left;
   margin-left: 5%;
   border-radius: 25px;
-  margin-top: 10%;
+  margin-top: 5%;
 }
 
 /*选题框左边的选题A/B/C。。。*/
@@ -75,9 +90,9 @@ body {
 .topic {
   color: #fff;
   float: left;
-  font-size: 1.5em;
+  font-size: 2.5em;
   margin-top: 8%;
-  margin-left: 5%;
+  margin-left: 8%;
 }
 
 /*选题框中间的黑色分割线*/
@@ -96,9 +111,10 @@ body {
 .topicName {
   color: #fff;
   float: left;
-  font-size: 0.875em;
+  font-size: 2.5em;
+  margin-left: 3%;
   width: 60%;
-  margin-top: 5%;
+  margin-top: 3%;
 }
 
 /*选题框右边的剩余人数，当人数大于等于2时为白色*/
@@ -106,8 +122,9 @@ body {
 .leftNumWhite {
   color: #fff;
   float: left;
-  font-size: 0.875em;
-  margin-top: 5%;
+  font-size: 2.5em;
+  margin-left: 3%;
+  margin-top: 3%;
 }
 
 /*选题框右边的剩余人数，当人数为1时为红色*/
@@ -115,43 +132,46 @@ body {
 .leftNumRed {
   color: #fa8888;
   float: left;
-  font-size: 0.875em;
+  font-size: 2.5em;
+  margin-left: 3%;
   margin-top: 5%;
 }
 
 /*选题框右下角的九点按钮*/
 
 .nineIcon {
-  height: 40%;
-  width: 8%;
+  height: 6em;
+  width: 5em;
   float: right;
-  padding-top: 5%;
-  padding-right: 2%;
+  padding-top: 2%;
+  padding-right: 3%;
 }
 
 /*选题框下方的选题简介框*/
 
 .topicDescribeDiv {
-  height: 30%;
+  height: 15%;
   background-color: #fff;
   width: 80%;
   float: left;
   margin-left: 10%;
   color: black;
   text-align: center;
+  border-radius: 0.8em;
 }
 
 /*选题框下方的选题简介框里的选题标题*/
 
 .topicDescribeTitle {
-  font-size: 0.875em;
+  margin-top: 3%;
+  font-size: 3em;
   font-weight: bold;
 }
 
 /*选题框下方的选题简介框里的选题文本*/
 
 .topicDescribeText {
-  font-size: 0.875em;
+  font-size: 2em;
   float: left;
   word-wrap: break-word;
   width: 100%;

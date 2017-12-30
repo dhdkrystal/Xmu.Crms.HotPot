@@ -41,7 +41,7 @@ html{
   top:7%
 }
 /* 老师姓名 */
-.studentID{
+.teacherID{
   margin-left: 32%;
   color: #000000;
   margin-top: 18%;
@@ -121,7 +121,7 @@ html{
   font-size: 3em;
   border-radius: 0.6em;
   position: absolute;
-  left: 20%;
+  left: 35%;
   top:80%;
 }
 /*解绑按钮*/

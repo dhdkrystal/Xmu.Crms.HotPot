@@ -33,7 +33,7 @@ namespace Xmu.Crms.Services.SmartFive
                          Avatar = user.Avatar,
                          Password = user.Password,
                          Name = user.Name,
-                         School = new School { Id=user.School.Id},
+                         SchoolId = user.SchoolId,
                          Gender = user.Gender,
                          Type = user.Type,
                          Number = user.Number,
@@ -284,26 +284,30 @@ namespace Xmu.Crms.Services.SmartFive
 
         public void UpdateUserByUserId(long userId, UserInfo user)//测试成功
         {
-            if (userId <= 0)
+            var usr = GetUserByUserId(userId);
+            usr.Name = user.Name;
+            usr.Avatar = user.Avatar;
+            usr.Education = user.Education ?? Education.Bachelor;
+            usr.Email = user.Email;
+            usr.Gender = user.Gender;
+            if (user.School != null)
             {
-                throw new ArgumentException();
+                usr.School = _db.School.Find(user.School.Id);
             }
-            var u = (from user1 in _db.UserInfo
-                     where user1.Id == userId
-                     select user1).SingleOrDefault();
-            if (u == null)
-                throw new UserNotFoundException();
-            u.Name = user.Name;
-            u.Password = user.Password;
-            u.Email = user.Email;
-            u.Title = user.Title;
-            u.Type = user.Type;
-            u.School = (from i in _db.School
-                        where i.Id == user.School.Id
-                        select i).SingleOrDefault();
-            u.Gender = user.Gender;
-            u.Education = user.Education;
-            u.Gender = user.Gender;
+            if ((user.SchoolId ?? 0) != 0)
+            {
+                usr.School = _db.School.Find(user.SchoolId);
+            }
+            usr.Title = user.Title ?? Title.Professer;
+            if (usr.Type == Shared.Models.Type.Unbinded)
+            {
+                usr.Type = user.Type;
+                usr.Number = user.Number;
+            }
+            else if (user.Type != null && usr.Type != user.Type)
+            {
+                throw new InvalidOperationException();
+            }
             _db.SaveChanges();
         }
     }
