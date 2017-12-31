@@ -4,22 +4,29 @@ using Xmu.Crms.Shared;
 using Xmu.Crms.Shared.Models;
 using Xmu.Crms.Shared.Service;
 using Xmu.Crms.Shared.Exceptions;
+using System;
 
 namespace Xmu.Crms.HotPot.Controllers
-{
+{/*
     [Route("")]
     [Produces("application/json")]
     public class SeminarController : Controller
     {
-        private readonly ISeminarService _service;
-        private readonly ITopicService _service1;
-        private readonly ISeminarGroupService _service2;
+        private readonly ISeminarService _seminarService;
+        private readonly ITopicService _topicService;
+        private readonly IUserService _userService;
+        private readonly ICourseService _courseService;
+        private readonly ISeminarGroupService _seminarGroupService;
+        private readonly IClassService _classService;
 
-        public SeminarController(ISeminarService service, ITopicService service1, ISeminarGroupService service2)
+        public SeminarController(IClassService classService,ISeminarService seminarService,ITopicService topicService, ISeminarGroupService seminarGroupService, IUserService userService, ICourseService courseService)
         {
-            _service = service;
-            _service1 = service1;
-            _service2 = service2;
+            _classService = classService;
+            _seminarService = seminarService;
+            _userService = userService;
+            _topicService = topicService;
+            _courseService = courseService;
+            _seminarGroupService = seminarGroupService;
         }
 
         [HttpGet("/seminar/{seminarId:long}")]//测试成功
@@ -27,7 +34,7 @@ namespace Xmu.Crms.HotPot.Controllers
         {
             try
             {
-                var sem = _service.GetSeminarBySeminarId(seminarId);
+                var sem = _seminarService.GetSeminarBySeminarId(seminarId);
                 return Json(sem);
             }
             catch (SeminarNotFoundException)
@@ -41,7 +48,7 @@ namespace Xmu.Crms.HotPot.Controllers
         {
             try
             {
-                _service.DeleteSeminarBySeminarId(seminarId);
+                _seminarService.DeleteSeminarBySeminarId(seminarId);
                 return NoContent();
             }
             catch (SeminarNotFoundException)
@@ -50,12 +57,40 @@ namespace Xmu.Crms.HotPot.Controllers
             }
         }
 
+        /// <summary>
+        /// 获取学生的讨论课详情
+        /// </summary>
+        /// <param name="seminarId"></param>
+        /// <returns></returns>
+        //[HttpGet("/seminar/{seminarId:long}/my")]//测试成功
+        //public IActionResult GetSeminarById([FromRoute] long seminarId)
+        //{
+        //    try
+        //    {
+        //        var user = _userService.GetUserByUserId(User.Id());
+        //        var sem = _seminarService.GetSeminarBySeminarId(seminarId);
+        //        var cours = _courseService.GetCourseByCourseId(sem.CourseId);
+        //        return Json(new SeminarViewModel()
+        //        {
+        //            Id = sem.Id,
+        //            Name = sem.Name,
+        //            IsFixed = sem.IsFixed,
+        //            CourseName = cours.Name,
+        //            StartTime=sem.StartTime,
+        //            EndTime=_userService.ListAbsenceStudent(sem.Id,)
+        //        });
+        //    }
+        //    catch (SeminarNotFoundException)
+        //    {
+        //        return StatusCode(404, new { msg = "讨论课不存在!" });
+        //    }
+        //}
         [HttpPut("/seminar/{seminarId:long}")]//测试成功
         public IActionResult UpdateSeminarById([FromRoute] long seminarId, [FromBody] Seminar updated)
         {
             try
             {
-                _service.UpdateSeminarBySeminarId(seminarId, updated);
+                _seminarService.UpdateSeminarBySeminarId(seminarId, updated);
                 return NoContent();
             }
             catch (SeminarNotFoundException)
@@ -73,7 +108,7 @@ namespace Xmu.Crms.HotPot.Controllers
         {
             try
             {
-                IList<Topic> l = _service1.ListTopicBySeminarId(seminarId);
+                IList<Topic> l = _topicService.ListTopicBySeminarId(seminarId);
                 return Json(l);
             }
             catch (SeminarNotFoundException)
@@ -89,7 +124,7 @@ namespace Xmu.Crms.HotPot.Controllers
         [HttpPut("/seminar/{seminarId:long}/topic")]//测试成功
         public IActionResult CreateTopicBySeminarId([FromRoute] long seminarId, [FromBody] Topic newTopic)
         {
-            _service1.InsertTopicBySeminarId(seminarId, newTopic);
+            _topicService.InsertTopicBySeminarId(seminarId, newTopic);
             return Created("/topic/{topicId:long}", newTopic);
         }
 
@@ -98,7 +133,7 @@ namespace Xmu.Crms.HotPot.Controllers
         {
             try
             {
-                IList<SeminarGroup> semg = _service2.ListSeminarGroupBySeminarId(seminarId);
+                IList<SeminarGroup> semg = _seminarGroupService.ListSeminarGroupBySeminarId(seminarId);
                 return Json(semg);
             }
             catch (SeminarNotFoundException)
@@ -110,5 +145,62 @@ namespace Xmu.Crms.HotPot.Controllers
                 return StatusCode(404, new { msg = "小组不存在!" });
             }
         }
+
+        /// <summary>
+        /// 获得讨论课详情
+        /// </summary>
+        /// <param name="seminarId"></param>
+        /// <returns></returns>
+        [HttpGet("/seminar/{seminarId:long}/detail")]//测试成功
+        public IActionResult GetSeminarDetailBySeminarId([FromRoute] long seminarId)
+        {
+             try
+             {
+              //var user = _userService.GetUserByUserId(User.Id());
+                var sem = _seminarService.GetSeminarBySeminarId(seminarId);
+                var cours = _courseService.GetCourseByCourseId(sem.CourseId);
+                var teacher = _userService.GetUserByUserId(cours.TeacherId);
+                cours.Teacher = teacher;
+                sem.Course = cours;
+                var classInfo = _classService.GetClassByUserIdAndSeminarId(4,seminarId);
+                return Json(new SeminarViewModel()
+                {
+                    Id = sem.Id,
+                    Name = sem.Name,
+                    TeacherName = teacher.Name,
+                    TeacherEmail = teacher.Email,
+                    Site = classInfo.Site,
+                    StartTime=sem.StartTime,
+                    EndTime=sem.EndTime
+                        
+                    });
+                }
+                catch (SeminarNotFoundException)
+                {
+                    return StatusCode(404, new { msg = "讨论课不存在!" });
+                }
+                catch (ClassNotFoundException)
+                {
+                    return StatusCode(404, new { msg = "班级不存在!" });
+                }
+
+        }
+
     }
+    public class SeminarViewModel
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string TeacherName { get; set; }
+        public string Site { get; set; }
+        public string TeacherEmail { get; set; }
+        public bool? IsFixed { get; set; }
+        public string CourseName { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public long ClassCalling { get; set; }
+        public bool IsLeader { get; set; }
+        public bool AreTopicSelected { get; set; }
+    }
+    */
 }

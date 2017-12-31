@@ -126,5 +126,6 @@ namespace Xmu.Crms.Shared.Service
         ///  <exception cref="T:Xmu.Crms.Shared.Exceptions.ClassesNotFoundException">无此班级</exception>
         List<ClassInfo> ListClassByUserId(long userId);
 
+        ClassInfo GetClassByUserIdAndSeminarId(long userId, long seminarId);
     }
 }

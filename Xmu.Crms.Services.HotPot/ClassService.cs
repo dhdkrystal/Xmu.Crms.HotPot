@@ -11,9 +11,10 @@ namespace Xmu.Crms.Services.HotPot
     public class ClassService :IClassService
     {
         private  CrmsContext _db;
-
-        public ClassService(CrmsContext db)
+        private ICourseService _courseService;
+        public ClassService(ICourseService courseService,CrmsContext db)
         {
+            _courseService = courseService;
             _db = db;
         }
         /// <summary>
@@ -362,6 +363,25 @@ namespace Xmu.Crms.Services.HotPot
             var location = GetCallStatusById(seminarId, classId);
             location.Status = 0;
             _db.SaveChanges();
+        }
+
+        public ClassInfo GetClassByUserIdAndSeminarId(long userId,long seminarId)//测试成功
+        {
+            ClassInfo result=new ClassInfo();
+            var seminar = _db.Seminar.Find(seminarId);
+            if (seminar == null)
+                throw new SeminarNotFoundException();
+            var course = _courseService.GetCourseByCourseId(seminar.Id);
+            if(course==null)
+                throw new CourseNotFoundException();
+            List<CourseSelection> cs = _db.CourseSelection.Where(c=>c.StudentId==userId).ToList();
+            foreach(CourseSelection c in cs)
+            {
+                var classInfo = GetClassByClassId(c.ClassId);
+                if (classInfo.CourseId == course.Id)
+                    result = classInfo; 
+            }
+            return result;
         }
     }
 }
