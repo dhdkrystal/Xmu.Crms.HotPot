@@ -29,36 +29,36 @@
 
 
         <script>
-            $(document).ready(function () {
-                $("#teacherButton").click(function () {
-                    var type = '老师';
-                    $.ajax({
-                        url: '/me',
-                        type: 'PUT',
-                        data:{
-                            'type': type
-                        },
-                        dateType: 'json',
-                        success: function (data) {
-                            document.location.href = '/Account/TeacherBinding';
-                        },
-                        error: function (mesg) {
-                            alert(mesg);
-                        }
-                    });
-                });
-            });
-        </script>
-        <script>
             var token = window.localStorage.getItem("jwt");
-                $("#studentButton").click(function () {
-                    var type = '学生';
+                $("#teacherButton").click(function () {
+                    var type = 'Teacher';
                     $.ajax({
                         url: '/me',
                         type: 'PUT',
                         contentType: 'application/json',
                         dateType: 'json',
-                        header: { "Authorization": "Bearer " + token },
+                        headers: { "Authorization": "Bearer " + token },
+                        data: JSON.stringify({
+                            type: type
+                        }),
+                        dateType: 'json',
+                        success: function (data) {
+                            document.location.href = '/Register/TeacherBinding';
+                        },
+                        error: function (error) {
+                            alert(error.responseJSON.msg);
+                        }
+                    });
+                });
+           
+                $("#studentButton").click(function () {
+                    var type = 'Student';
+                    $.ajax({
+                        url: '/me',
+                        type: 'PUT',
+                        contentType: 'application/json',
+                        dateType: 'json',
+                        headers: { "Authorization": "Bearer " + token },
                         data: JSON.stringify({
                             type: type
                         }),
@@ -66,8 +66,8 @@
                         success: function (data) {
                             document.location.href = '/Register/StudentBinding';
                         },
-                        error: function (mesg) {
-                            alert(mesg);
+                        error: function (error) {
+                            alert(error.responseJSON.msg);
                         }
                     });
                 });

@@ -10,6 +10,7 @@ using Xmu.Crms.Shared.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication;
 
 //Writen and tested by FJL
 
@@ -25,16 +26,17 @@ namespace Xmu.Crms.HotPot.Controllers
         private readonly ISeminarService _seminarservice;
         private readonly IUserService _userservice;
         private readonly ISeminarGroupService _seminargroupservice;
-        //private CrmsContext context;
+        private CrmsContext context;
         private JwtHeader _head;
         //定义JWT的head
-        public CourseController(ICourseService service, IClassService service1, ISeminarService service2, IUserService service3, ISeminarGroupService seminar4, JwtHeader head)
+        public CourseController(ICourseService service, IClassService service1, ISeminarService service2, IUserService service3, ISeminarGroupService seminar4, CrmsContext db, JwtHeader head)
         {
             _courseservice = service;
             _classservice = service1;
             _seminarservice = service2;
             _userservice = service3;
             _seminargroupservice = seminar4;
+            this.context = db;
             _head = head;
         }
 
@@ -44,7 +46,13 @@ namespace Xmu.Crms.HotPot.Controllers
         {
             try
             {
-                IList<Course> il = _courseservice.ListCourseByUserId(long.Parse(User.Claims.Single(c => c.Type == "id").Value));
+                IList<Course> il = _courseservice.ListCourseByUserId(User.Id());
+                foreach (Course i in il)
+                {
+
+                    UserInfo us = context.UserInfo.Find(i.TeacherId);
+                    i.Teacher = us;
+                }
                 return Json(il);
             }
             catch (CourseNotFoundException)
@@ -58,12 +66,11 @@ namespace Xmu.Crms.HotPot.Controllers
 
         }
         [HttpPost("/course")]//测试成功
-        //使用JWT后可将获取的User.Id()替换掉下面的1，来表示当前用户
         public IActionResult CreateCourse([FromBody] Course newCourse)
         {
             try
             {
-                var id = _courseservice.InsertCourseByUserId(1, newCourse);//此处的1
+                var id = _courseservice.InsertCourseByUserId(User.Id(), newCourse);//此处的1
                 return Created($"/course/{id}", new { id });
             }
             catch (ArgumentException)
@@ -77,7 +84,7 @@ namespace Xmu.Crms.HotPot.Controllers
         {
             try
             {
-                var cou = _courseservice.GetCourseByCourseId(courseId);
+                Course cou = _courseservice.GetCourseByCourseId(courseId);
                 return Json(cou);
             }
             catch (CourseNotFoundException)
@@ -142,25 +149,13 @@ namespace Xmu.Crms.HotPot.Controllers
         }
 
 
-        [HttpPost("/course/{courseId:long}/class")]//测试失败。原因CourseService里的InsertClassById方法被删除？//手动添加该方法后可测试成功！
-                                                   /*
-                                                   public long InsertClassById(long courseId , ClassInfo t)
-                                                   {
-                                                       if (courseId < 0)
-                                                           throw new ArgumentException();
-                                                       Course a = _db.Course.Find(courseId);
-                                                       t.Course = a;
-                                                       _db.ClassInfo.Add(t);
-                                                       _db.SaveChanges();
-
-                                                       return t.Id;
-                                                   }
-                                                   */
+        [HttpPost("/course/{courseId:long}/class")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult CreateClassByCourseId([FromRoute] long courseId, [FromBody] ClassInfo newClass)
         {
             try
             {
-                var userlogin = _userservice.GetUserByUserId(2);//同理此处缺少JWTtoken存的User.Id()用以替换2
+                var userlogin = _userservice.GetUserByUserId(User.Id());
                 if (userlogin.Type != Shared.Models.Type.Teacher)
                 {
                     return StatusCode(403, new { msg = "权限不足" });
@@ -192,6 +187,11 @@ namespace Xmu.Crms.HotPot.Controllers
             try
             {
                 IList<Seminar> il = _seminarservice.ListSeminarByCourseId(courseId);
+                foreach (var i in il)
+                {
+                    Course cou = context.Course.Find(courseId);
+                    i.Course.Name = cou.Name;
+                }
                 return Json(il);
             }
             catch (SeminarNotFoundException)
@@ -212,10 +212,10 @@ namespace Xmu.Crms.HotPot.Controllers
             {
                 return StatusCode(404, new { msg = "course不存在的" });
             }
-            //catch (Shared.Exceptions.InvalidOperationException)
-            //{
-            //    return StatusCode(405, new { msg = "瞎几把操作" });
-            //}
+            catch (ArgumentException)
+            {
+                return StatusCode(405, new { msg = "瞎几把操作" });
+            }
         }
 
         [HttpGet("/course/{courseId}/seminar/current")]//测试成功
@@ -229,7 +229,11 @@ namespace Xmu.Crms.HotPot.Controllers
                 foreach (Seminar i in sem)
                 {
                     if (DateTime.Compare(DateTime.Now, i.StartTime) * DateTime.Compare(i.EndTime, DateTime.Now) > 0)
+                    {
                         seminar = i;
+                        Course cou = context.Course.Find(courseId);
+                        seminar.Course.Name = cou.Name;
+                    }
                 }
                 return Json(seminar);
             }
@@ -244,7 +248,7 @@ namespace Xmu.Crms.HotPot.Controllers
         }
 
         [HttpGet("/course/{courseId:long}/grade")]//测试成功
-        //用User.Id()替代3
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult GetGradeByCourseId([FromRoute] long courseId)
         {
             Grade gg = new Grade();
@@ -253,7 +257,7 @@ namespace Xmu.Crms.HotPot.Controllers
                 IList<Seminar> ils = _seminarservice.ListSeminarByCourseId(courseId);
                 foreach (var i in ils)
                 {
-                    SeminarGroup sm = _seminargroupservice.GetSeminarGroupById(i.Id, 3);//这里这里
+                    SeminarGroup sm = _seminargroupservice.GetSeminarGroupById(i.Id, User.Id());//这里这里
                     gg.grade = sm.FinalGrade;
                     gg.name = i.Name;
                     gg.description = i.Description;
@@ -281,5 +285,6 @@ namespace Xmu.Crms.HotPot.Controllers
             public string name { get; set; }
             public string description { get; set; }
         }
+
     }
 }

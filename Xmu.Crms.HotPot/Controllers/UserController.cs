@@ -75,6 +75,7 @@ namespace Xmu.Crms.HotPot.Controllers
         {
             try
             {
+                
                 _userService.UpdateUserByUserId(long.Parse(User.Claims.Single(c => c.Type == "id").Value), updated);
                 return NoContent();
             }

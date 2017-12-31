@@ -1,104 +1,170 @@
 ﻿
 <!doctype html>
-<style>
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    li {
-        float: left;
-    }
-
-    a:link, a:visited {
-        display: block;
-        width: 120px;
-        color: #0f0f0f;
-        background-color: #66CCFF;
-        text-align: center;
-        padding: 14px;
-        text-decoration: none;
-        text-transform: uppercase;
-    }
-
-    a:hover, a:active {
-        text-decoration: underline;
-    }
-</style>
 <html>
 
 
 <head>
     <meta charset="UTF-8">
+    <title>ChooseSchool</title>
     <meta name="divport" content="width=device-width,
                                      initial-scale=1.0,
                                      maximum-scale=1.0">
-    <title>StudentRollCallUI</title>
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="~/css/test.css">
+    <link href="~/css/ChooseSchool.css" rel="stylesheet" type="text/css" />
 
 
 
 </head>
 
-<body style="background=#000000">
-            <div class="box5" style="position:relative;">
-                <!-- 背景图的div -->
-        <div style="position:absolute;margin-left: 7%;margin-top: 18%; z-index:2" class="hrDiv"></div>
-                <img style="position:absolute;margin-left: 5%;margin-top: 9%" src="~/images/deng.png" width=5% height=20% />
-        <img src="~/images/背景图2.jpg" width=100% height=100% />
-        <div class="FONT41" style="position:absolute; margin-left:12%;z-index:2; top:10px">请选择您的学校</div>
+<body>
+    <div class="topbox">
+        <div class="fixTop">
+            <img src="../images/bulb.png" class="bulbimg" />
+            <strong class="title0">请选择您的学校</strong>
+            <img class="img" src="../images/background.jpg" />
+        </div>
+        <!--这个class与js有关 实现列表切换-->
+        <div id="tab">
+            <div class="fixTop title show" id="choose">
+                <div id="province" class="cur" >省份</div>
+                <div id="city">州市</div>
+                <div id="school">学校</div>
             </div>
 
-                <div class="box6" ;style="background-color: =#66CCFF;">
-                    <ul>
-                        <li><a href="#">省份</a></li>
-                        <li><a href="#">州市</a></li>
-                        <li><a href="#">学校</a></li>
-                    </ul>
+                <div class="list" id="s1">
                 </div>
 
-                <div class="box7"id="list" >
-                    <div class="box8"><button class="button2" style="">福建</button></div>
+                <div id="s2" class="list">
+                </div>
+
+                <div id="s3"class="list">
+                    <li id="noSch" class="str" style="display:none;"><a href="#">无学校？选择创建</a></li>
+                </div>
+              </div>
+        
+ </div>
                     <script>
-                        //GET /seminar/{seminarId}/group/my 按讨论课ID获取学生所在小组详情
-                        $(document).ready(function () {
+                        var myTab = document.getElementById("tab");
+                        var myUl = myTab.getElementsByTagName("div")[0];
+                        var myLi = myUl.getElementsByTagName("div");
+                        var myDiv0 = document.getElementById("s1");
+                        var myDiv1 = document.getElementById("s2");
+                        var myDiv2 = document.getElementById("s3");
+                        var token = window.localStorage.getItem("jwt");
+                        window.onload = function () {
+                            
+                            
+                            myLi[0].onclick = function () {
+                                myLi[1].className = "";
+                                myLi[2].className = "";
+                                this.className = "cur";
+                                myDiv0.className = "show";
+                                myDiv1.className = "hide";
+                                myDiv2.className = "hide";
+  
+                            }
+                            myLi[1].onclick = function () {
+                                myLi[0].className = "";
+                                myLi[2].className = "";
+                                this.className = "cur";
+                                myDiv1.className = "show";
+                                myDiv0.className = "hide";
+                                myDiv2.className = "hide";
+
+                            }
+                            myLi[2].onclick = function () {
+                                myLi[0].className = "";
+                                myLi[1].className = "";
+                                this.className = "cur";
+                                myDiv2.className = "show";
+                                myDiv0.className = "hide";
+                                myDiv1.className = "hide";
+
+                            }
+                        }
+
+
                             $.ajax({
                                 type: 'GET',
-                                url: '/api/school/32/detail',
-                                data: '',
-                                contentType: 'application/json;charset=utf-8',
+                                url: '/school/province',
+                                contentType: 'application/json',
                                 dataType: 'json',
                                 success: function (result) {
-                                    $.each(result.Data, function (i, value) {
-                                        $("#list").append(
-                                            '<div class="box8"><button class="button2" style="">' +
-                                            value + '</button ></div >')
+                                    $.each(result, function (i, value) {
+                                        $("#s1").append(
+                                            "<div class='ptr' id='" + value + "'>" +
+                                            value + "</div >");
+                                        $("#" + value).click(function () {
+                                            $("#s2").html("");
+                                            myLi[1].className = "cur";
+                                            myLi[2].className = "";
+                                            myLi[0].className = "";
+                                            myDiv0.className = "hide";
+                                            myDiv1.className = "show";
+                                            myDiv2.className = "hide";
+                                            $.ajax({
+                                                type: 'GET',
+                                                url: '/school/city?province=' + value,
+                                                contentType: 'application/json',
+                                                dataType: 'json',
+                                                success: function (result) {
+                                                    $.each(result, function (i, value2) {          
+                                                        $("#s2").append(
+                                                            "<div class='ptr' id='" + value2 + "'>" +
+                                                            value2 + "</div >");
+                                                        $("#" + value2).click(function () { 
+                                                            $("#s3").html("");
+                                                            myLi[2].className = "cur";
+                                                            myLi[1].className = "";
+                                                            myLi[0].className = "";
+                                                            myDiv1.className = "hide";
+                                                            myDiv2.className = "show";
+                                                            myDiv1.className = "hide";
+                                                            $.ajax({
+                                                                type: 'GET',
+                                                                url: '/school?city=' + value2,
+                                                                contentType: 'application/json',
+                                                                dataType: 'json',
+                                                                success: function (result) {
+                                                                    $.each(result, function (i, value3) {
+                                                                        $("#s3").append(
+                                                                            "<div class='ptr' id='" + value3.id + "'>" +
+                                                                            value3.name + "</div >");
+                                                                        $("#" + value3.id).click(function () {
+                                                                            $.ajax({
+                                                                                type: 'GET',
+                                                                                url: '/me',
+                                                                                headers: { "Authorization": "Bearer " + token },
+                                                                                contentType: 'application/json',
+                                                                                dataType: 'json',
+                                                                                data: JSON.stringify({
+                                                                                    schoolId: value3.id,
+                                                                                    school:value3
+                                                                                }),
+                                                                                success: function (result) {
+                                                                                    
+                                                                                }
+                                                                            });
+                                                                        });
+                                                                        
+                                                                    })
+                                                                }
+                                                            });
+                                                        });
+                                                    })
+                                                }
+                                            })
+                                        });
 
                                     });
                                 }
                             })
-                        });
+
+                        
                     </script>
-                </div>
-    <script>
-        $(document).on("click", ".button2", function () {
-            
-            $.ajax({
-                type: 'GET',
-                url: '/api/school/32/detail',
-                data: "",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (result) {
-                        $(window).attr("location", '/School/ChooseSchool1');
-                }
-            })
-        })
-    </script>
+    
 
 
 </body >

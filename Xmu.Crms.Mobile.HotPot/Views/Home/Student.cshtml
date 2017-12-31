@@ -49,7 +49,7 @@
                     success: function (data) {
                         for (i = 0; i < data.length; i++) {
                             var course = data[i];
-                            template = "<div class=\"blueBox\" onclick=\"location.href = '/Course/CourseUI'\">\n";
+                            template = "<div class=\"blueBox\" " + "onclick='window.location.href= &apos;/Course/CourseUI?courseId=" + course.id + "&apos;'>\n";
                             template += "<p class=\"leftText\">";
                             template += course.name;
                             template += "</p>\n<p class=\"rightText\">老师：";

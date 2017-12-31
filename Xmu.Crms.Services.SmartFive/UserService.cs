@@ -301,7 +301,8 @@ namespace Xmu.Crms.Services.SmartFive
             usr.Title = user.Title ?? Title.Professer;
             if (usr.Type == Shared.Models.Type.Unbinded)
             {
-                usr.Type = user.Type;
+                
+                usr.Type = user.Type??Shared.Models.Type.Student;
                 usr.Number = user.Number;
             }
             else if (user.Type != null && usr.Type != user.Type)

@@ -51,16 +51,21 @@
                     $.ajax({
                         url: '/register',
                         type: 'POST',
-                        data: {
-                            'phone': phone,
-                            'password': password,
-                        },
+                        contentType: 'application/json',
+                        dateType: 'json',
+                        data: JSON.stringify({
+                            phone: phone,
+                            password: password
+                        }),
                         dateType:'json',
                         success: function (data) {
-                                document.location.href = '/Account/ChooseCharacter';
+                            window.localStorage.setItem('jwt', data.jwt);
+                            window.localStorage.setItem('id', data.id);
+                            window.localStorage.setItem('type', data.type);
+                            document.location.href = '/Register/ChooseCharacter';
                         },
-                        error: function (mesg) {
-                            alert(mesg);
+                        error: function (error) {
+                            alert(error.responseJSON.msg);
                         }
                     });
                 }
