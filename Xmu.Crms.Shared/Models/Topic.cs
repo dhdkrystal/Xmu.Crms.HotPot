@@ -8,7 +8,7 @@ namespace Xmu.Crms.Shared.Models
     {
         public long Id { get; set; }
 
-        public string Serial { get; set; }
+//        public string Serial { get; set; }
 
         [Required]
         public string Name { get; set; }

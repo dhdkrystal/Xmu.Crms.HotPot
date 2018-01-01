@@ -47,7 +47,7 @@
                      success: function (data) {
                          for (i = 0; i < data.length; i++) {
                              var course = data[i];
-                             template = "<div class=\"blueBox\" onclick=\"location.href = '/Class/ClassManage'\">\n";
+                             template = "<div class=\"blueBox\" onclick=\"location.href = '/Class/ClassManage?courseId="+course.id+"'\">\n";
                              template += "<p class=\"leftText\">";
                              template += course.name;
                              template += "</p></div >";

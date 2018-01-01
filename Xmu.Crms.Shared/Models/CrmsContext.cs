@@ -426,9 +426,9 @@ namespace Xmu.Crms.Shared.Models
                 entity
                     .Property(m => m.Id)
                     .HasColumnName("id");
-                entity
-                    .Property(m => m.Serial)
-                    .HasColumnName("serial");
+            //    entity
+           //         .Property(m => m.Serial)
+           //         .HasColumnName("serial");
                 entity
                     .Property(m => m.Name)
                     .HasColumnName("name");

@@ -8,7 +8,6 @@
     >
     <title>RollCallList</title>
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="~/css/RollCallListUI.css">
     <script>
@@ -20,43 +19,65 @@
 
 </head>
 <body>
-<!--设置左上角的蓝色板-->
-<div class="blueBoardDiv">
-    <img src="~/images/blueBoard.png" class='blueBoardIcon'/>
-</div>
-
-
-<!--班级1 的字样-->
-<div class='classNameDiv'>
-    班级1
-</div>
-
-<!--学生总数：40 的字样-->
-<div class='studentSumDiv'>
-    签到人数：9/40
-</div>
-
-
-<!--学生名单上面那个蓝色的bar-->
-<div class='studentListBarDiv' onclick="isHidden('tmpList')">
-    <span class="barText">已签到学生</span>
-</div>
-
-<!--学生块，分为左边的和右边的，增加学生的时候选择好左边或者
-右边后直接复制就好，之后在span下面修改学生名字-->
-    <div id="tmpList">
-        <div class='studentLeftBlock'>
-            <img src="~/images/user.png" class='userIcon' />
-            <span class="studentName">杨xx</span>
-        </div>
-        <div class='studentRightBlock'>
-            <img src="~/images/user.png" class='userIcon' />
-            <span class="studentName">周xx</span>
-        </div>
-        <div class='studentLeftBlock'>
-            <img src="~/images/user.png" class='userIcon' />
-            <span class="studentName">孙xx</span>
-        </div>
+    <!--设置左上角的蓝色板-->
+    <div class="blueBoardDiv">
+        <img src="~/images/blueBoard.png" class='blueBoardIcon' />
     </div>
-</body>
-</html>
+
+
+    <!--班级1 的字样-->
+    <div class='classNameDiv' id="className">
+    </div>
+
+    <!--学生总数：40 的字样-->
+    <div class='studentSumDiv' id="studentSum">
+    </div>
+
+
+    <!--学生名单上面那个蓝色的bar-->
+    <div class='studentListBarDiv' onclick="isHidden('tmpList')">
+        <span class="barText">已签到学生</span>
+    </div>
+
+    <!--学生块，分为左边的和右边的，增加学生的时候选择好左边或者
+    右边后直接复制就好，之后在span下面修改学生名字-->
+    <div id="tmpList">
+    </div>
+    <script src="~/js/query.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        var classId = getQuery()["classId"];
+        var seminarId = getQuery()["seminarId"];
+        var token = window.localStorage.getItem("jwt");
+        $(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/class/' + classId + '/' + seminarId + '/attendance/showPresent',
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
+                success: function (result) {
+                    $("#className").append(result.classname);
+                    $("#studentSum").append("签到学生:" + result.presentcount + '/' + result.numStudent);
+                    var presentlist = result.studentList;
+                    var list1 = '';
+                    for (i = 0; i < result.presentcount; i++) {
+                        if (i % 2 == 0) {
+                            list1 += '<div class="studentLeftBlock">' +
+                                '<img src="/images/user.png" class="userIcon" />' +
+                                '<span class="studentName">' + presentlist[i].name + '</span>' +
+                                '</div>';
+                        } else {
+                            list1 += '<div class="studentRightBlock">' +
+                                '<img src="/images/user.png" class="userIcon" />' +
+                                '<span class="studentName">' + presentlist[i].name + '</span>' +
+                                '</div>';
+                        }
+                    }
+                    $("#tmpList").append(list1);
+                }
+            })
+        });
+    </script>
+</body >
+</html >

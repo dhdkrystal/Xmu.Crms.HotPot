@@ -7,70 +7,73 @@
                                      maximum-scale=1.0">
     <title>GroupInfo</title>
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/GroupInfoUI2.css">
+    <link rel="stylesheet" href="~/css/GroupInfoUI2.css">
     <!--设置队伍信息折叠展开-->
-    <script >
+    <script>
         function isHidden(oDiv) {
             var vDiv = document.getElementById(oDiv);
-            vDiv.style.display=(vDiv.style.display=='none')?'block':'none';
+            vDiv.style.display = (vDiv.style.display == 'none') ? 'block' : 'none';
         }
     </script>
-
 </head>
 <body>
-<!--设置左上角的usersIcon-->
-<div class="blueUsersDiv">
-    <img src="~/images/users.png" class='blueUsersIcon'/>
-    <strong class="title">队伍信息</strong>
-</div>
+    <!--设置左上角的usersIcon-->
+    <div class="blueUsersDiv">
+        <img src="~/images/users.png" class='blueUsersIcon' />
+        <strong class="title">队伍信息</strong>
+    </div>
 
 
-<!--细线，hr不好设置css，用一个高度很小的div来代替-->
-<div class="hrDiv">
-</div>
-
-
-<!--学生名单上面那个蓝色的bar-->
-<div class='studentListBarDiv' onclick="isHidden('div1')">
-    <span class="groupName">队伍1</span>
-    <span class="groupTopics">选题：</span>
-</div>
-
-<!--学生块，分为左边的和右边的，增加学生的时候选择好左边或者
-右边后直接复制就好，之后在span下面修改学生名字-->
-<div id="div1">
-        <div class='studentLeftBlock'>
-            <img src="~/images/user.png" class='userIcon' />
-            <span class="studentName">杨xx</span>
-        </div>
-
-        <div class='studentRightBlock'>
-            <img src="~/images/user.png" class='userIcon' />
-            <span class="studentName">周xx</span>
-        </div>
-        <div class='studentLeftBlock'>
-            <img src="~/images/user.png" class='userIcon' />
-            <span class="studentName">孙xx</span>
-        </div>
-        <div class='studentRightBlock'>
-            <img src="~/images/user.png" class='userIcon' />
-            <span class="studentName">王xx</span>
-        </div>
-</div>
-
-<!--学生名单上面那个蓝色的bar-->
-<div class='studentListBarDiv'>
-    <span class="groupName">队伍2</span>
-    <span class="groupTopics">选题：</span>
-</div>
-<div class='studentListBarDiv'>
-    <span class="groupName">队伍3</span>
-    <span class="groupTopics">选题：</span>
-</div>
-<div class='studentListBarDiv'>
-    <span class="groupName">队伍4</span>
-    <span class="groupTopics">选题：</span>
-</div>
-
-</body>
-</html>
+    <!--细线，hr不好设置css，用一个高度很小的div来代替-->
+    <div class="hrDiv" >
+    </div>
+    <div id="groupList"></div>
+    <script src="~/js/query.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        var classId = getQuery()["classId"];
+        var seminarId = getQuery()["seminarId"];
+        var token = window.localStorage.getItem("jwt");
+        $(function () { 
+            $.ajax({
+                type: 'GET',
+                url: '/seminar/' + seminarId + '/group/' + classId,
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
+                success: function (data) { 
+                    for (i = 0;i < data.length; i++) { 
+                        var tmpgroup = data[i];
+                        var topics = data[i].topicname;
+                        var topicname = '';
+                        for (j = 0; j < topics.length; j++)
+                            topicname += topics[j].name+"  ";
+                        var member = '';
+                        var members = data[i].members;
+                        for (j = 0; j <members.length; j++) { 
+                            if (j % 2 ==0) {
+                                member += '<div class="studentLeftBlock">' +
+                                    '<img src="/images/user.png" class="userIcon" />' +
+                                    '<span class="studentName">' + members[j].name + '</span>' +
+                                    '</div>';
+                            } else { 
+                                member += '<div class="studentRightBlock">' +
+                                    '<img src="/images/user.png" class="userIcon" />' +
+                                    '<span class="studentName">' + members[j].name + '</span>' +
+                                    '</div>';
+                            }
+                        }
+                        var groupNo = i + 1;
+                        $("#groupList").append(
+                            '<div class="studentListBarDiv">' +
+                            '<span class="groupName">队伍' + groupNo+ '</span>' +
+                            '<span class="groupTopics">选题：' + topicname + '</span>' +
+                            '</div>' +member
+                        )
+                    }
+                }
+            });
+        });
+     </script>
+</body >
+</html >

@@ -12,72 +12,104 @@
     <script>
         function isHidden(oDiv) {
             var vDiv = document.getElementById(oDiv);
-            vDiv.style.display=(vDiv.style.display=='none')?'block':'none';
+            vDiv.style.display = (vDiv.style.display == 'none') ? 'block' : 'none';
         }
     </script>
 
 </head>
 <body>
-<!--设置左上角的蓝色板-->
-<div class="blueBoardDiv">
-    <img src="~/images/blueBoard.png" class='blueBoardIcon'/>
-</div>
+    <!--设置左上角的蓝色板-->
+    <div class="blueBoardDiv">
+        <img src="~/images/blueBoard.png" class='blueBoardIcon' />
+    </div>
 
 
-<!--班级1 的字样-->
-<div class='classNameDiv'>
-    班级1
-</div>
+    <!--班级1 的字样-->
+    <div class='classNameDiv' id="className">
+    </div>
 
-<!--学生总数：40 的字样-->
-<div class='studentSumDiv'>
-    签到人数：37/40
-</div>
+    <!--学生总数：40 的字样-->
+    <div class='studentSumDiv' id="studentSum">
+    </div>
 
 
-<!--学生名单上面那个蓝色的bar-->
-<div class='studentListBarDiv' onclick="isHidden('List1')">
-   <span class="barText">已签到学生</span> 
-</div>
+    <!--学生名单上面蓝色的bar-->
+    <div class='studentListBarDiv' onclick="isHidden('List1')">
+        <span class="barText">已签到学生</span>
+    </div>
 
-<!--学生块，分为左边的和右边的，增加学生的时候选择好左边或者
-右边后直接复制就好，之后在span下面修改学生名字-->
+    <!--学生块，分为左边的和右边的-->
     <div id="List1">
-        <div class='studentLeftBlock'>
-            <img src="~/images/user.png" class='userIcon' />
-            <span class="studentName">杨xx</span>
-        </div>
-        <div class='studentRightBlock'>
-            <img src="~/images/user.png" class='userIcon' />
-            <span class="studentName">周xx</span>
-        </div>
-        <div class='studentLeftBlock'>
-            <img src="~/images/user.png" class='userIcon' />
-            <span class="studentName">孙xx</span>
-        </div>
     </div>
 
-<!--学生名单上面那个蓝色的bar-->
-<div class='studentListBarDiv' onclick="isHidden('List2')">
-    <span class="barText ">未签到学生</span>
-</div>
-    <div id="List2">
-        <div class='studentLeftBlock'>
-            <img src="~/images/user.png" class='userIcon' />
-            <span class="studentName">王xx</span>
-        </div>
-        <div class='studentRightBlock'>
-            <img src="~/images/user.png" class='userIcon' />
-            <span class="studentName">马xx</span>
-        </div>
-        <div class='studentLeftBlock'>
-            <img src="~/images/user.png" class='userIcon' />
-            <span class="studentName">钱xx</span>
-        </div>
-        <div class='studentRightBlock'>
-            <img src="~/images/user.png" class='userIcon' />
-            <span class="studentName">魏xx</span>
-        </div>
+    <!--学生名单上面蓝色的bar-->
+    <div class='studentListBarDiv' onclick="isHidden('List2')">
+        <span class="barText ">未签到学生</span>
     </div>
-</body>
-</html>
+    <div id="List2">
+    </div>
+    <script src="~/js/query.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        var classId = getQuery()["classId"];
+        var seminarId = getQuery()["seminarId"];
+        var token = window.localStorage.getItem("jwt");
+        $(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/class/' + classId+'/'+seminarId+'/attendance/showPresent',
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
+                success: function (result) {
+                    $("#className").append(result.classname);
+                    $("#studentSum").append("签到学生:" + result.presentcount + '/' + result.numStudent);
+                    var presentlist = result.studentList;
+                    var list1 = '';
+                    for (i = 0; i < result.presentcount; i++) { 
+                        if (i % 2 == 0) {
+                            list1 += '<div class="studentLeftBlock">' +
+                                '<img src="/images/user.png" class="userIcon" />' +
+                                '<span class="studentName">' + presentlist[i].name + '</span>' +
+                                '</div>';
+                        } else { 
+                            list1 += '<div class="studentRightBlock">' +
+                                '<img src="/images/user.png" class="userIcon" />' +
+                                '<span class="studentName">' + presentlist[i].name + '</span>' +
+                                '</div>';
+                        }
+                    }
+                    $("#List1").append(list1);
+                }
+            })
+        });
+        $(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/class/' + classId + '/' + seminarId + '/attendance/showabsent',
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
+                success: function (result) {
+                    var absentlist = result.studentList;
+                    var list2 = '';
+                    for (i = 0; i < result.absentcount; i++) {
+                        if (i % 2 == 0) {
+                            list2 += '<div class="studentLeftBlock">' +
+                                '<img src="/images/user.png" class="userIcon" />' +
+                                '<span class="studentName">' + absentlist[i].name + '</span>' +
+                                '</div>';
+                        } else {
+                            list2 += '<div class="studentRightBlock">' +
+                                '<img src="/images/user.png" class="userIcon" />' +
+                                '<span class="studentName">' + absentlist[i].name + '</span>' +
+                                '</div>';
+                        }
+                    }
+                    $("#List2").append(list2);
+                }
+            })
+        });
+    </script>
+</body >
+</html >
