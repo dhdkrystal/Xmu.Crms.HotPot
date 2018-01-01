@@ -51,7 +51,12 @@
                             window.localStorage.setItem('jwt', data.jwt);
                             window.localStorage.setItem('id', data.id);
                             window.localStorage.setItem('type', data.type);
-                            if (data.type=='Student')
+                            if (data.type == 'Unbinded')
+                            {
+                                alert("未绑定账号，请绑定");
+                                document.location.href = '/Register/ChooseCharacter';
+                            }
+                            else if (data.type=='Student')
                                 document.location.href = '/Student';
                             else
                                 document.location.href = '/Teacher';

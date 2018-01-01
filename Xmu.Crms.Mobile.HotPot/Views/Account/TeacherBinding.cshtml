@@ -42,6 +42,7 @@
                var number = $("#number").val();
                var name = $("#name").val();
                var school = $("#schoool").val();
+               var token = window.localStorage.getItem("jwt");
                if (number == '' || name == '' || school == '') {
                    alert("请填写完整");
                } else {
@@ -50,18 +51,18 @@
                        type: 'PUT',
                        contentType: 'application/json',
                        dateType: 'json',
-                       header: { "Authorization": "Bearer" + token },
-                       data: {
+                       headers: { "Authorization": "Bearer " + token },
+                       data: JSON.stringify({
                            number: number,
                            name: name,
-                           school: school,
-                       },
+                           school: school
+                       }),
                        dateType: 'json',
                        success: function (data) {
                            document.location.href = '/Teacher';
                        },
-                       error: function (mesg) {
-                           alert(mesg);
+                       error: function (error) {
+                           alert(error.responseJSON.msg);
                        }
                    });
                }

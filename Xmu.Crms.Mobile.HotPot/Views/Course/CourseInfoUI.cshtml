@@ -5,53 +5,88 @@
     <meta name="divport" content="width=device-width,
                                      initial-scale=1.0,
                                      maximum-scale=1.0">
-    <title>Course Info</title>
+    <title>Course</title>
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="~/css/CourseUI.css">
-    <link rel="stylesheet" href="~/css/bootstrap.css">
-
-
+    <link href="~/css/CourseInfoUI.css" rel="stylesheet" type="text/css">
 </head>
 <body class="body">
-	<div class="head20">
-		<span  class="FONT1" id="course"></span>
-	</div><div /><div /><div />
-	<div  class="infoBlock">
-		<img src="~/images/smile.png" class="infoIcon"/>
-   		 <span id="teacher" ></span>
-	</div>
-    <div/><div /><div /><div />
-	<div class="infoBlock"> 
-		<img src="~/images/email.png" class="infoIcon"/>
-		<span id="mail"></span>
-	</div>
-    <div />
-    <div /><div /><div />
-	<div class="infoBlock"> 
-		<img src="~/images/FileIcon.png"  class="infoIcon"/>
-		<span id="detail"></span>
-	</div>
-    <script>
-        $(document).ready(function () {
+    <div class="topBox">
+        <span class="title" id="coursename"></span>
+    </div>
+    <div style="margin-top: 18%">
+        <img class="UserImg" src="../images/UserIcon.png" />
+        <p class="NameText" id="teacher"></p>
+    </div>
+    <div>
+        <img class="MailImg" src="../images/MailIcon.png" />
+        <p class="MailText" id="mail"></p>
+    </div>
+    <div>
+        <img src="../images/HouseIcon.png" class="HouseImg" />
+        <p class="ClassText">班级</p>
+    </div>
+
+    <div class="btn-group SmallText" style="margin-top: 1%">
+        <span style="float:left;">时间: &nbsp; </span>
+        <button type="button" class="btn btn-default dropdown-toggle btn-xs btn-group buttonTpye"
+                data-toggle="dropdown" style="float:left;position: relative;font-size: 1em;">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        </ul>
+    </div>
+
+    <div class="SmallText">
+        <span id="location"></span>
+    </div>
+    <div class="SmallText">
+        <span id="classnumber"></span>
+    </div>
+    <div>
+        <img src="../images/FileIcon.png" class="PaperImg" />
+        <p class="IntroText"id="description"></p>
+    </div>
+    <script src="~/js/query.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
+        var course = getQuery()["courseId"];
+        $(function () {
             $.ajax({
                 type: 'GET',
-                url: '/api/courseinfo/32',
+                url: '/course/' +course,
                 data: '',
                 contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
                 dataType: 'json',
                 success: function (result) {
-                    $("#teacher").text(result.Data.teacher);
-                    $("#mail").text(result.Data.mail);
-                    $("#detail").text(result.Data.detail);
-                    $("#course").text(result.Data.course);
+                    
+                    document.getElementById("coursename").innerText = result.name;
+                    document.getElementById("teacher").innerText = "老师："+result.teacher.name;
+                    document.getElementById("mail").innerText = "邮箱：" + result.teacher.email;
+                    document.getElementById("description").innerText = "简介：" + result.description;
                 }
             })
+            $.ajax({
+                type: 'GET',
+                url: '/course/' + course+'/class',
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
+                dataType: 'json',
+                success: function (result) {
+                    $.each(result, function (i, value) {
+                        $("ul").append ('<li><a href="#">' + value.classTime + ' ' + value.site + '</a></li>')
+                    });
+
+  
+                }
+            })
+
         });
     </script>
-
-
 </body>
-	</html>
+</html>
 

@@ -14,81 +14,168 @@
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://api.map.baidu.com/api?v=1.2" type="text/javascript"></script>
     <link rel="stylesheet" href="~/css/StudentRollCallUI.css">
 
 
 
 </head>
 <body>
-    <script>
-        //GET /seminar/{seminarId}/detail 获取讨论课详情
-        $(document).ready(function () {
-            $.ajax({
-                type: 'GET',
-                url: '/api/seminar/32/detail',
-                data: '',
-                contentType: 'application/json;charset=utf-8',
-                dataType: 'json',
-                success: function (result) {
-                    $("#teacherName").text(result.Data.teacherName);
-                    $("#teacherEmail").text(result.Data.teacherEmail);
-                    $("#startTime").text(result.Data.startTime);
-                    $("#site").text(result.Data.site);
-                }
-            })
-        });
-
-        //PUT /seminar/{seminarId}/class/{classId}/attendance/{studentId} 请求数据：GPS位置
-        $(document).on("click", ".blueBigBtn", function () {
-            $.ajax({
-                type: 'PUT',
-                url: '/api/seminar/32/class/1/attendance/8888',
-                data:'',
-                contentType: 'application/json;charset=utf-8',
-                dataType: 'json',
-                success: function (result) {
-                    if(result.Data.status=="late") 
-                        $(window).attr("location", '/Seminar/StudentRollCallLateUI');
-                    else
-                        $(window).attr("location", '/Seminar/StudentRollCallEndUI');
-                }
-            })
-        })
-    </script>
     <!--设置左上角的blueBoardIcon-->
     <div class="blueUsersDiv">
-        <img src="~/images/blueBoard.png" class='blueUsersIcon' />
-        <strong>讨论课信息</strong>
+        <img src="../images/blueBoard.png" class='blueUsersIcon' style="float:left;margin-top:7%; " />
+        <strong class="title">讨论课信息</strong>
     </div>
 
     <!--细线，hr不好设置css，用一个高度很小的div来代替-->
     <div class="hrDiv">
     </div>
+    <div class="lowBox">
+        <!--课堂信息，由一个icon和一行文字组成-->
+        <div class="courseInfoDiv">
+            <img src="~/images/teacher.png" class='courseInfoIcon' />
+            <strong id="name">邱明</strong>
+        </div>
+        <div class="courseInfoDiv">
+            <img src="~/images/mail.png" class='courseInfoIcon' />
+            <strong id="email">mingqiu@gmail.com</strong>
+        </div>
+        <div class="courseInfoDiv">
+            <img src="~/images/date.png" class='courseInfoIcon' />
+            <strong id="date">2017-11-11</strong>
+        </div>
+        <div class="courseInfoDiv">
+            <img src="~/images/site.png" class='courseInfoIcon' />
+            <strong id="location">海韵教学楼201</strong>
+        </div>
+    </div>
 
-    <!--课堂信息，由一个icon和一行文字组成-->
-    <div class="courseInfoDiv">
-        <img src="~/images/teacher.png" class='courseInfoIcon' />
-        <strong id="teacherName"></strong>
-    </div>
-    <div class="courseInfoDiv">
-        <img src="~/images/mail.png" class='courseInfoIcon' />
-        <strong id="teacherEmail"></strong>
-    </div>
-    <div class="courseInfoDiv">
-        <img src="~/images/date.png" class='courseInfoIcon' />
-        <strong id="startTime"></strong>
-    </div>
-    <div class="courseInfoDiv">
-        <img src="~/images/site.png" class='courseInfoIcon' />
-        <strong id="site"></strong>
-    </div>
-
-    <div>
-        <button type="button" class="blueBigBtn" id="rollCall">
+    <!--签到成功-
+    <div class="successCall">
+          <img src="../images/闹钟.png" class='courseInfoIcon'/>
+          <strong>签到成功</strong>
+     </div>
+    -->
+    <!--迟到签到
+    <div class="lateCall">
+          <img src="../images/闹钟.png" class='courseInfoIcon'/>
+          <strong>迟到签到成功</strong>
+     </div>
+    -->
+    <!--签到按钮-->
+    <div id="change">
+        <button id="arrive" type="button" class="blueBigBtn">
             签到
         </button>
     </div>
+    <script>
+        var longitude;
+        var latitude;
+        function getLocation() {
+            var options = {
+                enableHighAccuracy: true,
+                maximumAge: 1000
+            }
+            if (navigator.geolocation) {
+                //浏览器支持geolocation
+                navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
 
+            } else {
+                //浏览器不支持geolocation
+            }
+        }
+
+        //成功时
+        function onSuccess(position) {
+            //返回用户位置
+            //经度
+            longitude = position.coords.longitude;
+            //纬度
+            latitude = position.coords.latitude;
+
+            //使用百度地图API
+            //创建地图实例  
+            var map = new BMap.Map("container");
+            //创建一个坐标
+            var point = new BMap.Point(longitude, latitude);
+            //地图初始化，设置中心点坐标和地图级别  
+            map.centerAndZoom(point, 15);
+            //设置标注的图标
+            var icon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {
+                offset: new BMap.Size(10, 25), // 指定定位位置  
+                imageOffset: new BMap.Size(0, 0 - 11 * 25) // 设置图片偏移  
+            });
+            //设置标注的经纬度
+            var marker = new BMap.Marker(new BMap.Point(longitude, latitude), { icon: icon });
+            //把标注添加到地图上
+            map.addOverlay(marker);
+
+        }
+        //失败时
+        function onError(error) {
+            switch (error.code) {
+                case 1:
+                    alert("位置服务被拒绝");
+                    break;
+                case 2:
+                    alert("暂时获取不到位置信息");
+                    break;
+                case 3:
+                    alert("获取信息超时");
+                    break;
+                case 4:
+                    alert("未知错误");
+                    break;
+            }
+        }
+        window.onload = getLocation;
+        //GET /seminar/{seminarId}/detail 获取讨论课详情
+        var seminarId = getQuery()["seminarId"];
+            $.ajax({
+                type: 'GET',
+                url: '/seminar/'+seminarId+'/detail',
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function (result) {
+                    $("#name").append(result.name);
+                    $("#email").append(result.email);
+                    $("#data").text(result.startTime);
+                    $("#site").text(result.Data.location);
+                }
+            })
+
+        //PUT /seminar/{seminarId}/class/{classId}/attendance/{studentId} 请求数据：GPS位置
+        $("#arrive").onclick(function(){
+            $.ajax({
+                type: 'PUT',
+                url: '/class/{classId}/attendance/{studentId}',
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                data: JSON.stringify({
+                    longitude:longitude,
+                    latitude:latitude
+                }),
+                success: function (result) {
+                    $("#change").html("");
+                    if (result.Data.status == "late")
+                    {
+
+                        $("#change").append(
+                            '<div class="lateCall">' +
+                            '<img src="../images/闹钟.png" class="courseInfoIcon"/>' +
+                            '<strong>迟到签到成功</strong></div>');
+                    }
+                    else {
+                        $("#change").append(
+                        '<div class="successCall">' +
+                        '<img src="../images/闹钟.png" class="courseInfoIcon"/>' +
+                        '<strong>签到成功</strong></div>');    
+                    }        
+                }
+            })
+        })
+    </script>
 
 </body>
 </html>

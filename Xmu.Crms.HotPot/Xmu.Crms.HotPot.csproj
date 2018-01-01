@@ -33,6 +33,10 @@
 
     <ProjectReference Include="..\Xmu.Crms.Shared\Xmu.Crms.Shared.csproj" />
 
+    <Content Update="launchSettings.json">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+
     <PackageReference Update="Microsoft.NETCore.App" Version="2.0.3" />
   </ItemGroup>
 

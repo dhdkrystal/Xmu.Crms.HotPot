@@ -24,24 +24,25 @@ namespace Xmu.Crms.Services.SmartFive
             {
                 throw new ArgumentException();
             }
-            var u = (from user in _db.UserInfo
-                     where user.Id == userId
-                     select new UserInfo
-                     {
-                         Id = user.Id,
-                         Phone = user.Phone,
-                         Avatar = user.Avatar,
-                         Password = user.Password,
-                         Name = user.Name,
-                         SchoolId = user.SchoolId,
-                         Gender = user.Gender,
-                         Type = user.Type,
-                         Number = user.Number,
-                         Education = user.Education,
-                         Title = user.Title,
-                         Email = user.Email
-                     }).SingleOrDefault();
-            
+            var u = _db.UserInfo.Single(user=>user.Id==userId);
+            //var u = (from user in _db.UserInfo
+            //         where user.Id == userId
+            //         select new UserInfo
+            //         {
+            //             Id = user.Id,
+            //             Phone = user.Phone,
+            //             Avatar = user.Avatar,
+            //             Password = user.Password,
+            //             Name = user.Name,
+            //             SchoolId = user.SchoolId,
+            //             Gender = user.Gender,
+            //             Type = user.Type,
+            //             Number = user.Number,
+            //             Education = user.Education,
+            //             Title = user.Title,
+            //             Email = user.Email
+            //         }).SingleOrDefault();
+
             if (u == null)
             {
                 throw new UserNotFoundException();
@@ -301,7 +302,8 @@ namespace Xmu.Crms.Services.SmartFive
             usr.Title = user.Title ?? Title.Professer;
             if (usr.Type == Shared.Models.Type.Unbinded)
             {
-                usr.Type = user.Type;
+                
+                usr.Type = user.Type??Shared.Models.Type.Student;
                 usr.Number = user.Number;
             }
             else if (user.Type != null && usr.Type != user.Type)

@@ -16,7 +16,7 @@ namespace Xmu.Crms.Services.Group1_7
         private readonly ISeminarService _seminarService;
 
         // 在构造函数里添加依赖的Service（参考模块标准组的类图）
-        public CourseService(CrmsContext db, IUserService userService,IClassService classService, ISeminarService seminarService)
+        public CourseService(CrmsContext db, IUserService userService, IClassService classService, ISeminarService seminarService)
         {
             _db = db;
             _userService = userService;
@@ -71,9 +71,9 @@ namespace Xmu.Crms.Services.Group1_7
             if (courseId <= 0)
                 throw new ArgumentException("格式错误！");
 
-            var course = _db.Course.Include(c=>c.Teacher).SingleOrDefault(c=>c.Id==courseId);
+            var course = _db.Course.Include(c => c.Teacher).SingleOrDefault(c => c.Id == courseId);
 
-            if(course==null)
+            if (course == null)
             {
                 throw new CourseNotFoundException();
             }
@@ -213,11 +213,17 @@ namespace Xmu.Crms.Services.Group1_7
                 IList<CourseSelection> selections = _db.CourseSelection.Where(c => c.Student.Id == userId).ToList();
                 IList<ClassInfo> classes = new List<ClassInfo>();
                 foreach (CourseSelection selection in selections)
+                {
+                    ClassInfo cou = _db.ClassInfo.Find(selection.ClassId);
                     classes.Add(selection.ClassInfo);
+                }
 
                 //通过班级列表找到课程列表
                 foreach (ClassInfo info in classes)
-                    courses.Add(info.Course);
+                {
+                    Course cc = _db.Course.Find(info.CourseId);
+                    courses.Add(cc);
+                }
             }
 
             else
