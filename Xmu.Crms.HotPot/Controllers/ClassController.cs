@@ -13,6 +13,7 @@ using System.Linq;
 
 namespace Xmu.Crms.HotPot.Controllers
 {
+    /*
     [Route("")]
     [Produces("application/json")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -722,4 +723,5 @@ namespace Xmu.Crms.HotPot.Controllers
             }
         }
     }
+    */
 }

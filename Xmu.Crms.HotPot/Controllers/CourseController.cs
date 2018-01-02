@@ -186,17 +186,34 @@ namespace Xmu.Crms.HotPot.Controllers
         {
             try
             {
+                IList<SeminarInfo> seminars = new List<SeminarInfo>();
                 IList<Seminar> il = _seminarservice.ListSeminarByCourseId(courseId);
+                
+            
                 foreach (var i in il)
                 {
+                    ClassInfo cla = _classservice.GetClassByUserIdAndSeminarId(User.Id(),i.Id);
                     Course cou = context.Course.Find(courseId);
                     i.Course.Name = cou.Name;
+                    SeminarInfo seminar = new SeminarInfo(){
+                        Seminar=i,
+                        ClassId=cla.Id
+                    };
+                    seminars.Add(seminar);
                 }
-                return Json(il);
+                return Json(seminars);
             }
             catch (SeminarNotFoundException)
             {
                 return StatusCode(404, new { msg = "该课程所包含的讨论课不存在" });
+            }
+            catch (ClassNotFoundException)
+            {
+                return StatusCode(404, new { msg = "该课程所包含的班级不存在" });
+            }
+            catch (CourseNotFoundException)
+            {
+                return StatusCode(404, new { msg = "该课程不存在" });
             }
         }
 
@@ -214,7 +231,7 @@ namespace Xmu.Crms.HotPot.Controllers
             }
             catch (ArgumentException)
             {
-                return StatusCode(405, new { msg = "瞎几把操作" });
+                return StatusCode(405, new { msg = "参数错误" });
             }
         }
 
@@ -284,6 +301,11 @@ namespace Xmu.Crms.HotPot.Controllers
             public int? grade { get; set; }
             public string name { get; set; }
             public string description { get; set; }
+        }
+        public class SeminarInfo
+        {
+            public Seminar Seminar { get; set; }
+            public long ClassId { get;set ;}
         }
 
     }

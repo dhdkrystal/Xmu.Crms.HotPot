@@ -4,38 +4,30 @@ namespace Xmu.Crms.Web.HotPot.Controllers
 {
     public class SeminarController : Controller
     {
+        [Route("/Seminar/Seminar")]
         public ActionResult Seminar()
         {
             return View();
         }
         // GET: Seminar
-        [Route("/Seminar/StudentRollCall")]
+        [Route("/Seminar/StudentRollCallUI")]
         public ActionResult StudentRollCallUI()
         {
             return View();
         }
+       
         [Route("/Seminar/GradePresentationUI")]
         public ActionResult GradePresentationUI()
         {
             return View();
         }
-        [Route("/Seminar/GradePresentationEndUI")]
-        public ActionResult GradePresentationEndUI()
+
+        [Route("/Seminar/SeminarNoSelection")]
+        public ActionResult SeminarNoSelection()
         {
             return View();
         }
 
-        [Route("/Seminar/SeminarRandomGroupNoSelection")]
-        public ActionResult SeminarRandomGroupNoSelection()
-        {
-            return View();
-        }
-
-        [Route("/Seminar/SeminarFixedGroupNoSelection")]
-        public ActionResult SeminarFixedGroupNoSelection()
-        {
-            return View();
-        }
         [Route("/Seminar/FixedGroupLeaderUI")]
         public ActionResult FixedGroupLeaderUI()
         {
@@ -47,45 +39,45 @@ namespace Xmu.Crms.Web.HotPot.Controllers
         {
             return View();
         }
-        [Route("/Seminar/FixedGroupNoLeaderUI")]
-        public ActionResult FixedGroupNoLeaderUI()
+        [Route("/Seminar/FixedGroupNoLeaderUI2")]
+        public ActionResult FixedGroupNoLeaderUI2()
         {
             return View();
         }
-        [Route("/Seminar/ FixedGroupMemberUI")]
-        public ActionResult FixedGroupMemberUI()
+        [Route("/Seminar/FixedGroupMemberUI2")]
+        public ActionResult FixedGroupMemberUI2()
         {
             return View();
         }
 
-        [Route("/Seminar/ FixedGroupChooseTopicUI2")]
+        [Route("/Seminar/FixedGroupChooseTopicUI2")]
         public ActionResult FixedGroupChooseTopicUI2()
         {
             return View();
         }
 
-        [Route("/Seminar/ RandomGroupLeaderUI")]
+        [Route("/Seminar/RandomGroupLeaderUI")]
         public ActionResult RandomGroupLeaderUI()
         {
             return View();
         }
-        [Route("/Seminar/ RandomGroupLeaderUI2")]
+        [Route("/Seminar/RandomGroupLeaderUI2")]
         public ActionResult RandomGroupLeaderUI2()
         {
             return View();
         }
-        [Route("/Seminar/ RandomGroupNoLeaderUI")]
-        public ActionResult RandomGroupNoLeaderUI()
+        [Route("/Seminar/RandomGroupNoLeaderUI2")]
+        public ActionResult RandomGroupNoLeaderUI2()
         {
             return View();
         }
-        [Route("/Seminar/ RandomGroupMemberUI")]
-        public ActionResult RandomGroupMemberUI()
+        [Route("/Seminar/RandomGroupMemberUI2")]
+        public ActionResult RandomGroupMemberUI2()
         {
             return View();
         }
 
-        [Route("/Seminar/ RandomGroupChooseTopicUI2")]
+        [Route("/Seminar/RandomGroupChooseTopicUI2")]
         public ActionResult RandomGroupChooseTopicUI2()
         {
             return View();

@@ -14,6 +14,7 @@
 <body class="body">
     <div class="topBox">
         <span class="title" id="coursename"></span>
+        <img class="info" src="../images/ninedot.png" />
     </div>
     <div id="list">
         <script src="~/js/query.js"></script>
@@ -42,15 +43,15 @@
                         }
                         var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;//获取当前日期。
                         $.each(result, function (i, value) {
-                            document.getElementById("coursename").innerText = value.course.name;
+                            document.getElementById("coursename").innerText = value.seminar.course.name;
                             var fix = value.isFixed ? '固定分组' : '随机分组';
-                            var color = currentdate.substring(0, 10) <= value.endTime.substring(0, 10) ? '<div class="blueBox"' : '<div class="greyBox"';
+                            var color = currentdate.substring(0, 10) <= value.seminar.endTime.substring(0, 10) ? '<div class="blueBox"' : '<div class="greyBox"';
                             $("#list").append(
-                                color + "onclick='window.location.href= &apos;/Seminar?seminarId="+value.id+"&apos;'"+//此处待/seminar？semianrId=...该页面实现后可以成功跳转。
+                                color + "onclick='window.location.href= &apos;/Seminar/Seminar?seminarId="+value.seminar.id+"&classId="+value.classId+"&apos;'"+//此处待/seminar？semianrId=...该页面实现后可以成功跳转。
                                 '>' +
-                                '<p class="LeftBoxText" >' + value.name + '</p ><!--蓝色选择框-->' +
-                                '<p class="RightBoxText1" style="margin-left: 60%;margin-top: 3%" >' + value.startTime.substring(0, 10) + "~" + '</p>' +
-                                '<p class="RightBoxText1" style="margin-left: 60%;margin-top: 12%" >' + value.endTime.substring(0, 10) + '</p>' +
+                                '<p class="LeftBoxText" >' + value.seminar.name + '</p ><!--蓝色选择框-->' +
+                                '<p class="RightBoxText1" style="margin-left: 60%;margin-top: 3%" >' + value.seminar.startTime.substring(0, 10) + "~" + '</p>' +
+                                '<p class="RightBoxText1" style="margin-left: 60%;margin-top: 12%" >' + value.seminar.endTime.substring(0, 10) + '</p>' +
                                 '<p class="RightBoxText2" style="margin-left: 60%;margin-top: 20%"> ' + fix + '</p></div>')
                         });
                         

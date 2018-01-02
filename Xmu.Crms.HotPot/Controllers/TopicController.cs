@@ -24,15 +24,17 @@ namespace Xmu.Crms.HotPot.Controllers
             _topicService = topicService;
             _seminarService = seminarService;
         }
+
         [HttpGet("/topic/{topicId:long}")]
         public IActionResult GetTopicById([FromRoute] long topicId)
         {
             var topic = _topicService.GetTopicByTopicId(topicId);
             //得到该topic对应的siminar
-            var seminar = _seminarService.GetSeminarBySeminarId(topic.SeminarId);
+            //var seminar = _seminarService.GetSeminarBySeminarId(topic.SeminarId);
             int select = _db.SeminarGroupTopic.Where(c => c.TopicId == topicId).Count();
             //判断当前的讨论课是固定分组
-            return Json(new TopicViewModel() {
+            return Json(new TopicViewModel()
+            {
                 Id = topic.Id,
                 Name = topic.Name,
                 Description = topic.Description,
@@ -50,7 +52,7 @@ namespace Xmu.Crms.HotPot.Controllers
                 _topicService.DeleteTopicByTopicId(topicId);
                 return NoContent();
             }
-            
+
             catch (UnauthorizedAccessException)
             {
                 return StatusCode(403, new { msg = "用户的权限不足" });
@@ -93,7 +95,7 @@ namespace Xmu.Crms.HotPot.Controllers
             try
             {
                 List<SeminarGroupViewModel> ss = new List<SeminarGroupViewModel>();
-                var groups=_seminarGroupService.ListGroupByTopicId(topicId);
+                var groups = _seminarGroupService.ListGroupByTopicId(topicId);
                 foreach (var g in groups)
                 {
                     SeminarGroupViewModel s = new SeminarGroupViewModel();
@@ -103,7 +105,7 @@ namespace Xmu.Crms.HotPot.Controllers
                 }
                 return Json(ss);
             }
-            
+
             catch (SeminarNotFoundException)
             {
                 return StatusCode(404, new { msg = "未找到讨论课" });
@@ -114,15 +116,7 @@ namespace Xmu.Crms.HotPot.Controllers
             }
         }
     }
-    public class TopicViewModel
-    {
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public int GroupNumberLimit { get; set; }
-        public int GroupStudentLimit { get; set; }
-        public int GroupLeft { get; set; }
-    }
+   
     public class SeminarGroupViewModel
     {
         public long Id { get; set; }

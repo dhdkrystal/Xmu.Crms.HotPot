@@ -379,6 +379,10 @@ namespace Xmu.Crms.Services.HotPot
                 if (classInfo.CourseId == course.Id)
                     result = classInfo; 
             }
+            if (result == null)
+            {
+                throw new ClassNotFoundException();
+            }
             return result;
         }
     }

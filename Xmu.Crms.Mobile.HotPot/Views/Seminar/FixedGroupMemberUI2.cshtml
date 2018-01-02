@@ -2,40 +2,44 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>Group</title>
+    <title>Fixed Group</title>
     <link rel="stylesheet" href="~/css/fixgroup.css">
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body class="fullbackground">
-    <script>
-        //GET /seminar/{seminarId}/group/my 按讨论课ID获取学生所在小组详情
-        $(document).ready(function () {
+    <script src="~/js/query.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
+        var seminar = getQuery()["seminarId"];
+        var group = getQuery()["groupId"];
+        $(function () {
             $.ajax({
                 type: 'GET',
-                url: '/api/seminar/28/group/my',
+                url: '/group/' + group,
                 data: '',
                 contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
                 dataType: 'json',
                 success: function (result) {
-                    $("#name").text(result.Data.leader.name);
-                    $("#name").append('<br/>' + result.Data.leader.id);
-                    $("#choosetopic").append(result.Data.topics.name);
-                    $.each(result.Data.members, function (i, value) {
-                        $("#members").append('<div class="block">' +
-                            '<div class="panel-body">' +
-                            '<div class="column1">' +
-                            '<img src="../images/user.png">' +
-                            '</div><div class="column2">' + value.name + '<br/>'
-                            + value.id + '</div>' +
-                            '</div>' +
-                            '</div>');
-                    });
-                }
-            })
-        });
+                    $("#leadername").append(result.leader.name + '<br/>' + result.leader.number);
 
+                    $.each(result.members, function (i, value) {
+                        $("#members").append('<div class="block"><div class="panel-body" >' +
+                            '<div class="column1">' + '<img src="../images/user.png">' + '</div>' +
+                            '<div class="column2">' + value.name +
+                            '<br/>' + value.number + '</div></div></div>');
+                    });
+
+                    if (result.topics != null)
+                        $.each(result.topics, function (i, value) {
+                            $("#topics").append(value.name);
+                        });
+                }
+            });
+        });
     </script>
     <div class="seminarblock">
         <div class="panel-body">
@@ -47,24 +51,25 @@
     <div class="whitetitle">
         <div class="panel-body">
             <div class="column4">队伍信息：</div>
-            
+
         </div>
     </div>
-    <ol id="members">
+    <dic id="members">
         <div class="block">
             <div class="panel-body">
                 <div class="column1"><img src="~/images/user.png"></div>
-                <div class="column2" id="name"></div>
+                <div class="column2" id="leadername"></div>
                 <div class="column3 leaderp">队长</div>
             </div>
         </div>
         <!--每有一个成员复制一个-->
-    </ol>
+    </dic>
 
     <div class="whitetitle">
         <div class="panel-body">
-            <div id="choosetopic">选题：</div>
+            <div id="topics">选题：</div>
         </div>
     </div>
+    
 </body>
 </html>

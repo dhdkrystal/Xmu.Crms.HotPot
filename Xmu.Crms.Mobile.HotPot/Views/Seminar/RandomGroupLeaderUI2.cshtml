@@ -2,95 +2,91 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>RandomGroupLeaderUI2</title>
+    <title>Random Group</title>
     <link rel="stylesheet" href="~/css/fixgroup.css">
-   	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
 <body class="fullbackground">
-    <script>
-        //GET /seminar/{seminarId}/group/my 按讨论课ID获取学生所在小组详情
-        $(document).ready(function () {
+    <script src="~/js/query.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
+        var group = getQuery()["groupId"];
+        var seminar = getQuery()["seminarId"];
+        $(function () {
             $.ajax({
                 type: 'GET',
-                url: '/api/seminar/28/group/my',
+                url: '/group/' + group,
                 data: '',
                 contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
                 dataType: 'json',
                 success: function (result) {
-                    $("#name").text(result.Data.leader.name);
-                    $("#name").append('<br/>' + result.Data.leader.id);
-                    $.each(result.Data.members, function (i, value) {
-                        $("#members").append('<div class="block">' +
-                            '<div class="panel-body">' +
-                            '<div class="column1">' +
-                            '<img src="../images/user.png">' +
-                            '</div><div class="column2">' + value.name + '<br/>'
-                            + value.id + '</div>' +
-                            '</div>' +
-                            '</div>');
+                    $("#leadername").append(result.leader.name + '<br/>' + result.leader.number);
+
+                    $.each(result.members, function (i, value) {
+                        $("#members").append('<div class="block"><div class="panel-body" >' +
+                            '<div class="column1">' + '<img src="../images/user.png">' + '</div>' +
+                            '<div class="column2">' + value.name +
+                            '<br/>' + value.number + '</div></div></div>');
                     });
                 }
             })
         });
-        $(document).on("click", ".btnleader", function () {
+        function jump() {
             $.ajax({
-                type: 'POST',
-                url: '/api/group/23/topic',
+                type: "PUT",
+                url: '/group/' + group + '/resign',
                 data: '',
                 contentType: 'application/json;charset=utf-8',
-                dataType: 'json',
-                success: function (result) {
-                        $(window).attr("location", '/Seminar/RandomGroupChooseTopicUI2');
-                    
+                datatype: 'json',
+                headers: { "Authorization": "Bearer " + token },
+                success: function (data) {
+                    window.location.href = '/Seminar/RandomGroupNoLeaderUI2?groupId=' + group + '&&seminarId=' + seminar;
+                },
+                error: function (mesg) {
+                    alert(mesg);
                 }
-            })
-        });
-        $(document).on("click", ".btnquit", function () {
-            $.ajax({
-                type: 'PUT',
-                url: '/api/group/23/resign',
-                data: '',
-                contentType: 'application/json;charset=utf-8',
-                dataType: 'json',
-                success: function (result) {
-                    $(window).attr("location", '/Seminar/RandomGroupNoLeaderUI');
+            });
+        };
 
-                }
-            })
-        });
+        function choose() {
+            window.location.href = '/Seminar/RandomGroupChooseTopicUI2?groupId=' + group + '&&seminarId=' + seminar;
+        };
+
     </script>
-    <div class="seminarblock">  
-    	<div class="panel-body">	
-			<div class="column0"><img src="~/images/users.png"></div>
-    		<div class="column2">讨论课<br/>随机分组</div>
-         </div>
-    </div>
-    
-    <div class="whitetitle">  
-    	<div class="panel-body">	
-			<div class="column4">队伍信息：</div>
-    		<div class="column3"><button class="btnquit">辞职</button></div>
+    <div class="seminarblock">
+        <div class="panel-body">
+            <div class="column0"><img src="~/images/users.png"></div>
+            <div class="column2">讨论课<br />随机分组</div>
         </div>
     </div>
 
-    
-    <ol id="members">
+    <div class="whitetitle">
+        <div class="panel-body">
+            <div class="column4">队伍信息：</div>
+            <div class="column3"><button class="btnquit" onclick="jump()">辞职</button></div>
+        </div>
+    </div>
+
+
+    <div id="members">
         <div class="block">
             <div class="panel-body">
                 <div class="column1"><img src="~/images/user.png"></div>
-                <div class="column2" id="name"></div>
+                <div class="column2" id="leadername"></div>
                 <div class="column3 leaderp">队长</div>
             </div>
         </div>
         <!--每有一个成员复制一个-->
-    </ol>
+    </div>
 
     <div class="middlediv">
-    <button type="button" class="btnleader">选题</button>
+        <button type="button" class="btnleader" onclick="choose()">选题</button>
     </div>
-    
+
 </body>
 </html>

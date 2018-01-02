@@ -5,66 +5,179 @@
     <meta name="divport" content="width=device-width,
                                      initial-scale=1.0,
                                      maximum-scale=1.0">
-    <title>Choose Topic</title>
+    <title>Fixed Group</title>
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="~/css/fixGroupChooseTopicUI2.css">
 </head>
-
 <body>
-    <script>
-        //GET:/seminar/{seminarId}/topic 按ID获取讨论课的话题
-        $(document).ready(function () {
+    <script src="~/js/query.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
+        var seminar = getQuery()["seminarId"];
+        var group = getQuery()["groupId"];
+        var desc = new Array();
+        var tpcid = new Array();
+        $(function () {
             $.ajax({
                 type: 'GET',
-                url: '/api/seminar/32/topic',
+                url: '/seminar/' + seminar + '/topic',
                 data: '',
                 contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
                 dataType: 'json',
                 success: function (result) {
-                    $("#topicNmu").text("话题" + result.Data.serial);
-                    $("#topicName").text(result.Data.name);
-                    $("#groupLeft").text(result.Data.groupLeft);
-                    $("#groupLimit").text(result.Data.groupLimit);
+                    var divcolor = '', fontcolor = '';
+                    $.each(result, function (i, value) {
+                        if (value.groupLeft > 0)
+                            divcolor = '<div class="blueTopicDiv">';
+                        else divcolor = '<div class="greyTopicDiv">';
+
+                        if (value.groupLeft == 1)
+                            fontcolor = '<span class="leftNumRed">';
+                        else fontcolor = '<span class="leftNumrWhite">';
+
+                        desc[i] = value.description;
+                        tpcid[i] = value.id;
+
+                        $("#topics").append(divcolor +
+                            '<span class="topic" id="topicNum" onclick="choose' + i + '()">' + '选题' + value.id + '</span>' +
+                            '<span class="topicName" id="topicName">' + value.name + '</span>' +
+                            fontcolor + '剩余：' + '</span>' +
+                            fontcolor + value.groupLeft + '</span>' +
+                            fontcolor + '/' + '</span>' +
+                            fontcolor + value.groupNumberLimit + '</span>' +
+                            '<img src="../images/九点.png" id="info" class="nineIcon" onclick="open' + i + '()">' +
+                            '</div>' +
+                            '<div class="topicDescribeDiv" id="des' + i + '"></div >'
+                        );
+                    });
 
                 }
             })
         });
-
-        $(document).on("click", ".nineIcon", function () {
+        function open0() {
             $.ajax({
                 type: 'GET',
-                url: '/api/seminar/32/topic',
+                url: '/seminar/' + seminar + '/topic',
                 data: '',
                 contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
                 dataType: 'json',
                 success: function (result) {
-                    if ($("#des").children('span').length > 0)
-                        $("#description").remove();
+                    if ($("#des0").children('span').length > 0)
+                        $("#description0").remove();
                     else
-                        $("#des").append('<span class="topicDescribeTitle" id="description">'+result.Data.description+'</span>');
-
+                        $("#des0").append('<span class="topicDescribeTitle" id="description0">' + desc[0] + '</span>');
                 }
             })
-        });
-
-        $(document).on("click", ".leftNumWhite", function () {
+        };
+        function open1() {
+            $.ajax({
+                type: 'GET',
+                url: '/seminar/' + seminar + '/topic',
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
+                dataType: 'json',
+                success: function (result) {
+                    if ($("#des1").children('span').length > 0)
+                        $("#description1").remove();
+                    else
+                        $("#des1").append('<span class="topicDescribeTitle" id="description1">' + desc[1] + '</span>');
+                }
+            })
+        };
+        function open2() {
+            $.ajax({
+                type: 'GET',
+                url: '/seminar/' + seminar + '/topic',
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
+                dataType: 'json',
+                success: function (result) {
+                    if ($("#des2").children('span').length > 0)
+                        $("#description2").remove();
+                    else
+                        $("#des2").append('<span class="topicDescribeTitle" id="description2">' + desc[2] + '</span>');
+                }
+            })
+        };
+        function open3() {
+            $.ajax({
+                type: 'GET',
+                url: '/seminar/' + seminar + '/topic',
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
+                dataType: 'json',
+                success: function (result) {
+                    if ($("#des3").children('span').length > 0)
+                        $("#description3").remove();
+                    else
+                        $("#des3").append('<span class="topicDescribeTitle" id="description3">' + desc[3] + '</span>');
+                }
+            })
+        };
+        function choose0() {
             $.ajax({
                 type: 'POST',
-                url: '/api/group/28/topic',
-                data: '',
+                url: '/group/' + group + '/topic',
+                data: { "": tpcid[0] },
                 contentType: 'application/json;charset=utf-8',
-                dataType: 'json',
-                success: function () {
-                    $(window).attr("location", '/Seminar/RandomGroupLeaderUI');
+                headers: { "Authorization": "Bearer " + token },
+                dataType: 'text',
+                success: function (result) {
+                    window.location.href = '/Seminar/RandomGroupLeaderUI?groupId=' + group + '&&seminarId=' + seminar;
                 }
             })
-        });
+        };
+        function choose1() {
+            $.ajax({
+                type: 'POST',
+                url: '/group/' + group + '/topic',
+                data: { "": tpcid[1] },
+                contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
+                dataType: 'json',
+                success: function (result) {
+                    window.location.href = '/Seminar/RandomGroupLeaderUI?groupId=' + group + '&&seminarId=' + seminar;
+                }
+            })
+        };
+        function choose2() {
+            $.ajax({
+                type: 'POST',
+                url: '/group/' + group + '/topic',
+                data: { "": tpcid[2] },
+                contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
+                dataType: 'json',
+                success: function (result) {
+                    window.location.href = '/Seminar/RandomGroupLeaderUI?groupId=' + group + '&&seminarId=' + seminar;
+                }
+            })
+        };
+        function choose3() {
+            $.ajax({
+                type: 'POST',
+                url: '/group/' + group + '/topic',
+                data: { "": tpcid[3] },
+                contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
+                dataType: 'json',
+                success: function (result) {
+                    window.location.href = '/Seminar/RandomGroupLeaderUI?groupId=' + group + '&&seminarId=' + seminar;
+                }
+            })
+        };
     </script>
     <!--设置左上角的usersIcon-->
     <div class="blueUsersDiv">
-        <img src="~/images/users.png" class='blueUsersIcon' />
+        <img src="../images/users.png" class='blueUsersIcon' />
         <strong>请为您的队伍选题</strong>
     </div>
 
@@ -72,20 +185,10 @@
     <div class="hrDiv">
     </div>
 
-    <!--当选题未选完时框是蓝色的，要增加新框就直接复制-->
-    <div class="blueTopicDiv">
-        <span class="topic" id="topicNmu"></span>
-        <span class="topicName" id="topicName"></span>
-        <!--剩余选题数量大于等于2时-->
-        <span class="leftNumWhite">剩余：</span>
-        <span class="leftNumWhite" id="groupLeft"></span>
-        <span class="leftNumWhite">/</span>
-        <span class="leftNumWhite" id="groupLimit"></span>
-        <img src='~/images/九点.png' class="nineIcon">
+    <div id="topics">
+        <!--当选题未选完时框是蓝色的，要增加新框就直接复制-->
+
     </div>
 
-    <!--当点击九点时出现topic的简介-->
-    <div class="topicDescribeDiv" id="des">
-    </div>
 </body>
 </html>

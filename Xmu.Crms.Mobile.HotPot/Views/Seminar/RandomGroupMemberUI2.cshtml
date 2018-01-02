@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 </head>
 <body class="fullbackground">
     <script src="~/js/query.js"></script>
@@ -39,24 +38,8 @@
                             $("#topics").append(value.name);
                         });
                 }
-            })
-        });
-        function jump() {
-            $.ajax({
-                type: "PUT",
-                url: '/group/' + group + '/resign',
-                data: '',
-                contentType: 'application/json;charset=utf-8',
-                datatype: 'json',
-                headers: { "Authorization": "Bearer " + token },
-                success: function (data) {
-                    window.location.href = '/Seminar/RandomGroupNoLeaderUI2?groupId=' + group + '&&seminarId=' + seminar;
-                },
-                error: function (mesg) {
-                    alert(mesg);
-                }
             });
-        };
+        });
     </script>
     <div class="seminarblock">
         <div class="panel-body">
@@ -68,11 +51,10 @@
     <div class="whitetitle">
         <div class="panel-body">
             <div class="column4">队伍信息：</div>
-            <div class="column3"><button class="btnquit" id="resign" onclick="jump()">辞职</button></div>
+
         </div>
     </div>
-
-    <div id="members">
+    <dic id="members">
         <div class="block">
             <div class="panel-body">
                 <div class="column1"><img src="~/images/user.png"></div>
@@ -81,13 +63,13 @@
             </div>
         </div>
         <!--每有一个成员复制一个-->
-    </div>
-
+    </dic>
 
     <div class="whitetitle">
         <div class="panel-body">
             <div id="topics">选题：</div>
         </div>
     </div>
+
 </body>
 </html>

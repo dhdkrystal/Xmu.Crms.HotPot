@@ -134,6 +134,44 @@ namespace Xmu.Crms.Services.SmartFive
             return attendance.AttendanceStatus??0;
         }
 
+        /// <summary>
+        /// 改变签到状态
+        /// </summary>
+        /// <param name="seminarId"></param>
+        /// <param name="classId"></param>
+        /// <returns></returns>
+        public AttendanceStatus? UpdateAttendanceById(long classId, long seminarId, long userId, decimal longitude, decimal latitude)//测试成功时间
+        {
+            if (classId <= 0 || seminarId <= 0 || userId <= 0)
+            {
+                throw new ArgumentException();
+            }
+            if (_db.Seminar.Find(seminarId) == null)
+                throw new SeminarNotFoundException();
+            if (_db.ClassInfo.Find(classId) == null)
+                throw new ClassNotFoundException();
+            var attendance = _db.Attendances.Include(a => a.ClassInfo)
+                .Include(a => a.Seminar).SingleOrDefault(a => (a.SeminarId == seminarId && a.ClassId == classId && a.StudentId == userId));
+            var location = _db.Location
+                .Include(l => l.Seminar)
+                .Include(l => l.ClassInfo)
+                .SingleOrDefault(s => (s.Seminar.Id == seminarId && s.ClassInfo.Id == classId));
+            double distance = GetDistance((double)latitude, (double)longitude, (double)location.Latitude, (double)location.Longitude);
+            if (distance < 20)
+                if (location.Status == 1)
+                {
+                    attendance.AttendanceStatus = AttendanceStatus.Present;
+                }
+                else
+                {
+                    attendance.AttendanceStatus = AttendanceStatus.Late;
+                }
+            //else
+                //attendance.AttendanceStatus = AttendanceStatus.Absent;
+            _db.SaveChanges();
+            return attendance.AttendanceStatus;
+        }
+
         public IList<UserInfo> ListAbsenceStudent(long seminarId, long classId) //测试成功
         {
             if (classId <= 0 || seminarId <= 0)
@@ -337,7 +375,7 @@ namespace Xmu.Crms.Services.SmartFive
             usr.Name = user.Name;
             usr.Avatar = user.Avatar;
             usr.Number = user.Number;
-            usr.Education = user.Education ?? Education.Bachelor;
+            //usr.Education = user.Education ?? Education.Bachelor;
             usr.Email = user.Email;
             usr.Gender = user.Gender;
             usr.SchoolId = user.SchoolId;
@@ -349,7 +387,7 @@ namespace Xmu.Crms.Services.SmartFive
             {
                 usr.School = _db.School.Find(user.SchoolId);
             }
-            usr.Title = user.Title ?? Title.Professer;
+            //usr.Title = user.Title ?? Title.Professer;
             if (usr.Type == Shared.Models.Type.Unbinded)
             {
                 

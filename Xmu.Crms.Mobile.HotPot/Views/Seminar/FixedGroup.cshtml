@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Fixed Group</title>
+    <link rel="stylesheet" href="~/css/GroupList.css">
+   	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body class="fullbackground" >
+
+    <div class="columndisplay">
+        <div class="panel-body" id="panel">
+            <div class="UsersIcon"><img src="~/images/users.png"></div>
+            <div class="seminarblackword">讨论课<br />固定分组</div>
+        </div>
+    </div>
+
+    <div class="whiteword">
+        <div class="panel-body">
+            <div class="column4">队伍信息：</div>
+        </div>
+    </div>
+    <div id="main"></div>
+    <script src="~/js/query.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
+        var seminar = getQuery()["seminarId"];
+        var group = getQuery()["groupId"];
+        $(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/group/' + group,
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
+                dataType: 'json',
+                success: function (result) {
+                    $("#main").html("");
+                    if (result.hasLeader == false) {
+                        $.each(result.members, function (i, value) {
+                            $("#main").append('<div class="block"><div class="panel-body" >' +
+                                '<div class="column1">' + '<img src="../images/user.png">' + '</div>' +
+                                '<div class="column2">' + value.name +
+                                '<br/>' + value.number + '</div></div></div>');
+                        });
+                        $("#main").append('<div class="whiteword><div class="panel-body"> <div id="topics">选题：</div></div></div>' +
+                            '<div class="middlediv"><button type="button" class="btnleader" id="leader" onclick="jump()"> 成为队长</button ></div > ' +
+                            '<p class="middlegreyword">您的队伍还没有队长，您可以选择成为队长。</div>');
+                    } else {
+                        if (result.role == 'Member') {
+                            $("#main").append('<div class="block"><div class="panel-body" >' +
+                                '<div class="column1">' + '<img src="../images/user.png">' + '</div>' +
+                                '<div class="column2">' + result.leader.name +
+                                '<br/>' + result.leader.number + '<div class="column3 rightblueword">队长</div></div></div></div>');
+
+                            $.each(result.members, function (i, value) {
+                                $("#main").append('<div class="block"><div class="panel-body" >' +
+                                    '<div class="column1">' + '<img src="../images/user.png">' + '</div>' +
+                                    '<div class="column2">' + value.name +
+                                    '<br/>' + value.number + '</div></div></div>');
+                            });
+                            $("#main").append('<div class="whitetitle"><div class="panel-body"> <div id="topics">选题：</div></div></div>');
+                        } else if (result.role == 'Leader') {
+                            $("#panel").append('<div class="column3"><button class="btnquit" onclick="jump()">辞职</button></div>');
+                            $("#main").append('<div class="block"><div class="panel-body" >' +
+                                '<div class="column1">' + '<img src="../images/user.png">' + '</div>' +
+                                '<div class="column2">' + result.leader.name +
+                                '<br/>' + result.leader.number + '<div class="column3 leaderp">队长</div></div></div></div>');
+
+                            $.each(result.members, function (i, value) {
+                                $("#main").append('<div class="block"><div class="panel-body" >' +
+                                    '<div class="column1">' + '<img src="../images/user.png">' + '</div>' +
+                                    '<div class="column2">' + value.name +
+                                    '<br/>' + value.number + '</div></div></div>');
+                            });
+                            $("#main").append('<div class="middlediv">< button type= "button" class="btnleader" onclick= "choose()" > 选题</button ></div >');
+                        }
+
+                    }
+
+                    //if (result.topics != null)
+                        //$.each(result.topics, function (i, value) {
+                         //   $("#topics").append(value.name);
+                        //});
+                }
+            })
+        });
+        
+        function jump() {
+            $.ajax({
+                type: "PUT",
+                url: '/group/' + group + '/assign',
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                datatype: 'json',
+                headers: { "Authorization": "Bearer " + token },
+                success: function (data) {
+                    window.location.href = '/Seminar/FixedGroupLeaderUI2?groupId=' + group + '&&seminarId=' + seminar;
+                },
+                error: function (mesg) {
+                    alert(mesg);
+                }
+            });
+        };
+    </script>
+
+
+</body>
+</html >

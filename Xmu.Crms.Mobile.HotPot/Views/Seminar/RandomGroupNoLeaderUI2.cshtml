@@ -9,7 +9,21 @@
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
-<body class="fullbackground">
+<body class="fullbackground" id="main">
+
+    <div class="seminarblock">
+        <div class="panel-body">
+            <div class="column0"><img src="~/images/users.png"></div>
+            <div class="column2">讨论课<br />随机分组</div>
+        </div>
+    </div>
+
+    <div class="whitetitle">
+        <div class="panel-body">
+            <div class="column4">队伍信息：</div>
+        </div>
+    </div>
+
     <script src="~/js/query.js"></script>
     <script src="~/js/jquery.min.js"></script>
     <script type="text/javascript">
@@ -25,15 +39,15 @@
                 headers: { "Authorization": "Bearer " + token },
                 dataType: 'json',
                 success: function (result) {
-                    $("#leadername").append(result.leader.name + '<br/>' + result.leader.number);
-
                     $.each(result.members, function (i, value) {
-                        $("#members").append('<div class="block"><div class="panel-body" >' +
+                        $("#main").append('<div class="block"><div class="panel-body" >' +
                             '<div class="column1">' + '<img src="../images/user.png">' + '</div>' +
                             '<div class="column2">' + value.name +
                             '<br/>' + value.number + '</div></div></div>');
                     });
-
+                    $("#main").append('<div class="whitetitle"><div class="panel-body"> <div id="topics">选题：</div></div></div>' +
+                        '<div class="middlediv"><button type="button" class="btnleader" id="leader" onclick="jump()"> 成为队长</button ></div > ' +
+                        '<div class="middlediv"><p class="downp">您的队伍还没有队长，您可以选择成为队长。</p></div>');
                     if (result.topics != null)
                         $.each(result.topics, function (i, value) {
                             $("#topics").append(value.name);
@@ -41,16 +55,17 @@
                 }
             })
         });
+
         function jump() {
             $.ajax({
                 type: "PUT",
-                url: '/group/' + group + '/resign',
+                url: '/group/' + group + '/assign',
                 data: '',
                 contentType: 'application/json;charset=utf-8',
                 datatype: 'json',
                 headers: { "Authorization": "Bearer " + token },
                 success: function (data) {
-                    window.location.href = '/Seminar/RandomGroupNoLeaderUI2?groupId=' + group + '&&seminarId=' + seminar;
+                    window.location.href = '/Seminar/RandomGroupLeaderUI2?groupId=' + group + '&&seminarId=' + seminar;
                 },
                 error: function (mesg) {
                     alert(mesg);
@@ -58,36 +73,7 @@
             });
         };
     </script>
-    <div class="seminarblock">
-        <div class="panel-body">
-            <div class="column0"><img src="~/images/users.png"></div>
-            <div class="column2">讨论课<br />随机分组</div>
-        </div>
-    </div>
-
-    <div class="whitetitle">
-        <div class="panel-body">
-            <div class="column4">队伍信息：</div>
-            <div class="column3"><button class="btnquit" id="resign" onclick="jump()">辞职</button></div>
-        </div>
-    </div>
-
-    <div id="members">
-        <div class="block">
-            <div class="panel-body">
-                <div class="column1"><img src="~/images/user.png"></div>
-                <div class="column2" id="leadername"></div>
-                <div class="column3 leaderp">队长</div>
-            </div>
-        </div>
-        <!--每有一个成员复制一个-->
-    </div>
 
 
-    <div class="whitetitle">
-        <div class="panel-body">
-            <div id="topics">选题：</div>
-        </div>
-    </div>
 </body>
 </html>

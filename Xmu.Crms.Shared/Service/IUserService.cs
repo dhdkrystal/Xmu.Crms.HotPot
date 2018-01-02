@@ -10,6 +10,16 @@ namespace Xmu.Crms.Shared.Service
     public interface IUserService
     {
         /// <summary>
+        /// 更改学生签到状态
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <param name="seminarId"></param>
+        /// <param name="userId"></param>
+        /// <param name="longitude"></param>
+        /// <param name="latitude"></param>
+        /// <returns></returns>
+        AttendanceStatus? UpdateAttendanceById(long classId, long seminarId, long userId, decimal longitude, decimal latitude);
+        /// <summary>
         /// 获取学生签到状态
         /// </summary>
         /// <param name="classId"></param>

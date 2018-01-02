@@ -14,176 +14,101 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>打分</title>
 </head>
-
+ 
 <body class="fullbackground">
-    <script>
-        function changeimage00()
-        {
-            element0 = document.getElementById('0empty0');
-            element1 = document.getElementById('0empty1');
-            element2 = document.getElementById('0empty2');
-            element3 = document.getElementById('0empty3');
-            element4 = document.getElementById('0empty4');
-
-            element0.src = "../images/heart_chosen.png";
-            element1.src = "../images/heart_empty.png";
-            element2.src = "../images/heart_empty.png";
-            element3.src = "../images/heart_empty.png";
-            element4.src = "../images/heart_empty.png";
-        }
-        function changeimage01() {
-            element0 = document.getElementById('0empty0');
-            element1 = document.getElementById('0empty1');
-            element2 = document.getElementById('0empty2');
-            element3 = document.getElementById('0empty3');
-            element4 = document.getElementById('0empty4');
-
-            element0.src = "../images/heart_chosen.png";
-            element1.src = "../images/heart_chosen.png";
-            element2.src = "../images/heart_empty.png";
-            element3.src = "../images/heart_empty.png";
-            element4.src = "../images/heart_empty.png";
-        }
-        function changeimage02() {
-            element0 = document.getElementById('0empty0');
-            element1 = document.getElementById('0empty1');
-            element2 = document.getElementById('0empty2');
-            element3 = document.getElementById('0empty3');
-            element4 = document.getElementById('0empty4');
-
-            element0.src = "../images/heart_chosen.png";
-            element1.src = "../images/heart_chosen.png";
-            element2.src = "../images/heart_chosen.png";
-            element3.src = "../images/heart_empty.png";
-            element4.src = "../images/heart_empty.png";
-        }
-        function changeimage03() {
-            element0 = document.getElementById('0empty0');
-            element1 = document.getElementById('0empty1');
-            element2 = document.getElementById('0empty2');
-            element3 = document.getElementById('0empty3');
-            element4 = document.getElementById('0empty4');
-
-            element0.src = "../images/heart_chosen.png";
-            element1.src = "../images/heart_chosen.png";
-            element2.src = "../images/heart_chosen.png";
-            element3.src = "../images/heart_chosen.png";
-            element4.src = "../images/heart_empty.png";
-        }
-        function changeimage04() {
-            element0 = document.getElementById('0empty0');
-            element1 = document.getElementById('0empty1');
-            element2 = document.getElementById('0empty2');
-            element3 = document.getElementById('0empty3');
-            element4 = document.getElementById('0empty4');
-
-            element0.src = "../images/heart_chosen.png";
-            element1.src = "../images/heart_chosen.png";
-            element2.src = "../images/heart_chosen.png";
-            element3.src = "../images/heart_chosen.png";
-            element4.src = "../images/heart_chosen.png";
-        }
-        function changeimage10() {
-            element0 = document.getElementById('1empty0');
-            element1 = document.getElementById('1empty1');
-            element2 = document.getElementById('1empty2');
-            element3 = document.getElementById('1empty3');
-            element4 = document.getElementById('1empty4');
-
-            element0.src = "../images/heart_chosen.png";
-            element1.src = "../images/heart_empty.png";
-            element2.src = "../images/heart_empty.png";
-            element3.src = "../images/heart_empty.png";
-            element4.src = "../images/heart_empty.png";
-        }
-        function changeimage11() {
-            element0 = document.getElementById('1empty0');
-            element1 = document.getElementById('1empty1');
-            element2 = document.getElementById('1empty2');
-            element3 = document.getElementById('1empty3');
-            element4 = document.getElementById('1empty4');
-
-            element0.src = "../images/heart_chosen.png";
-            element1.src = "../images/heart_chosen.png";
-            element2.src = "../images/heart_empty.png";
-            element3.src = "../images/heart_empty.png";
-            element4.src = "../images/heart_empty.png";
-        }
-        function changeimage12() {
-            element0 = document.getElementById('1empty0');
-            element1 = document.getElementById('1empty1');
-            element2 = document.getElementById('1empty2');
-            element3 = document.getElementById('1empty3');
-            element4 = document.getElementById('1empty4');
-
-            element0.src = "../images/heart_chosen.png";
-            element1.src = "../images/heart_chosen.png";
-            element2.src = "../images/heart_chosen.png";
-            element3.src = "../images/heart_empty.png";
-            element4.src = "../images/heart_empty.png";
-        }
-        function changeimage13() {
-            element0 = document.getElementById('1empty0');
-            element1 = document.getElementById('1empty1');
-            element2 = document.getElementById('1empty2');
-            element3 = document.getElementById('1empty3');
-            element4 = document.getElementById('1empty4');
-
-            element0.src = "../images/heart_chosen.png";
-            element1.src = "../images/heart_chosen.png";
-            element2.src = "../images/heart_chosen.png";
-            element3.src = "../images/heart_chosen.png";
-            element4.src = "../images/heart_empty.png";
-        }
-        function changeimage14() {
-            element0 = document.getElementById('1empty0');
-            element1 = document.getElementById('1empty1');
-            element2 = document.getElementById('1empty2');
-            element3 = document.getElementById('1empty3');
-            element4 = document.getElementById('1empty4');
-
-            element0.src = "../images/heart_chosen.png";
-            element1.src = "../images/heart_chosen.png";
-            element2.src = "../images/heart_chosen.png";
-            element3.src = "../images/heart_chosen.png";
-            element4.src = "../images/heart_chosen.png";
-        }
-        //GET /seminar/{seminarId}/group/my 按讨论课ID获取学生所在小组详情
-        $(document).ready(function () {
+    <script src="~/js/query.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
+        var seminar = getQuery()["seminarId"];
+        var gtg = new Array();
+        var grp = new Array();
+        var grd = new Array();
+        $(function () {
             $.ajax({
                 type: 'GET',
-                url: '/api/seminar/28/group',
+                url: '/seminar/' + seminar + '/group/grade',
                 data: '',
                 contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
                 dataType: 'json',
                 success: function (result) {
-                    $.each(result.Data, function (i, value) {
-                        $("#groups").append('<div>' + '<label>' + value.name + '</label>' +
-                            '<img src="../images/heart_empty.png" onclick="changeimage' + i + '0()" id="' + i + 'empty0"/>' +
-                            '<img src="../images/heart_empty.png" onclick="changeimage' + i + '1()" id="' + i + 'empty1"/>' +
-                            '<img src="../images/heart_empty.png" onclick="changeimage' + i + '2()" id="' + i + 'empty2"/>' +
-                            '<img src="../images/heart_empty.png" onclick="changeimage' + i + '3()" id="' + i + 'empty3"/>' +
-                            '<img src="../images/heart_empty.png" onclick="changeimage' + i + '4()" id="' + i + 'empty4"/>' +
-                            '</div>');
+                    $.each(result, function (i, value) {
+                        gtg[i] = value.topicId;
+                        grp[i] = value.seminarGroupId
+                        $("#groups").append('<div/>' + value.seminarGroup.classId + value.topic.serial + value.seminarGroupId+
+                            '<img src="../images/heart_empty.png" onclick="changeimage(' + i + ',0)" id="' + i + 'empty0"/>' +
+                            '<img src="../images/heart_empty.png" onclick="changeimage(' + i + ',1)" id="' + i + 'empty1"/>' +
+                            '<img src="../images/heart_empty.png" onclick="changeimage(' + i + ',2)" id="' + i + 'empty2"/>' +
+                            '<img src="../images/heart_empty.png" onclick="changeimage(' + i + ',3)" id="' + i + 'empty3"/>' +
+                            '<img src="../images/heart_empty.png" onclick="changeimage(' + i + ',4)" id="' + i + 'empty4"/>');
                     });
-                    
-                }
-            })
-        });
-        $(document).on("click", ".btnsubmit", function () {
-            $.ajax({
-                type: 'PUT',
-                url: '/api/group/23/grade/presentation/8888',
-                data: '',
-                contentType: 'application/json;charset=utf-8',
-                dataType: 'json',
-                success: function () {
-                    $("#info").text("您的打分结果为");
-                    $("#submit").remove();
                 }
             })
         });
 
+        function changeimage(gtgid, grade) {
+            grd[gtgid] = grade + 1;
+            element0 = document.getElementById(gtgid + 'empty0');
+            element1 = document.getElementById(gtgid + 'empty1');
+            element2 = document.getElementById(gtgid + 'empty2');
+            element3 = document.getElementById(gtgid + 'empty3');
+            element4 = document.getElementById(gtgid + 'empty4');
+
+            if (grade == 0) {
+                element0.src = "../images/heart_chosen.png";
+                element1.src = "../images/heart_empty.png";
+                element2.src = "../images/heart_empty.png";
+                element3.src = "../images/heart_empty.png";
+                element4.src = "../images/heart_empty.png";
+            }
+            if (grade == 1) {
+                element0.src = "../images/heart_chosen.png";
+                element1.src = "../images/heart_chosen.png";
+                element2.src = "../images/heart_empty.png";
+                element3.src = "../images/heart_empty.png";
+                element4.src = "../images/heart_empty.png";
+            }
+            if (grade == 2) {
+                element0.src = "../images/heart_chosen.png";
+                element1.src = "../images/heart_chosen.png";
+                element2.src = "../images/heart_chosen.png";
+                element3.src = "../images/heart_empty.png";
+                element4.src = "../images/heart_empty.png";
+            }
+            if (grade == 3) {
+                element0.src = "../images/heart_chosen.png";
+                element1.src = "../images/heart_chosen.png";
+                element2.src = "../images/heart_chosen.png";
+                element3.src = "../images/heart_chosen.png";
+                element4.src = "../images/heart_empty.png";
+            }
+            if (grade == 4) {
+                element0.src = "../images/heart_chosen.png";
+                element1.src = "../images/heart_chosen.png";
+                element2.src = "../images/heart_chosen.png";
+                element3.src = "../images/heart_chosen.png";
+                element4.src = "../images/heart_chosen.png";
+            }
+        };
+
+        function submit() {
+            for (var i = 0; i < gtg.length; i++) {
+                $.ajax({
+                    type: 'PUT',
+                    url: '/group/grade/presentation',
+                    data: JSON.stringify({ TopicId: gtg[i], GroupId:grp[i], Grade:grd[i] }),
+                    contentType: 'application/json;charset=utf-8',
+                    headers: { "Authorization": "Bearer " + token },
+                    dataType: 'json',
+                    success: function (result) {
+                        $("#info").text("您的打分结果为");
+                        $("#submit").remove();
+                    }
+                });
+            }
+            
+        }
     </script>
     <div class="columndisplay">
         <img class="UsersIcon" src="../images/users.png" />
@@ -195,13 +120,13 @@
 
     <div class="middlediv scoremargin" id="groups">
         <!--每有一组复制一个div-->
-        
+
     </div>
 
     <div class="middlediv scoremargin">
-        <button class="btnsubmit" id="submit">提交</button>
+        <button class="btnsubmit" id="submit" onclick="submit()">提交</button>
     </div>
 
-    
+
 </body>
 </html>

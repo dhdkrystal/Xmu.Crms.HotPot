@@ -9,61 +9,71 @@
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
-<body class="fullbackground">
-    
-    <div class="seminarblock">  
-    	<div class="panel-body">	
-			<div class="column0"><img src="~/images/users.png"></div>
-    		<div class="column2">讨论课<br/>固定分组</div>
-         </div>
-    </div>
-    
-    <div class="whitetitle">  
-    	<div class="panel-body">	
-			<div class="column4">队伍信息：</div>
+<body class="fullbackground" id="main">
+
+    <div class="seminarblock">
+        <div class="panel-body">
+            <div class="column0"><img src="~/images/users.png"></div>
+            <div class="column2">讨论课<br />固定分组</div>
         </div>
     </div>
 
-    <div class="block">
-    	<div class="panel-body">
-			<div class="column1"><img src="~/images/user.png"></div>
-    		<div class="column2" id="name"></div>
+    <div class="whitetitle">
+        <div class="panel-body">
+            <div class="column4">队伍信息：</div>
         </div>
-    </div>
-    <div class="block">
-        <div class="panel-body">
-            <div class="column1"><img src="~/images/user.png"></div>
-            <div class="column2">name<br/>number</div>
-        </div>  
-    </div>
-    <div class="block">
-        <div class="panel-body">
-            <div class="column1"><img src="~/images/user.png"></div>
-            <div class="column2">name<br/>number</div>
-        </div>  
-    </div>
-    <div class="block">
-        <div class="panel-body">
-            <div class="column1"><img src="~/images/user.png"></div>
-            <div class="column2">name<br/>number</div>
-        </div>  
-    </div>
-    <div class="block">
-    	<div class="panel-body">
-			<div class="column1"><img src="~/images/user.png"></div>
-    		<div class="column2">name<br/>number</div>
-        </div>  
     </div>
 
-    <div class="whitetitle">  
-    	<div class="panel-body">
-    		<div>选题：</div>
-        </div>
-    </div>
-    <div class="middlediv">
-    <button type="button" class="btnleader">成为队长</button>
-    </div>
-    <div class="middlediv"><p class="downp">您的队伍还没有队长，您可以选择成为队长。</p></div>
+    <script src="~/js/query.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
+        var seminar = getQuery()["seminarId"];
+        var group = getQuery()["groupId"];
+        $(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/group/' + group,
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                headers: { "Authorization": "Bearer " + token },
+                dataType: 'json',
+                success: function (result) {
+                    $.each(result.members, function (i, value) {
+                        $("#main").append('<div class="block"><div class="panel-body" >' +
+                            '<div class="column1">' + '<img src="../images/user.png">' + '</div>' +
+                            '<div class="column2">' + value.name +
+                            '<br/>' + value.number + '</div></div></div>');
+                    });
+                    $("#main").append('<div class="whitetitle"><div class="panel-body"> <div id="topics">选题：</div></div></div>' +
+                        '<div class="middlediv"><button type="button" class="btnleader" id="leader" onclick="jump()"> 成为队长</button ></div > ' +
+                        '<div class="middlediv"><p class="downp">您的队伍还没有队长，您可以选择成为队长。</p></div>');
+                    if (result.topics != null)
+                        $.each(result.topics, function (i, value) {
+                            $("#topics").append(value.name);
+                        });
+                }
+            })
+        });
+        
+        function jump() {
+            $.ajax({
+                type: "PUT",
+                url: '/group/' + group + '/assign',
+                data: '',
+                contentType: 'application/json;charset=utf-8',
+                datatype: 'json',
+                headers: { "Authorization": "Bearer " + token },
+                success: function (data) {
+                    window.location.href = '/Seminar/FixedGroupLeaderUI2?groupId=' + group + '&&seminarId=' + seminar;
+                },
+                error: function (mesg) {
+                    alert(mesg);
+                }
+            });
+        };
+    </script>
+
 
 </body>
-</html>
+</html >
