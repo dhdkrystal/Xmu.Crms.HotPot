@@ -9,17 +9,34 @@
 	<link href="~/css/CheckTeacherInfo.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/query.js"></script>
+    <style type="text/css">
+        input {
+            opacity: 0;
+            filter: alpha(opacity=0);
+            height: 95px;
+            width: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 9;
+        }
+    </style>
+
+
     <!-- Bootstrap -->
 </head>
 
 <body class="body">
-    <div class="PictureDiv">
+    <div class="PictureDiv" id="pictureDiv">
         <!-- 背景图的div -->
-        <img class="user" src="~/images/user.png" />
+        <img id="avatar" onclick = "clp();" class="user" src="" />
         <div class="unbindTip">点击头像修改</div>
         <img src="~/images/background.jpg" class="Picture" />
         <div class="name" id="name">姓名：</div>
         <div class="teacherID" id="number">教工号：</div>
+        <input type="file" id="filechooser" style="background-color: transparent;">
     </div>
     <div class="phone1" id="phone">手机号：&nbsp;&nbsp;&nbsp;&nbsp;</div>
     <div class="ID" id="number1">教工号：&nbsp;&nbsp;&nbsp;&nbsp; </div>
@@ -30,6 +47,46 @@
 
     <script>
         var token = window.localStorage.getItem("jwt");
+        var filechooser = document.getElementById('filechooser');
+        var previewer = document.getElementById('avatar');
+        function clp() {
+            return $("#filechooser").click();
+        }
+
+        // 200 KB 对应的字节数
+        var maxsize = 200 * 1024;
+
+        filechooser.onchange = function () {
+            var files = filechooser.files;
+            var data = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                data.append(files[i].name, files[i]);
+            }
+
+            $.ajax
+                ({
+                    url: '/upload/avatar',
+                    type: 'POST',
+                    contentType: false,
+                    processData: false,
+                    headers: { "Authorization": "Bearer " + token },
+                    data: data,
+                    dataType: 'json',
+                    success: function (data) {
+                        alert("上传成功");
+                        location.href = "/Student/CheckStudentInfo";
+                    },
+                    error: function (error) {
+                        alert(error.responseJSON.msg);
+                    }
+                })
+            $("#signout").click(function () {
+                window.localStorage.clear();
+                location.href = '/Login';
+            })
+        }
+
+        
             $.ajax({
                 url: '/me',
                 type: 'GET',
@@ -42,15 +99,20 @@
                     $('#number1').append(data.number);
                     $('#phone').append(data.phone);
                     $('#school').append(data.school.name);
+                    if (data.avatar == null)
+                        document.getElementById("avatar").src = "/images/user.png";
+                    else {
+
+                        document.getElementById("avatar").src = data.avatar;
+                    }
                 },
                 error: function (error) {
                     alert(error.responseJSON.msg);
                 }
-        })
+            })
             $("#signout").click(function () {
                 window.localStorage.clear();
                 location.href = '/Login';
-
             })
     </script>
 

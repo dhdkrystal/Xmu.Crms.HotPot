@@ -38,7 +38,26 @@ fixTop {
     margin-top: 5%;
     padding-left: 5%;
 }
-
+/* 背景图的view*/
+.PictureDiv {
+    left: 0rpx;
+    width: 100%;
+    position: relative;
+    height: 30%;
+}
+.hrDiv {
+    height: 4px;
+    width: 80%;
+    margin: auto;
+    position: absolute;
+    border: 0.5px solid black;
+    background-color: black;
+    color: black;
+    float: left;
+    margin-left: 5%;
+    margin-right: 15%;
+    top: 12%;
+}
 .ctr {
     height: 3.5rem;
     font-size: 2.4rem;
@@ -63,26 +82,28 @@ body {
     width: 100%;
 }
 /*顶图*/
-.img {
-    z-index: 0;
+.Picture {
     width: 100%;
+    height: 100%;
 }
 /*选择学校 文字*/
 .title0 {
-    position: absolute;
-    margin-left: 21%;
-    margin-top: 7%;
+    margin-left: 7em;
     color: #000000;
-    font-size: 1.5rem;
-    z-index: 1;
+    margin-top: 8%;
+    font-size: 3em;
+    position: absolute;
+    font-weight: bold;
+    z-index: 2;
+    top: 7%
 }
 /*灯泡图片*/
 .bulbimg {
     position: absolute;
-    margin-left: 5%;
-    margin-top: 5%;
-    width: 12%;
-    height: auto;
+    margin-left: 15%;
+    margin-top: 10%;
+    width: 9%;
+    height: 16%;
 }
 
 html {

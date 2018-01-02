@@ -148,7 +148,7 @@ namespace Xmu.Crms.Services.Group1_7
             var course = _db.Course.Find(courseId);
             List<Seminar> seminars;
             seminars = _db.Seminar.Include(x => x.Course)
-                .Where(c => c.Course == course).ToList();
+                .Where(c => c.Course == course).OrderByDescending(a=>a.EndTime).ToList();
             return seminars;
         }
 

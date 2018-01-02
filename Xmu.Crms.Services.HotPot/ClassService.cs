@@ -11,10 +11,8 @@ namespace Xmu.Crms.Services.HotPot
     public class ClassService :IClassService
     {
         private  CrmsContext _db;
-        private ICourseService _courseService;
-        public ClassService(ICourseService courseService,CrmsContext db)
+        public ClassService(CrmsContext db)
         {
-            _courseService = courseService;
             _db = db;
         }
         /// <summary>
@@ -371,7 +369,7 @@ namespace Xmu.Crms.Services.HotPot
             var seminar = _db.Seminar.Find(seminarId);
             if (seminar == null)
                 throw new SeminarNotFoundException();
-            var course = _courseService.GetCourseByCourseId(seminar.Id);
+            var course = _db.Course.SingleOrDefault(c=>c.Id==seminar.CourseId);
             if(course==null)
                 throw new CourseNotFoundException();
             List<CourseSelection> cs = _db.CourseSelection.Where(c=>c.StudentId==userId).ToList();

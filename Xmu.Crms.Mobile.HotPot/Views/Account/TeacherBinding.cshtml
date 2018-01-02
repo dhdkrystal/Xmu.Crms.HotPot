@@ -6,6 +6,8 @@
     <link href="~/css/TeacherBindingUI.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/query.js"></script>
     <!-- Bootstrap -->
 </head>
 
@@ -29,7 +31,9 @@
             学校 :
 
         </div>
-        <input class="inputSchool" id="school"><img class="selectSchoolIcon" src="~/images/ninedot.png"></input>
+        <input class="inputSchool" id="school">
+
+        <img class="selectSchoolIcon" src="~/images/ninedot.png" id="selectSchool" onclick="">
         <div class="comfirmDiv">
             <button class="confirmButton" id="teacherBinding">绑定</button>
         </div>
@@ -37,7 +41,35 @@
     </div>
 
     <script>
-       $(document).ready(function () {
+        var number = getQuery()['number'];
+        var name = getQuery()['name'];
+        var school = getQuery()['school'];
+        var schoolId = getQuery()['schoolId'];
+       
+        window.onload = function () {
+            if (typeof (number) == 'undefined' || typeof (name) == 'undefined' ||
+                typeof (school) == 'undefined' || typeof (schoolId) == 'undefined') {
+
+            } else {
+                var numberInput = document.getElementById("number");
+                numberInput.value = number;
+                if (numberInput.value == "")
+                    numberInput.placeholder = "请输入内容";
+
+                var nameInput = document.getElementById("name");
+                nameInput.value = name;
+                if (nameInput.value == "")
+                    nameInput.value = "";
+
+                var schoolInput = document.getElementById("school");
+                schoolInput.value = decodeURI(school);
+                if (schoolInput.value == "")
+                    schoolInput.value = "";
+            }
+        }
+        $("#selectSchool").click(function () {
+            location.href = '/Register/ChooseSchool?number=' + $("#number").val() + '&name=' + $("#name").val()+'&type=Teacher';
+        })
            $("#teacherBinding").click(function () {
                var number = $("#number").val();
                var name = $("#name").val();
@@ -55,7 +87,7 @@
                        data: JSON.stringify({
                            number: number,
                            name: name,
-                           school: school
+                           schoolId: schoolId
                        }),
                        dateType: 'json',
                        success: function (data) {
@@ -67,7 +99,6 @@
                    });
                }
            });
-       });
     </script>
 
 </body>

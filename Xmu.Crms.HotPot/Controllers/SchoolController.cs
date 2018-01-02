@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using Xmu.Crms.Shared.Models;
 using Xmu.Crms.Shared.Service;
@@ -59,7 +60,14 @@ namespace Xmu.Crms.HotPot.Controllers
         [HttpPost("/school")]
         public IActionResult CreateSchool([FromBody] School newSchool)
         {
-            return Created("/school/1", newSchool);
+                School school = new School()
+                {
+                    Province = newSchool.Province,
+                    City = newSchool.City,
+                    Name = newSchool.Name
+                };
+                school.Id = _schoolService.InsertSchool(school);
+                return Json(school);
         }
         
     }

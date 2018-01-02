@@ -29,6 +29,7 @@ namespace Xmu.Crms.HotPot
                     .AddHotPotClassService()
                     .AddHotPotGradeService()
                     .AddHotPotLoginService()
+                    .AddHotPotUploadService()
                     .AddCrmsView("Mobile.HotPot")
 
                     //Group1_7

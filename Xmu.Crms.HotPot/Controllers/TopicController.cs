@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Xmu.Crms.Shared.Models;
 using Xmu.Crms.Shared.Service;
 using System.Linq;
+using System;
+using Xmu.Crms.Shared.Exceptions;
 
 namespace Xmu.Crms.HotPot.Controllers
 {
@@ -12,11 +14,13 @@ namespace Xmu.Crms.HotPot.Controllers
     {
         private readonly ITopicService _topicService;
         private readonly ISeminarService _seminarService;
+        private readonly ISeminarGroupService _seminarGroupService;
         private CrmsContext _db;
 
-        public TopicController(ISeminarService seminarService, ITopicService topicService, CrmsContext db)
+        public TopicController(ISeminarGroupService seminarGroupService, ISeminarService seminarService, ITopicService topicService, CrmsContext db)
         {
             _db = db;
+            _seminarGroupService = seminarGroupService;
             _topicService = topicService;
             _seminarService = seminarService;
         }
@@ -41,25 +45,73 @@ namespace Xmu.Crms.HotPot.Controllers
         [HttpDelete("/topic/{topicId:long}")]
         public IActionResult DeleteTopicById([FromRoute] long topicId)
         {
-            return NoContent();
+            try
+            {
+                _topicService.DeleteTopicByTopicId(topicId);
+                return NoContent();
+            }
+            
+            catch (UnauthorizedAccessException)
+            {
+                return StatusCode(403, new { msg = "用户的权限不足" });
+            }
+            catch (TopicNotFoundException)
+            {
+                return StatusCode(404, new { msg = "未找到话题" });
+            }
+            catch (ArgumentException)
+            {
+                return StatusCode(400, new { msg = "错误的ID格式" });
+            }
         }
 
         [HttpPut("/topic/{topicId:long}")]
         public IActionResult UpdateTopicById([FromRoute] long topicId, [FromBody] Topic updated)
         {
-            return NoContent();
+            try
+            {
+                _topicService.UpdateTopicByTopicId(topicId, updated);
+                return NoContent();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return StatusCode(403, new { msg = "用户的权限不足" });
+            }
+            catch (TopicNotFoundException)
+            {
+                return StatusCode(404, new { msg = "未找到话题" });
+            }
+            catch (ArgumentException)
+            {
+                return StatusCode(400, new { msg = "错误的ID格式" });
+            }
         }
 
         [HttpGet("/topic/{topicId:long}/group")]
         public IActionResult GetGroupsByTopicId([FromRoute] long topicId)
         {
-            return Json(new List<dynamic>
+            try
             {
-                new {id = 1, name = "1A1"},
-                new {id = 2, name = "1A2"},
-                new {id = 43, name = "2A1"},
-                new {id = 65, name = "2A2"},
-            });
+                List<SeminarGroupViewModel> ss = new List<SeminarGroupViewModel>();
+                var groups=_seminarGroupService.ListGroupByTopicId(topicId);
+                foreach (var g in groups)
+                {
+                    SeminarGroupViewModel s = new SeminarGroupViewModel();
+                    s.Id = g.Id;
+                    //没找到小组名字这个属性？？
+                    ss.Add(s);
+                }
+                return Json(ss);
+            }
+            
+            catch (SeminarNotFoundException)
+            {
+                return StatusCode(404, new { msg = "未找到讨论课" });
+            }
+            catch (ArgumentException)
+            {
+                return StatusCode(400, new { msg = "错误的ID格式" });
+            }
         }
     }
     public class TopicViewModel
@@ -71,5 +123,16 @@ namespace Xmu.Crms.HotPot.Controllers
         public int GroupStudentLimit { get; set; }
         public int GroupLeft { get; set; }
     }
-    
+    public class SeminarGroupViewModel
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+
+        public static implicit operator List<object>(SeminarGroupViewModel v)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
 }

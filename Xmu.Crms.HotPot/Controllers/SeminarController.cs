@@ -7,7 +7,7 @@ using Xmu.Crms.Shared.Exceptions;
 using System;
 
 namespace Xmu.Crms.HotPot.Controllers
-{/*
+{
     [Route("")]
     [Produces("application/json")]
     public class SeminarController : Controller
@@ -186,6 +186,52 @@ namespace Xmu.Crms.HotPot.Controllers
 
         }
 
+        /// <summary>
+        /// 签到
+        /// </summary>
+        /// <param name="seminarId"></param>
+        /// <returns></returns>
+        /*
+        [HttpPut("/seminar/{seminarId:long}/class/{classId:long}/attendance/{studentId:long}")]//测试成功
+        public IActionResult CallInRoll([FromBody]Location location,[FromRoute] long seminarId,long classId,long studentId)
+        {
+            try
+            {
+                //var user = _userService.GetUserByUserId(User.Id());
+                var sem = _seminarService.GetSeminarBySeminarId(seminarId);
+                var cla = _classService.GetClassByClassId(classId);
+                var user = _userService.GetUserByUserId(studentId);
+                Location locat= new Location();
+                locat.Latitude = location.Latitude;
+                locat.Latitude = location.Latitude;
+                _classService.CallInRollById(location);
+                cours.Teacher = user;
+                sem.Course = cours;
+                var classInfo = _classService.GetClassByUserIdAndSeminarId(4, seminarId);
+                return Json(new SeminarViewModel()
+                {
+                    Id = sem.Id,
+                    Name = sem.Name,
+                    TeacherName = user.Name,
+                    TeacherEmail = user.Email,
+                    Site = classInfo.Site,
+                    StartTime = sem.StartTime,
+                    EndTime = sem.EndTime
+
+                });
+            }
+            catch (SeminarNotFoundException)
+            {
+                return StatusCode(404, new { msg = "讨论课不存在!" });
+            }
+            catch (ClassNotFoundException)
+            {
+                return StatusCode(404, new { msg = "班级不存在!" });
+            }
+
+        }*/
+
+
     }
     public class SeminarViewModel
     {
@@ -202,5 +248,5 @@ namespace Xmu.Crms.HotPot.Controllers
         public bool IsLeader { get; set; }
         public bool AreTopicSelected { get; set; }
     }
-    */
+    
 }

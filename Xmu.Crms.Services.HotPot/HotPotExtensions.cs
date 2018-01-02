@@ -20,6 +20,9 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddHotPotLoginService(this IServiceCollection serviceCollection) =>
            serviceCollection.AddScoped<ILoginService, LoginService>();
 
+        public static IServiceCollection AddHotPotUploadService(this IServiceCollection serviceCollection) =>
+          serviceCollection.AddScoped<IUploadService, UploadService>();
+
     }
 
 }

@@ -16,7 +16,7 @@
 <body class="body">
     <div class="PictureDiv">
         <!-- 背景图的div -->
-        <img class="user" src="~/images/user.png" onclick="location.href='/Teacher/CheckTeacherInfo'"/>
+        <img class="user" src="" id="avatar"onclick="location.href='/Teacher/CheckTeacherInfo'"/>
         <img src="~/images/background.jpg" class="Picture" />
         <div class="name" id="name" onclick="location.href='/Teacher/CheckTeacherInfo'">姓名：</div>
         <div class="teacherID" id="number" onclick="location.href='/Teacher/CheckTeacherInfo'">教工号：</div>
@@ -33,6 +33,12 @@
                      success: function (data) {
                          $('#name').append(data.name);
                          $('#number').append(data.number);
+                         if (data.avatar == null)
+                             document.getElementById("avatar").src = "/images/user.png";
+                         else {
+
+                             document.getElementById("avatar").src = data.avatar;
+                         }
                      },
                      error: function (error) {
                          alert(error.responseJSON.msg);

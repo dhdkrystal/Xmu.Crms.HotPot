@@ -288,9 +288,11 @@ namespace Xmu.Crms.Services.SmartFive
             var usr = GetUserByUserId(userId);
             usr.Name = user.Name;
             usr.Avatar = user.Avatar;
+            usr.Number = user.Number;
             usr.Education = user.Education ?? Education.Bachelor;
             usr.Email = user.Email;
             usr.Gender = user.Gender;
+            usr.SchoolId = user.SchoolId;
             if (user.School != null)
             {
                 usr.School = _db.School.Find(user.School.Id);

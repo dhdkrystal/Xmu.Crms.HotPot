@@ -12,7 +12,7 @@
     <!-- Bootstrap -->
 </head>
 
-<body class="body">>
+<body class="body">
     <div class="PictureDiv">
         <!-- 背景图的div -->
         <img class="bulb" src="~/images/bulb.png" />
@@ -66,6 +66,7 @@
                         },
                         error: function (error) {
                             alert(error.responseJSON.msg);
+                            document.location.href = '/Register';
                         }
                     });
                 }

@@ -12,6 +12,7 @@ using Xmu.Crms.Mobile.HotPot.ViewModels;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication;
 using System.Linq;
+using System.IO;
 
 namespace Xmu.Crms.HotPot.Controllers
 {
@@ -26,10 +27,12 @@ namespace Xmu.Crms.HotPot.Controllers
         private readonly IUserService _userService;
         private readonly ILoginService _loginService;
         private readonly ISchoolService _schoolService;
+        private readonly IUploadService _uploadService;
         private readonly JwtHeader _header;
 
-        public UserController(IUserService userService,ILoginService loginService,ISchoolService schoolSevice,JwtHeader header)
+        public UserController(IUploadService uploadService,IUserService userService,ILoginService loginService,ISchoolService schoolSevice,JwtHeader header)
         {
+            _uploadService = uploadService;
             _userService = userService;
             _loginService = loginService;
             _schoolService = schoolSevice;
@@ -54,13 +57,18 @@ namespace Xmu.Crms.HotPot.Controllers
                     Name = user.Name,
                     Number = user.Number,
                     Phone = user.Phone,
-                    School = user.School               
+                    School = user.School,
+                    Avatar=user.Avatar
                 }
-                    );
+                   );
             }
             catch (UserNotFoundException)
             {
                 return StatusCode(404, new { msg = "用户不存在" });
+            }
+            catch (InvalidOperationException)
+            {
+                return StatusCode(404, new { msg = "不合法操作" });
             }
         }
 
@@ -118,6 +126,7 @@ namespace Xmu.Crms.HotPot.Controllers
                         )))
                 });
             }
+            
             catch (PasswordErrorException)
             {
                 return StatusCode(401, new { msg = "用户名或密码错误" });
@@ -160,6 +169,10 @@ namespace Xmu.Crms.HotPot.Controllers
                         )))
                 });
             }
+            catch (PhoneAlreadyExistsException)
+            {
+                return StatusCode(401, new { msg = "该手机号已被注册" });
+            }
             catch (PasswordErrorException)
             {
                 return StatusCode(401, new { msg = "用户名或密码错误" });
@@ -170,10 +183,38 @@ namespace Xmu.Crms.HotPot.Controllers
             }
         }
 
-        [HttpPost("/upload/avatar")]
-        public IActionResult UploadAvatar(IFormFile file) =>
+        [HttpGet("/upload/avatar")]
+        public IActionResult UploadAvatar2(IFormFile file) =>
             Created("/upload/avatar.png", new {url = "/upload/avatar.png"});
-          
+        
+        [HttpPost("/upload/avatar")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public IActionResult UploadAvatar()
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+                string path = "../Xmu.Crms.Mobile.HotPot/wwwroot/upload/" + User.Claims.Single(c => c.Type == "id").Value.ToString()+file.Name;
+                string path2 = "/upload/" + User.Claims.Single(c => c.Type == "id").Value.ToString() + file.Name;
+                using (FileStream fs = System.IO.File.Create(path))
+                {
+                    file.CopyTo(fs);
+                    fs.Flush();
+                }
+                _uploadService.UploadAvater(long.Parse(User.Claims.Single(c => c.Type == "id").Value), path2);
+                return Created(path, new { url = path });
+            }
+            catch(UserNotFoundException)
+            {
+                return StatusCode(404, new { msg = "用户不存在" });
+            }
+            catch (ArgumentException)
+            {
+                return StatusCode(404, new { msg = "路径为空" });
+            }
+        }
+        
+
     }
     public class UsernameAndPassword
     {

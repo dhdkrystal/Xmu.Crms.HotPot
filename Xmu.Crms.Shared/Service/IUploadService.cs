@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Xmu.Crms.Shared.Service
 {
-    interface IUploadService
+    public interface IUploadService
     {
-
+        
         ///<summary>
         ///上传选课名单
         ///老师上传本班级的学生名单

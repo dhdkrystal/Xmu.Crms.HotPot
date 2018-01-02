@@ -13,18 +13,20 @@
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="~/css/ChooseSchool.css" rel="stylesheet" type="text/css" />
-
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/query.js"></script>
 
 
 </head>
 
 <body>
     <div class="topbox">
-        <div class="fixTop">
+        <div class="PictureDiv">
             <img src="../images/bulb.png" class="bulbimg" />
-            <strong class="title0">请选择您的学校</strong>
-            <img class="img" src="../images/background.jpg" />
+            <img class="Picture" src="../images/background.jpg" />
+            <div class="title0">请选择您的学校</div>
         </div>
+        <div class="hrDiv"></div>
         <!--这个class与js有关 实现列表切换-->
         <div id="tab">
             <div class="fixTop title show" id="choose">
@@ -40,12 +42,13 @@
                 </div>
 
                 <div id="s3"class="list">
-                    <li id="noSch" class="str" style="display:none;"><a href="#">无学校？选择创建</a></li>
+                    
                 </div>
               </div>
         
  </div>
                     <script>
+
                         var myTab = document.getElementById("tab");
                         var myUl = myTab.getElementsByTagName("div")[0];
                         var myLi = myUl.getElementsByTagName("div");
@@ -53,6 +56,9 @@
                         var myDiv1 = document.getElementById("s2");
                         var myDiv2 = document.getElementById("s3");
                         var token = window.localStorage.getItem("jwt");
+                        var number = getQuery()['number'];
+                        var name = getQuery()['name'];
+                        var type = getQuery()['type'];
                         window.onload = function () {
                             
                             
@@ -133,23 +139,12 @@
                                                                             "<div class='ptr' id='" + value3.id + "'>" +
                                                                             value3.name + "</div >");
                                                                         $("#" + value3.id).click(function () {
-                                                                            $.ajax({
-                                                                                type: 'GET',
-                                                                                url: '/me',
-                                                                                headers: { "Authorization": "Bearer " + token },
-                                                                                contentType: 'application/json',
-                                                                                dataType: 'json',
-                                                                                data: JSON.stringify({
-                                                                                    schoolId: value3.id,
-                                                                                    school:value3
-                                                                                }),
-                                                                                success: function (result) {
-                                                                                    
-                                                                                }
-                                                                            });
+                                                                            location.href = encodeURI("/Register/" + type + "Binding?name=" + name + "&number=" + number + "&school=" + value3.name + "&schoolId=" + value3.id);
                                                                         });
                                                                         
                                                                     })
+                                                                    $("#s3").append(
+                                                                        '<div id="noSch" class="str" ><a href="/Register/CreateSchool?name=' + name + "&number=" + number+"&type="+type+"&province="+value+"&city="+value2+'">无学校？选择创建</a></div>');
                                                                 }
                                                             });
                                                         });
