@@ -241,18 +241,23 @@ namespace Xmu.Crms.HotPot.Controllers
         {
             try
             {
+                var course = _courseservice.GetCourseByCourseId(courseId);
                 IList<Seminar> sem = _seminarservice.ListSeminarByCourseId(courseId);
                 Seminar seminar = null;
                 foreach (Seminar i in sem)
                 {
-                    if (DateTime.Compare(DateTime.Now, i.StartTime) * DateTime.Compare(i.EndTime, DateTime.Now) > 0)
+                    if (DateTime.Compare(DateTime.Now, i.StartTime) * DateTime.Compare(i.EndTime, DateTime.Now) >= 0)
                     {
                         seminar = i;
                         Course cou = context.Course.Find(courseId);
                         seminar.Course.Name = cou.Name;
                     }
                 }
-                return Json(seminar);
+                return Json(new {
+                    coursename = course.Name,
+                    courseId=course.Id,
+                    currentseminar=seminar
+                });
             }
             catch (CourseNotFoundException)
             {

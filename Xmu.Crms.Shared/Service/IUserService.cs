@@ -158,6 +158,11 @@ namespace Xmu.Crms.Shared.Service
         /// <exception cref="T:Xmu.Crms.Shared.Exceptions.SeminarNotFoundException">未找到对应讨论课</exception>
         IList<UserInfo> ListAbsenceStudent(long seminarId, long classId);
 
-        
+        /// <summary>
+        /// 初始化班级签到记录
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <param name="seminarId"></param>
+        void InsertClassAttendanceById(long classId, long seminarId);
     }
 }
