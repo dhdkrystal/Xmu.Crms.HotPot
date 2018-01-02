@@ -8,7 +8,13 @@
     <title>GroupInfo</title>
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/GroupInfoUI2.css">
-
+    <!--设置队伍信息折叠展开-->
+    <script>
+        function isHidden(oDiv) {
+            var vDiv = document.getElementById(oDiv);
+            vDiv.style.display = (vDiv.style.display == 'none') ? 'block' : 'none';
+        }
+    </script>
 </head>
 <body>
     <!--设置左上角的usersIcon-->
@@ -50,11 +56,11 @@
                         var topicname = '';
                         for (j = 0; j < topics.length; j++)
                             topicname += topics[j].name + "  ";
-                        var member = '';
+                        var member = '<div id=' + tmpgroup.groupId + '>';
                         var members = data[i].members;
                         for (j = 0; j < members.length; j++) {
                             if (j % 2 == 0) {
-                                member += '<div class="studentLeftBlock">' +
+                                member += '<div class="studentLeftBlock" >' +
                                     '<img src="/images/user.png" class="userIcon" />' +
                                     '<span class="studentName">' + members[j].name + '</span>' +
                                     '</div>';
@@ -67,21 +73,26 @@
                         }
                         if (members.length % 2 == 1) {
                             member += '<div class="studentRightBlock">' +
-                                '<img src="/images/add.png" class="addIcon"/>' +
+                                '<img src="/images/add.png" class="addIcon" data-group-id=' + tmpgroup.groupId +'/>' +
                                 '</div >'
                         } else { 
                             member += '<div class="studentLeftBlock">' +
-                                '<img src="/images/add.png" class="addIcon"/>' +
+                                '<img src="/images/add.png" class="addIcon" data-group-id=' + tmpgroup.groupId +'/>' +
                                 '</div >'
                         }
+                        member += '</div>';
                         var groupNo = i + 1;
                         $("#groupList").append(
-                            '<div class="studentListBarDiv">' +
+                            '<div class="studentListBarDiv"  onclick="isHidden(' + tmpgroup.groupId + ')">' +    
                             '<span class="groupName">队伍' + groupNo + '</span>' +
                             '<span class="groupTopics">选题：' + topicname + '</span>' +
-                            '</div>' + member                            
-                        )
+                            '</div>' + member
+                        );
                     }
+                    $(".addIcon").click(function () {
+                        var addgroupId = $(this).attr("data-group-id");
+                        window.location.href = "/Class/AddGroupMember?classId=" + classId + "&seminarId=" + seminarId+"&groupId="+addgroupId;
+                    });
                 }
             });
         });

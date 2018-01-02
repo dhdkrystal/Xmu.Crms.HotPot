@@ -8,89 +8,88 @@
     <title>ClassManage</title>
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/ClassManage.css">
-    <script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body class="body">
-<!--设置蓝色上方-->
-<div class="topBox">
-    <span class="title" id="courseName"></span>
-    <span class="seminarText" id="seminarName"></span>
-</div>
+    <!--设置蓝色上方-->
+    <div class="topBox">
+        <span class="title" id="courseName"></span>
+        <span class="seminarText" id="seminarName"></span>
+    </div>
 
-<!--讨论课的时间和分组方式-->
-<div class="clockAndGroupDiv" >
-    <img src="~/images/clock.png" class="icon">
-    <span id="seminarTime"></span>
-</div>
+    <!--讨论课的时间和分组方式-->
+    <div class="clockAndGroupDiv">
+        <img src="~/images/clock.png" class="icon">
+        <span id="seminarTime"></span>
+    </div>
 
-<div class="clockAndGroupDiv">
-    <img src="~/images/clip.png" class="icon">
-    <span id="groupType"></span>
-</div>
+    <div class="clockAndGroupDiv">
+        <img src="~/images/clip.png" class="icon">
+        <span id="groupType"></span>
+    </div>
 
-<div id="classList">
-    <!--班级Icon及名字,增加新班级就复制一个div-->
-    <!-- <div class="class">
-          <img src="~/images/ClassManage.png" class="classIcon" >
-          <p class="className">班级1</p>
-      </div>
-        -->
+    <div id="classList">
+        <!--班级Icon及名字,增加新班级就复制一个div-->
+        <!-- <div class="class">
+              <img src="~/images/ClassManage.png" class="classIcon" >
+              <p class="className">班级1</p>
+          </div>
+            -->
 
-    <script src="~/js/query.js"></script>
-    <script src="~/js/jquery.min.js"></script>
-    <script type="text/javascript">
-        var courseId = getQuery()["courseId"];
-        var token = window.localStorage.getItem("jwt");
-        var groupType = "随机分组";
-        var seminarId = 2;
-        $(function () {
-            $.ajax({
-                type: 'GET',
-                url: '/course/' + courseId + '/seminar/current',
-                data: '',
-                dataType: 'json',
-                contentType: 'application/json;charset=utf-8',
-                headers: { "Authorization": "Bearer " + token },
-                success: function (result) {
-                    seminarId = result.id;
-                    $("#courseName").text(result.course.name);
-                    $("#seminarName").text(result.name);
-                    var stime = result.startTime;
-                    stime=stime.substring(0, 10);
-                    var etime = result.endTime;
-                    etime=etime.substring(0, 10);
-                    $("#seminarTime").text(stime+ "——" + etime);
-                    groupType = result.isFixed ? "固定分组" : "随机分组";
-                    $("#groupType").text(groupType);
-                }
-            });
-            $.ajax({
-                type: 'GET',
-                url: '/course/' + courseId + '/classes',
-                data: '',
-                contentType: 'application/json;charset=utf-8',
-                dataType: 'json',
-                headers: { "Authorization": "Bearer " + token },
-                success: function (data) {
-                    for (i = 0; i < data.length; i++) {
-                        var tmpclass = data[i];
-                        $("#classList").append(
-                            '<div class="class" data-class-id=' + tmpclass.id + '>' +
-                            "<img src=\"/images/ClassManage.png\" class=\"classIcon\" >" +
-                            ' <p class="className" >' + tmpclass.name + '</p>' +
-                            ' </div>'
-                        );
+        <script src="~/js/query.js"></script>
+        <script src="~/js/jquery.min.js"></script>
+        <script type="text/javascript">
+            var courseId = getQuery()["courseId"];
+            var token = window.localStorage.getItem("jwt");
+            var groupType = "随机分组";
+            var seminarId = 2;
+            $(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/course/' + courseId + '/seminar/current',
+                    data: '',
+                    dataType: 'json',
+                    contentType: 'application/json;charset=utf-8',
+                    headers: { "Authorization": "Bearer " + token },
+                    success: function (result) {
+                        seminarId = result.id;
+                        $("#courseName").text(result.course.name);
+                        $("#seminarName").text(result.name);
+                        var stime = result.startTime;
+                        stime = stime.substring(0, 10);
+                        var etime = result.endTime;
+                        etime = etime.substring(0, 10);
+                        $("#seminarTime").text(stime + "——" + etime);
+                        groupType = result.isFixed ? "固定分组" : "随机分组";
+                        $("#groupType").text(groupType);
                     }
-                    $(".class").click(function () {
-                        if (groupType == "固定分组")
-                            window.location.href = "/Class/FixedRollStartCallUI?classId=" + $(this).attr("data-class-id") + "&seminarId=" + seminarId;
-                        else
-                            window.location.href = "/Class/RandomRollStartCallUI?classId=" + $(this).attr("data-class-id") + "&seminarId=" + seminarId;
                 });
-                }
-            })
-        });
-    </script>
-</div>
+                $.ajax({
+                    type: 'GET',
+                    url: '/course/' + courseId + '/classes',
+                    data: '',
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    headers: { "Authorization": "Bearer " + token },
+                    success: function (data) {
+                        for (i = 0; i < data.length; i++) {
+                            var tmpclass = data[i];
+                            $("#classList").append(
+                                '<div class="class" data-class-id=' + tmpclass.id + '>' +
+                                "<img src=\"/images/ClassManage.png\" class=\"classIcon\" >" +
+                                ' <p class="className" >' + tmpclass.name + '</p>' +
+                                ' </div>'
+                            );
+                        }
+                        $(".class").click(function () {
+                            if (groupType == "固定分组")
+                                window.location.href = "/Class/FixedRollStartCallUI?classId=" + $(this).attr("data-class-id") + "&seminarId=" + seminarId;
+                            else
+                                window.location.href = "/Class/RandomRollStartCallUI?classId=" + $(this).attr("data-class-id") + "&seminarId=" + seminarId;
+                        });
+                    }
+                })
+            });
+        </script>
+    </div>
 </body>
 </html>

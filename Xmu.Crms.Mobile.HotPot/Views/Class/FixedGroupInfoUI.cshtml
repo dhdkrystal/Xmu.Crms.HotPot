@@ -47,8 +47,9 @@
                         var topics = data[i].topicname;
                         var topicname = '';
                         for (j = 0; j < topics.length; j++)
-                            topicname += topics[j].name+"  ";
-                        var member = '';
+                            topicname += topics[j].name + "  ";
+                        
+                        var member = '<div id=' + tmpgroup.groupId + '>';
                         var members = data[i].members;
                         for (j = 0; j <members.length; j++) { 
                             if (j % 2 ==0) {
@@ -63,11 +64,12 @@
                                     '</div>';
                             }
                         }
+                        member += '</div>';
                         var groupNo = i + 1;
                         $("#groupList").append(
-                            '<div class="studentListBarDiv">' +
+                            '<div class="studentListBarDiv" onclick="isHidden(' + tmpgroup.groupId + ')">' +               
                             '<span class="groupName">队伍' + groupNo+ '</span>' +
-                            '<span class="groupTopics">选题：' + topicname + '</span>' +
+                            '<span class="groupTopics">选题：' + topicname + '</span>' +                         
                             '</div>' +member
                         )
                     }

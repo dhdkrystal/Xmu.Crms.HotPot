@@ -53,7 +53,11 @@ namespace Xmu.Crms.Web.HotPot.Controllers
         {
             return View();
         }
-
+        [Route("/Class/AddGroupMember")]
+        public ActionResult GroupInfoUI2()
+        {
+            return View();
+        }
         [Route("/Class/RandomRollStartCallUI")]
         public ActionResult RandomRollStartCallUI()
         {
