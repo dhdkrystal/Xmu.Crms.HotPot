@@ -131,6 +131,7 @@ namespace Xmu.Crms.HotPot.Controllers
                     return Json(groups.Select(g =>
                       new
                    {
+                     groupId=g.Id,
                      topicname=g.SeminarGroupTopics.Select(t=>new {
                                                id=t.Topic.Id,
                                                  name=t.Topic.Name}),
@@ -416,6 +417,7 @@ namespace Xmu.Crms.HotPot.Controllers
                 presentcount=presentList.Count(),
                 numStudent = _db.Entry(classInfo).Collection(cl => cl.CourseSelections).Query().Count(),
                 studentList =presentList.Select (p=>new {
+                    id=p.Id,
                  number=p.Number ,
                 name=p.Name})
                 });
@@ -459,6 +461,7 @@ namespace Xmu.Crms.HotPot.Controllers
                 {
                     absentcount = absenttList.Count(),
                     studentList = absenttList.Select(p => new {
+                        id=p.Id,
                         number = p.Number,
                         name = p.Name
                     })
@@ -483,7 +486,7 @@ namespace Xmu.Crms.HotPot.Controllers
         /// <param name="seminarId"></param>
         /// <param name="classId"></param>
         /// <returns></returns>
-        [HttpGet("/seminar/{seminarId}/class/{classId}/attendance/late")]
+        [HttpGet("/class/{classId}/{seminarId}/attendance/showlate")]
         public IActionResult GetLateStudent([FromRoute]long seminarId,[FromRoute ]long classId)
         {
             try
@@ -498,6 +501,7 @@ namespace Xmu.Crms.HotPot.Controllers
                 return Json(new {
                     latecount = lateList.Count(),
                     studentList=lateList.Select(p=>new {
+                        id=p.Id,
                     number=p.Number ,
                     name=p.Name})
                 });
@@ -513,6 +517,34 @@ namespace Xmu.Crms.HotPot.Controllers
             catch (ArgumentException)
             {
                 return StatusCode(400, new { msg = "错误的ID格式" });
+            }
+        }
+        /// <summary>
+        /// 随机小组添加迟到成员
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <param name="updated"></param>
+        /// <returns></returns>
+        [HttpPut("/group/{groupId:long}/addlate/{studentId:long}")]
+        public IActionResult InsertMemberByStudentId([FromRoute]long groupId, [FromRoute] long studentId)
+        {
+            try
+            {
+                //将学生加入讨论课小组
+                _seminarGroupService.InsertSeminarGroupMemberById(studentId, groupId);
+                var group = _seminarGroupService.GetSeminarGroupByGroupId(groupId);
+                var attendance = _db.Attendences.SingleOrDefault(s => (s.SeminarId == group.SeminarId && s.ClassId == group.ClassId && s.StudentId == studentId));
+                attendance.AttendanceStatus = AttendanceStatus.Present;
+                _db.SaveChanges();
+                return NoContent();
+            }
+            catch (GroupNotFoundException)
+            {
+                return StatusCode(404, new { msg = "该小组不存在" });
+            }
+            catch (ArgumentException)
+            {
+                return StatusCode(400, new { msg = "组号格式错误" });
             }
         }
         /// <summary>
@@ -596,6 +628,7 @@ namespace Xmu.Crms.HotPot.Controllers
             }
         }
         
+
         /// <summary>
         /// 按ID获取班级小组
         /// </summary>
