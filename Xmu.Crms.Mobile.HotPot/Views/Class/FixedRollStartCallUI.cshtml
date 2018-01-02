@@ -65,32 +65,34 @@
         });
         $("#startRoll").click(function () {
             var geolocation = new BMap.Geolocation();
+            var longitude;
+            var latitude;
             geolocation.getCurrentPosition(function (r) {
                 if (this.getStatus() == BMAP_STATUS_SUCCESS) {
 
-                    alert('您的位置：' + r.point.lng + ',' + r.point.lat);
-                    var longitude = r.point.lng;
-                    var latitude = r.point.lat;
+              //      alert('您的位置：' + r.point.lng + ',' + r.point.lat);
+                    longitude = r.point.lng;
+                    latitude = r.point.lat;
+                    $.ajax({
+                        type: 'POST',
+                        url: '/class/' + classId + '/startrollcall',
+                        contentType: 'application/json',
+                        dateType: 'json',
+                        data: JSON.stringify({
+                            ClassInfoId: classId,
+                            SeminarId: seminarId,
+                            Longitude: longitude,
+                            Latitude: latitude,
+                            Status: 1
+                        }),
+                        headers: { "Authorization": "Bearer " + token },
+                        success: function (result) {
+                            window.location.href = "/Class/FixedRollCallUI?classId=" + classId + "&seminarId=" + seminarId;
+                        }
+                    });
                 }
                 else {
                     alert('failed' + this.getStatus());
-                }
-            });
-            $.ajax({
-                type: 'POST',
-                url: '/class/' + classId + '/startrollcall',
-                contentType: 'application/json',
-                dateType: 'json',
-                data: JSON.stringify({
-                    ClassInfoId: classId,
-                    SeminarId: seminarId,
-                    Longitude: longitude,
-                    Latitude: latitude,
-                    Status:1
-                }),
-                headers: { "Authorization": "Bearer " + token },
-                success: function (result) {
-                    window.location.href = "/Class/FixedRollCallUI?classId=" + classId + "&seminarId=" + seminarId;
                 }
             });
         });

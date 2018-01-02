@@ -533,7 +533,7 @@ namespace Xmu.Crms.HotPot.Controllers
                 //将学生加入讨论课小组
                 _seminarGroupService.InsertSeminarGroupMemberById(studentId, groupId);
                 var group = _seminarGroupService.GetSeminarGroupByGroupId(groupId);
-                var attendance = _db.Attendences.SingleOrDefault(s => (s.SeminarId == group.SeminarId && s.ClassId == group.ClassId && s.StudentId == studentId));
+                var attendance = _db.Attendances.SingleOrDefault(s => (s.SeminarId == group.SeminarId && s.ClassId == group.ClassId && s.StudentId == studentId));
                 attendance.AttendanceStatus = AttendanceStatus.Present;
                 _db.SaveChanges();
                 return NoContent();
