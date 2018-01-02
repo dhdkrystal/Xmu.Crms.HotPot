@@ -68,6 +68,21 @@
                         }
                     }
                     $("#lateList").append(list2);
+                    $(".studentRightBlock").click(function () {
+                        var userId = $(this).attr("data-user-id");
+                        if (confirm("提示：确定添加此学生？")) {
+                            $.ajax({
+                                type: 'PUT',
+                                url: '/group/' + groupId + '/addlate/' + userId,
+                                contentType: 'application/json',
+                                dateType: 'json',
+                                headers: { "Authorization": "Bearer " + token },
+                                success: function () {
+                                    window.location.href = "/Class/GroupInfoUI?classId=" + classId + "&seminarId=" + seminarId;
+                                }
+                            })
+                        }
+                    });
                     $(".studentLeftBlock").click(function () {
                         var userId = $(this).attr("data-user-id");
                         if (confirm("提示：确定添加此学生？")) {

@@ -24,7 +24,9 @@ namespace Xmu.Crms.Services.SmartFive
             {
                 throw new ArgumentException();
             }
-            var u = _db.UserInfo.Single(user=>user.Id==userId);
+
+           
+               var  u = _db.UserInfo.Single(user=>user.Id==userId);
             //var u = (from user in _db.UserInfo
             //         where user.Id == userId
             //         select new UserInfo
@@ -82,6 +84,33 @@ namespace Xmu.Crms.Services.SmartFive
            return attendance;
         }
 
+        public void InsertClassAttendanceById(long classId, long seminarId)
+        {
+            if (classId <= 0 || seminarId <= 0)
+            {
+                throw new ArgumentException();
+            }
+            if (_db.Seminar.Find(seminarId) == null)
+                throw new SeminarNotFoundException();
+            if (_db.ClassInfo.Find(classId) == null)
+                throw new ClassNotFoundException();
+            var students = _db.CourseSelection.Where(c => c.ClassId == classId).ToList();
+            foreach (var s in students) {
+                Attendance a = new Attendance();
+                a.ClassInfo= (from i in _db.ClassInfo
+                              where i.Id == classId
+                              select i).SingleOrDefault();
+                a.Student = (from j in _db.UserInfo
+                                      where j.Id ==s.StudentId
+                                      select j).SingleOrDefault();
+                a.Seminar = (from k in _db.Seminar
+                                      where k.Id == seminarId
+                                      select k).SingleOrDefault();
+                a.AttendanceStatus = AttendanceStatus.Absent;
+                _db.Attendances.Add(a);
+            }
+            _db.SaveChanges();
+        }
         public AttendanceStatus InsertAttendanceById(long classId, long seminarId, long userId, decimal longitude, decimal latitude)//测试成功时间
         {
             if (classId <= 0 || seminarId <= 0 || userId <= 0)

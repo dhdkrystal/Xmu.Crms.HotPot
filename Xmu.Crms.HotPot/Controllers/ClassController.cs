@@ -130,17 +130,12 @@ namespace Xmu.Crms.HotPot.Controllers
                     }
                     return Json(groups.Select(g =>
                       new
-                   {
-                     groupId=g.Id,
-                     topicname=g.SeminarGroupTopics.Select(t=>new {
+                      {
+                          groupId = g.Id,
+                          topicname = g.SeminarGroupTopics.Select(t => new {
+                                                serial=t.Topic.Serial,
                                                id=t.Topic.Id,
                                                  name=t.Topic.Name}),
-                       leader = new
-                       {
-                           id = g.LeaderId,
-                           name = _userService.GetUserByUserId(g.LeaderId).Name,
-                           number = _userService.GetUserByUserId(g.LeaderId).Number
-                       },
                        members = _seminarGroupService.ListSeminarGroupMemberByGroupId(g.Id).Select(m => new
                        {
                            id = m.Id,
@@ -565,6 +560,7 @@ namespace Xmu.Crms.HotPot.Controllers
                 }
                 else
                 {
+                    _userService.InsertClassAttendanceById(loc.ClassInfoId,loc.SeminarId);
                     loc.ClassInfo = _classService.GetClassByClassId(loc.ClassInfoId);
                     loc.Seminar = _seminarService.GetSeminarBySeminarId(loc.SeminarId);
                     var id = _classService.CallInRollById(loc);

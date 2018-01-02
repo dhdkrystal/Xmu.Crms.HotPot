@@ -175,6 +175,19 @@ namespace Xmu.Crms.Services.Group2_10
             if ((classInfo = _db.ClassInfo.Find(classId)) == null)
                 throw new ClassNotFoundException();
 
+            var studentcount= _db.CourseSelection.Where(c => c.ClassId == classId).ToList().Count();
+            var groupcount = studentcount / 5+1;
+            while (groupcount > 0) {
+                SeminarGroup group = new SeminarGroup
+                {
+                    ClassId = classId,
+                    SeminarId = seminarId,
+                   
+                };
+                InsertSeminarGroupBySeminarId(seminarId,classId,group);
+                groupcount--;
+            }
+            _db.SaveChanges();
             //获取该讨论课的所有队伍
             groups = _db.SeminarGroup
                 .Include(x => x.Seminar)
@@ -185,8 +198,7 @@ namespace Xmu.Crms.Services.Group2_10
             foreach (Attendance atten in attendances)
             {
                 //如果是出勤或迟到状态，进入分配
-                if (atten.AttendanceStatus == AttendanceStatus.Present
-                    || atten.AttendanceStatus == AttendanceStatus.Late)
+                if (atten.AttendanceStatus == AttendanceStatus.Present)
                 {
                     //获取该学生（需要返回的list有include学生对象）
                     UserInfo student = atten.Student;
