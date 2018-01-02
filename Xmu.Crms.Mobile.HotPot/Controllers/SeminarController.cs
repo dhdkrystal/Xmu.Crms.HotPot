@@ -9,19 +9,8 @@ namespace Xmu.Crms.Web.HotPot.Controllers
             return View();
         }
         // GET: Seminar
-        [Route("/Seminar/StudentRollCallUI")]
+        [Route("/Seminar/StudentRollCall")]
         public ActionResult StudentRollCallUI()
-        {
-            return View();
-        }
-        [Route("/Seminar/StudentRollCallLateUI")]
-        public ActionResult StudentRollCallLateUI()
-        {
-            return View();
-        }
-
-        [Route("/Seminar/StudentRollCallEndUI")]
-        public ActionResult StudentRollCallEndUI()
         {
             return View();
         }

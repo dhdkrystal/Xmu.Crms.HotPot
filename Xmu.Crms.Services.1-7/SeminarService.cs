@@ -179,5 +179,17 @@ namespace Xmu.Crms.Services.Group1_7
 
             _db.SaveChanges();
         }
+        public Location GetLocation(long seminarId,long classId)
+        {
+            if (_db.Seminar.Find(seminarId) == null)
+                throw new SeminarNotFoundException();
+            if (_db.ClassInfo.Find(classId) == null)
+                throw new ClassNotFoundException();
+            var location = _db.Location
+                .Include(l => l.Seminar)
+                .Include(l => l.ClassInfo)
+                .SingleOrDefault(s => (s.Seminar.Id == seminarId && s.ClassInfo.Id == classId));
+            return location;
+        }
     }
 }

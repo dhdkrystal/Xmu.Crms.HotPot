@@ -10,6 +10,13 @@ namespace Xmu.Crms.Shared.Service
     public interface ISeminarService
     {
         /// <summary>
+        /// 获取location
+        /// </summary>
+        /// <param name="seminarId"></param>
+        /// <param name="classId"></param>
+        /// <returns></returns>
+        Location GetLocation(long seminarId, long classId);
+        /// <summary>
         /// 按courseId获取Seminar.
         /// @author zhouzhongjun
         /// </summary>

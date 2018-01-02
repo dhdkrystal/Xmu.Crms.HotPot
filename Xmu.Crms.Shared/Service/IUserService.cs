@@ -10,6 +10,15 @@ namespace Xmu.Crms.Shared.Service
     public interface IUserService
     {
         /// <summary>
+        /// 获取学生签到状态
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <param name="seminarId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Attendance GetAttendanceById(long classId, long seminarId, long userId);
+
+        /// <summary>
         /// 添加学生签到信息.
         /// @author LiuAiqi
         /// 根据班级id，讨论课id，学生id，经度，纬度进行签到 在方法中通过班级id，讨论课id获取当堂课发起签到的位置
@@ -22,7 +31,9 @@ namespace Xmu.Crms.Shared.Service
         /// <exception cref="T:System.ArgumentException">id格式错误</exception>
         /// <exception cref="T:Xmu.Crms.Shared.Exceptions.ClassNotFoundException">未找到班级</exception>
         /// <exception cref="T:Xmu.Crms.Shared.Exceptions.SeminarNotFoundException">未找到讨论课</exception>
-        void InsertAttendanceById(long classId, long seminarId, long userId, double longitude, double latitude);
+        AttendanceStatus InsertAttendanceById(long classId, long seminarId, long userId, decimal longitude, decimal latitude);
+
+
 
         /// <summary>
         /// 获取学生签到信息.

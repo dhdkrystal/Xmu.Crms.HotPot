@@ -21,7 +21,7 @@ namespace Xmu.Crms.Shared.Models
         public decimal? Longitude { get; set; }
 
         public decimal? Latitude { get; set; }
-
+        //0表示签到结束，1表示正在签到
         public int? Status { get; set; }
     }
 }

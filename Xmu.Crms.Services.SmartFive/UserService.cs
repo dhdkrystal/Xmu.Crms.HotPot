@@ -55,23 +55,53 @@ namespace Xmu.Crms.Services.SmartFive
         {
             throw new NotImplementedException();
         }
-
-        public void InsertAttendanceById(long classId, long seminarId, long userId, double longitude, double latitude)//测试成功时间
+        /// <summary>
+        /// 获取签到状态
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <param name="seminarId"></param>
+        /// <param name="userId"></param>
+        /// <param name="longitude"></param>
+        /// <param name="latitude"></param>
+        /// <returns></returns>
+        public Attendance GetAttendanceById(long classId, long seminarId, long userId)//测试成功时间
         {
             if (classId <= 0 || seminarId <= 0 || userId <= 0)
             {
                 throw new ArgumentException();
             }
-            var u = (from class1 in _db.ClassInfo
-                     where class1.Id == classId
-                     select class1).SingleOrDefault();
-            if (u == null)
-                throw new ClassNotFoundException();
-            var v = (from seminar in _db.Seminar
-                     where seminar.Id == seminarId
-                     select seminar).SingleOrDefault();
-            if (v == null)
+            if (_db.Seminar.Find(seminarId) == null)
                 throw new SeminarNotFoundException();
+            if (_db.ClassInfo.Find(classId) == null)
+                throw new ClassNotFoundException();
+           var attendance = _db.Attendances
+                .Include(l => l.Seminar)
+                .Include(l => l.ClassInfo)
+                .Include(l=>l.Student)
+                .SingleOrDefault(s => (s.Seminar.Id == seminarId && s.ClassInfo.Id == classId&&s.Student.Id==userId));
+           return attendance;
+        }
+
+        public AttendanceStatus InsertAttendanceById(long classId, long seminarId, long userId, decimal longitude, decimal latitude)//测试成功时间
+        {
+            if (classId <= 0 || seminarId <= 0 || userId <= 0)
+            {
+                throw new ArgumentException();
+            }
+            if (_db.Seminar.Find(seminarId) == null)
+                throw new SeminarNotFoundException();
+            if (_db.ClassInfo.Find(classId) == null)
+                throw new ClassNotFoundException();
+            //var u = (from class1 in _db.ClassInfo
+            //         where class1.Id == classId
+            //         select class1).SingleOrDefault();
+            //if (u == null)
+            //    throw new ClassNotFoundException();
+            //var v = (from seminar in _db.Seminar
+            //         where seminar.Id == seminarId
+            //         select seminar).SingleOrDefault();
+            //if (v == null)
+            //    throw new SeminarNotFoundException();
             Attendance attendance = new Attendance();
             attendance.ClassInfo = (from i in _db.ClassInfo
                                     where i.Id == classId
@@ -82,8 +112,26 @@ namespace Xmu.Crms.Services.SmartFive
             attendance.Seminar = (from k in _db.Seminar
                                   where k.Id == seminarId
                                   select k).SingleOrDefault();
-            _db.Attendences.Add(attendance);
+            
+            var location = _db.Location
+                .Include(l => l.Seminar)
+                .Include(l => l.ClassInfo)
+                .SingleOrDefault(s => (s.Seminar.Id == seminarId && s.ClassInfo.Id == classId));
+            double distance=GetDistance((double)latitude, (double)longitude, (double)location.Latitude, (double)location.Longitude);
+            if (distance < 20)
+                if (location.Status == 1)
+                {
+                    attendance.AttendanceStatus = AttendanceStatus.Present;
+                }
+                else
+                {
+                    attendance.AttendanceStatus = AttendanceStatus.Late;
+                }
+            else
+                attendance.AttendanceStatus = AttendanceStatus.Absent;
+            _db.Attendances.Add(attendance);
             _db.SaveChanges();
+            return attendance.AttendanceStatus??0;
         }
 
         public IList<UserInfo> ListAbsenceStudent(long seminarId, long classId) //测试成功
@@ -102,7 +150,7 @@ namespace Xmu.Crms.Services.SmartFive
                      select seminar).SingleOrDefault();
             if (v == null)
                 throw new SeminarNotFoundException();
-            var u1 = (from user in _db.Attendences//.Include(a => a.Student)user.Student
+            var u1 = (from user in _db.Attendances//.Include(a => a.Student)user.Student
                       where user.AttendanceStatus == AttendanceStatus.Absent && user.Seminar.Id == seminarId && user.ClassInfo.Id == classId
                       select new UserInfo
                      {
@@ -124,7 +172,7 @@ namespace Xmu.Crms.Services.SmartFive
 
         public IList<Attendance> ListAttendanceById(long classId, long seminarId)//测试成功
         {
-            var u = (from a in _db.Attendences
+            var u = (from a in _db.Attendances
                      where a.ClassInfo.Id == classId && a.Seminar.Id == seminarId
                      select new Attendance
                      {
@@ -174,7 +222,7 @@ namespace Xmu.Crms.Services.SmartFive
                      select seminar).SingleOrDefault();
             if (v == null)
                 throw new SeminarNotFoundException();
-            var u1 = (from user in _db.Attendences//.Include(a => a.Student)user.Student
+            var u1 = (from user in _db.Attendances//.Include(a => a.Student)user.Student
                       where user.AttendanceStatus == AttendanceStatus.Late && user.Seminar.Id == seminarId && user.ClassInfo.Id == classId
                       select new UserInfo
                       {
@@ -210,7 +258,7 @@ namespace Xmu.Crms.Services.SmartFive
                      select seminar).SingleOrDefault();
             if (v == null)
                 throw new SeminarNotFoundException();
-            var u1 = (from user in _db.Attendences//.Include(a => a.Student)user.Student
+            var u1 = (from user in _db.Attendances//.Include(a => a.Student)user.Student
                       where user.AttendanceStatus == AttendanceStatus.Present && user.Seminar.Id == seminarId && user.ClassInfo.Id == classId
                       select new UserInfo
                       {
@@ -314,5 +362,26 @@ namespace Xmu.Crms.Services.SmartFive
             }
             _db.SaveChanges();
         }
+
+        private const double EARTH_RADIUS = 6378.137;//地球半径
+        private static double Rad(double d)
+        {
+            return d * Math.PI / 180.0;
+        }
+
+        public static double GetDistance(double lat1, double lng1, double lat2, double lng2)
+        {
+            double radLat1 = Rad(lat1);
+            double radLat2 = Rad(lat2);
+            double a = radLat1 - radLat2;
+            double b = Rad(lng1) - Rad(lng2);
+
+            double s = 2 * Math.Asin(Math.Sqrt(Math.Pow(Math.Sin(a / 2), 2) +
+             Math.Cos(radLat1) * Math.Cos(radLat2) * Math.Pow(Math.Sin(b / 2), 2)));
+            s = s * EARTH_RADIUS;
+            s = Math.Round(s * 10000) / 10000;
+            return s;
+        }
+
     }
 }

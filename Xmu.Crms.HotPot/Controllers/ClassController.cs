@@ -595,45 +595,7 @@ namespace Xmu.Crms.HotPot.Controllers
                 return StatusCode(400, new { msg = "ID格式错误" });
             }
         }
-        /// <summary>
-        /// 学生签到（上传位置信息）
-        /// </summary>
-        /// <param name="classId"></param>
-        /// <param name="studentId"></param>
-        /// <param name="loc"></param>
-        /// <returns></returns>
-        [HttpPost("seminar/{seminarId:long}/class/{classId:long}/attendance/{studentId:long}")]
-        public IActionResult UpdateAttendanceByClassId([FromRoute] long classId, [FromRoute]long seminarId,
-            [FromRoute] long studentId, [FromBody] Location loc)
-        {
-            try
-            {
-                var user = _userService.GetUserByUserId(User.Id());
-                if (user.Type != Shared.Models.Type.Student)
-                {
-                    return StatusCode(403, new { msg = "权限不足" });
-                }
-                _userService.InsertAttendanceById(classId, seminarId, studentId, (double)loc.Longitude, (double)loc.Latitude);
-                return NoContent();
-            }
-            catch (UserNotFoundException)
-            {
-                return StatusCode(404, new { msg = "不存在这个学生" });
-            }
-            catch (SeminarNotFoundException)
-            {
-                return StatusCode(404, new { msg = "未找到讨论课" });
-            }
-            catch (ClassNotFoundException)
-            {
-                return StatusCode(404, new { msg = "未找到班级" });
-            }
-            catch (ArgumentException)
-            {
-                return StatusCode(400, new { msg = "ID格式错误" });
-            }
-        }
-
+        
         /// <summary>
         /// 按ID获取班级小组
         /// </summary>

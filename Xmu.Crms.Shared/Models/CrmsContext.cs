@@ -9,7 +9,7 @@ namespace Xmu.Crms.Shared.Models
         {
         }
 
-        public DbSet<Attendance> Attendences { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
         public DbSet<ClassInfo> ClassInfo { get; set; }
         public DbSet<Course> Course { get; set; }
         public DbSet<CourseSelection> CourseSelection { get; set; }
@@ -30,7 +30,7 @@ namespace Xmu.Crms.Shared.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            //attendance表
             modelBuilder.Entity<Attendance>()
                 .ToTable("attendance");
             modelBuilder.Entity<Attendance>(entity =>
