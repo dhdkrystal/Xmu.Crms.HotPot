@@ -46,14 +46,7 @@ namespace Xmu.Crms.HotPot
                     .AddSmartFiveUserService()
 
                     //Insomnia
-                    .AddCrmsView("Web.Insomnia")
-                    .AddCrmsView("API.Insomnia")
-                    .AddInsomniaUserService()
-                    .AddInsomniaTopicService()
-                    .AddInsomniaSeminarGroupService()
-                    .AddInsomniaPbkdf2LoginService()
-                    .AddInsomniaLoginService()
-                    .AddInsomniaFixedGroupService();
+                    .AddCrmsView("Web.Insomnia");
                    
 
                 })              

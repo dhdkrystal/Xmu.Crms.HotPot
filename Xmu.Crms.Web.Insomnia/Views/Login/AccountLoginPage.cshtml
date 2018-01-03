@@ -36,7 +36,7 @@
             return false;
         }
         $.ajax({
-            url: 'signin',
+            url: '/signin',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ phone: $("#phone").val(), password: $("#password").val() }),
