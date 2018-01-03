@@ -31,7 +31,7 @@
 
     <ProjectReference Include="..\Xmu.Crms.Services.HotPot\Xmu.Crms.Services.HotPot.csproj" />
 
-    <ProjectReference Include="..\Xmu.Crms.Services.Insomnia\Xmu.Crms.Services.Insomnia.csproj" />
+    
 
     <ProjectReference Include="..\Xmu.Crms.Services.SmartFive\Xmu.Crms.Services.SmartFive.csproj" />
 

@@ -5158,7 +5158,6 @@
           "Microsoft.AspNetCore.All": "2.0.3",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.1",
           "System.IdentityModel.Tokens.Jwt": "5.1.5",
-          "Xmu.Crms.Services.Insomnia": "1.0.0",
           "Xmu.Crms.Shared": "1.0.0"
         },
         "compile": {
@@ -5225,19 +5224,6 @@
         },
         "runtime": {
           "bin/placeholder/Xmu.Crms.Services.HotPot.dll": {}
-        }
-      },
-      "Xmu.Crms.Services.Insomnia/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.0",
-        "dependencies": {
-          "Xmu.Crms.Shared": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Xmu.Crms.Services.Insomnia.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Xmu.Crms.Services.Insomnia.dll": {}
         }
       },
       "Xmu.Crms.Services.SmartFive/1.0.0": {
@@ -13549,11 +13535,6 @@
       "path": "../Xmu.Crms.Services.HotPot/Xmu.Crms.Services.HotPot.csproj",
       "msbuildProject": "../Xmu.Crms.Services.HotPot/Xmu.Crms.Services.HotPot.csproj"
     },
-    "Xmu.Crms.Services.Insomnia/1.0.0": {
-      "type": "project",
-      "path": "../Xmu.Crms.Services.Insomnia/Xmu.Crms.Services.Insomnia.csproj",
-      "msbuildProject": "../Xmu.Crms.Services.Insomnia/Xmu.Crms.Services.Insomnia.csproj"
-    },
     "Xmu.Crms.Services.SmartFive/1.0.0": {
       "type": "project",
       "path": "../Xmu.Crms.Services.SmartFive/Xmu.Crms.Services.SmartFive.csproj",
@@ -13581,7 +13562,6 @@
       "Xmu.Crms.Services.Group1_7 >= 1.0.0",
       "Xmu.Crms.Services.Group2_10 >= 1.0.0",
       "Xmu.Crms.Services.HotPot >= 1.0.0",
-      "Xmu.Crms.Services.Insomnia >= 1.0.0",
       "Xmu.Crms.Services.SmartFive >= 1.0.0",
       "Xmu.Crms.Shared >= 1.0.0",
       "Xmu.Crms.Web.Insomnia >= 1.0.0"
@@ -13625,9 +13605,6 @@
             },
             "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Mobile.HotPot\\Xmu.Crms.Mobile.HotPot.csproj": {
               "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Mobile.HotPot\\Xmu.Crms.Mobile.HotPot.csproj"
-            },
-            "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.Insomnia\\Xmu.Crms.Services.Insomnia.csproj": {
-              "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.Insomnia\\Xmu.Crms.Services.Insomnia.csproj"
             },
             "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.2-10\\Xmu.Crms.Services.Group2_10.csproj": {
               "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.2-10\\Xmu.Crms.Services.Group2_10.csproj"
