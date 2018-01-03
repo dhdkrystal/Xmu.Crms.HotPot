@@ -88,25 +88,25 @@
                     if (isfix == true) {
                         if (result.leader == null)
                             window.location.href = '/Seminar/FixedGroupNoLeaderUI2?groupId=' + result.seminargroup.id + '&&seminarId=' + seminar;
-                        else if (result.userid == result.leader) {
+                        else if (result.userid == result.leader.id) {
                             if (result.topic[0] == null)
                                 window.location.href = '/Seminar/FixedGroupLeaderUI2?groupId=' + result.seminargroup.id + '&&seminarId=' + seminar;
                             else
                                 window.location.href = '/Seminar/FixedGroupLeaderUI?groupId=' + result.seminargroup.id + '&&seminarId=' + seminar;
                         }
-                        else if (result.userid != result.leader)
+                        else if (result.userid != result.leader.id)
                             window.location.href = '/Seminar/FixedGroupMemberUI2?groupId=' + result.seminargroup.id + '&&seminarId=' + seminar;
                     }
                     else {
                         if (result.leader == null)
                             window.location.href = '/Seminar/RandomGroupNoLeaderUI2?groupId=' + result.seminargroup.id + '&&seminarId=' + seminar;
-                        else if (result.userid == result.leader) {
+                        else if (result.userid == result.leader.id) {
                             if (result.topic[0] == null)
                                 window.location.href = '/Seminar/RandomGroupLeaderUI2?groupId=' + result.seminargroup.id + '&&seminarId=' + seminar;
                             else
                                 window.location.href = '/Seminar/RandomGroupLeaderUI?groupId=' + result.seminargroup.id + '&&seminarId=' + seminar;
                         }
-                        else if (result.userid != result.leader)
+                        else if (result.userid != result.leader.id)
                             window.location.href = '/Seminar/RandomGroupMemberUI2?groupId=' + result.seminargroup.id + '&&seminarId=' + seminar;
 
                     }
