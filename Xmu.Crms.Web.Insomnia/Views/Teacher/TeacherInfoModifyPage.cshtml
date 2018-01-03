@@ -111,14 +111,14 @@
                 headers: { "Authorization": "Bearer " + token },
                 data: JSON.stringify({
                     name: $("#name").val(),
-                    school: { id: $("#school").val() },
+                    //school: { id: $("#school").val() },
                     gender: $("#gender").val(),
                     number: $("#number").val(),
                     title: $("#title").val(),
                     email: $("#email").val()
                 }),
                 success: function() {
-                    window.location.href = 'Teacher';
+                    window.location.href = '/desktop/Teacher';
                 }
             });
         });

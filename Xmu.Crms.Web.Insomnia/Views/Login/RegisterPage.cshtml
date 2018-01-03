@@ -65,7 +65,7 @@
 <script type="text/javascript">
     $("#submit").click(function() {
         $.ajax({
-            url: '/register',
+            url: '/desktop/register',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ phone: $("#phoneNum").val(), password: $("#password").val() }),
@@ -73,7 +73,7 @@
             success: function (result) {
                 window.localStorage.setItem('jwt', result.jwt);
                 $.ajax({
-                    url: '/me',
+                    url: '/desktop/me',
                     type: 'PUT',
                     contentType: 'application/json',
                     headers: {"Authorization": "Bearer " + result.jwt},
