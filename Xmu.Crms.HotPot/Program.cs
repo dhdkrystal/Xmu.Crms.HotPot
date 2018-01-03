@@ -30,6 +30,7 @@ namespace Xmu.Crms.HotPot
                     .AddHotPotGradeService()
                     .AddHotPotLoginService()
                     .AddHotPotUploadService()
+                    .AddCrmsView("API.Insomnia")
                     .AddCrmsView("Mobile.HotPot")
 
                     //Group1_7

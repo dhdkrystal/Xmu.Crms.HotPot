@@ -13588,7 +13588,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lihen\\.nuget\\packages\\": {},
+    "C:\\Users\\dhd\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -13597,17 +13597,17 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot.csproj",
+      "projectUniqueName": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot.csproj",
       "projectName": "Xmu.Crms.HotPot",
-      "projectPath": "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot.csproj",
-      "packagesPath": "C:\\Users\\lihen\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\obj\\",
+      "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot.csproj",
+      "packagesPath": "C:\\Users\\dhd\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.HotPot\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\lihen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\dhd\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -13620,32 +13620,32 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.Web.Insomnia\\Xmu.Crms.Web.Insomnia.csproj": {
-              "projectPath": "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.Web.Insomnia\\Xmu.Crms.Web.Insomnia.csproj"
+            "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Web.Insomnia\\Xmu.Crms.Web.Insomnia.csproj": {
+              "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Web.Insomnia\\Xmu.Crms.Web.Insomnia.csproj"
             },
-            "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.Mobile.HotPot\\Xmu.Crms.Mobile.HotPot.csproj": {
-              "projectPath": "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.Mobile.HotPot\\Xmu.Crms.Mobile.HotPot.csproj"
+            "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Mobile.HotPot\\Xmu.Crms.Mobile.HotPot.csproj": {
+              "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Mobile.HotPot\\Xmu.Crms.Mobile.HotPot.csproj"
             },
-            "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.Services.Insomnia\\Xmu.Crms.Services.Insomnia.csproj": {
-              "projectPath": "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.Services.Insomnia\\Xmu.Crms.Services.Insomnia.csproj"
+            "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.Insomnia\\Xmu.Crms.Services.Insomnia.csproj": {
+              "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.Insomnia\\Xmu.Crms.Services.Insomnia.csproj"
             },
-            "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.Services.2-10\\Xmu.Crms.Services.Group2_10.csproj": {
-              "projectPath": "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.Services.2-10\\Xmu.Crms.Services.Group2_10.csproj"
+            "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.2-10\\Xmu.Crms.Services.Group2_10.csproj": {
+              "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.2-10\\Xmu.Crms.Services.Group2_10.csproj"
             },
-            "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.Services.SmartFive\\Xmu.Crms.Services.SmartFive.csproj": {
-              "projectPath": "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.Services.SmartFive\\Xmu.Crms.Services.SmartFive.csproj"
+            "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.SmartFive\\Xmu.Crms.Services.SmartFive.csproj": {
+              "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.SmartFive\\Xmu.Crms.Services.SmartFive.csproj"
             },
-            "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.Shared\\Xmu.Crms.Shared.csproj": {
-              "projectPath": "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.Shared\\Xmu.Crms.Shared.csproj"
+            "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Shared\\Xmu.Crms.Shared.csproj": {
+              "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Shared\\Xmu.Crms.Shared.csproj"
             },
-            "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.Services.HotPot\\Xmu.Crms.Services.HotPot.csproj": {
-              "projectPath": "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.Services.HotPot\\Xmu.Crms.Services.HotPot.csproj"
+            "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.HotPot\\Xmu.Crms.Services.HotPot.csproj": {
+              "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.HotPot\\Xmu.Crms.Services.HotPot.csproj"
             },
-            "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.API.Insomnia\\Xmu.Crms.API.Insomnia.csproj": {
-              "projectPath": "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.API.Insomnia\\Xmu.Crms.API.Insomnia.csproj"
+            "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.API.Insomnia\\Xmu.Crms.API.Insomnia.csproj": {
+              "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.API.Insomnia\\Xmu.Crms.API.Insomnia.csproj"
             },
-            "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.Services.1-7\\Xmu.Crms.Services.Group1_7.csproj": {
-              "projectPath": "C:\\Users\\lihen\\Documents\\GitHub\\Xmu.Crms.HotPot\\Xmu.Crms.Services.1-7\\Xmu.Crms.Services.Group1_7.csproj"
+            "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.1-7\\Xmu.Crms.Services.Group1_7.csproj": {
+              "projectPath": "C:\\Users\\dhd\\git\\Xmu.Crms.HotPot\\Xmu.Crms.Services.1-7\\Xmu.Crms.Services.Group1_7.csproj"
             }
           }
         }

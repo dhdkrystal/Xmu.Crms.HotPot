@@ -73,7 +73,7 @@
             success: function (result) {
                 window.localStorage.setItem('jwt', result.jwt);
                 $.ajax({
-                    url: '/desktop/me',
+                    url: '/me',
                     type: 'PUT',
                     contentType: 'application/json',
                     headers: {"Authorization": "Bearer " + result.jwt},
