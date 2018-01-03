@@ -68,7 +68,7 @@
             $(".courseIntroduction").text(c.description);
         }
         $.ajax({
-            url: '/desktop/class/' + id + "/classgroup",
+            url: '/class/' + id + "/classgroup",
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},

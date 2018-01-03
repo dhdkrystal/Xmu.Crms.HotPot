@@ -89,7 +89,7 @@
             $(".courseIntroduction").text(c.description);
         }
         $.ajax({
-            url: 'class/' + id,
+            url: '/class/' + id,
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},
@@ -106,16 +106,16 @@
             }
         });
         $("#update").click(function() {
-            window.location.href = "Teacher/Class/Modify?id=" + id + "&course=" + course;
+            window.location.href = "/desktop/Teacher/Class/Modify?id=" + id + "&course=" + course;
         });
         $("#delete").click(function() {
             if (confirm("是否确认删除班级？")) {
                 $.ajax({
-                    url: 'class/' + id,
+                    url: '/class/' + id,
                     type: 'DELETE',
                     headers: {"Authorization": "Bearer " + token},
                     success: function() {
-                        window.location.href = "Teacher/Course/Courseinfo?id=" + course;
+                        window.location.href = "/desktop/Teacher/Course/Courseinfo?id=" + course;
                     }
                 });
             }

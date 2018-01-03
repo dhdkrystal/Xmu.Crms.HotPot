@@ -13,7 +13,7 @@ using System.Linq;
 
 namespace Xmu.Crms.HotPot.Controllers
 {
-    /*
+    
     [Route("")]
     [Produces("application/json")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -647,8 +647,8 @@ namespace Xmu.Crms.HotPot.Controllers
                         leader = new
                         {
                             id = g.LeaderId,
-                            name = _userService.GetUserByUserId(g.LeaderId).Name,
-                            number = _userService.GetUserByUserId(g.LeaderId).Number
+                            name = _userService.GetUserByUserId(g.LeaderId ?? 0).Name,
+                            number = _userService.GetUserByUserId(g.LeaderId ?? 0).Number
                         },
                         member = _fixGroupService.ListFixGroupMemberByGroupId(g.Id).Select(m => new
                         {
@@ -662,7 +662,7 @@ namespace Xmu.Crms.HotPot.Controllers
                 else
                 {
                     var fixGroup = _fixGroupService.GetFixedGroupById(User.Id(), classId);
-                    var leader = fixGroup.Leader ?? _userService.GetUserByUserId(fixGroup.LeaderId);
+                    var leader = fixGroup.Leader ?? _userService.GetUserByUserId(fixGroup.LeaderId ?? 0);
                     var members = _fixGroupService.ListFixGroupMemberByGroupId(fixGroup.Id);
                     var result = Json(
                         new
@@ -719,5 +719,5 @@ namespace Xmu.Crms.HotPot.Controllers
             }
         }
     }
-    */
+    
 }

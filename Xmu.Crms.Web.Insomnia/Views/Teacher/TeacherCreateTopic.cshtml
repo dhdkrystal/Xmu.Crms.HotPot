@@ -73,7 +73,7 @@
         $(".submit").click(function(e) {
             e.preventDefault();
             $.ajax({
-                url: '/desktop/seminar/' + seminar + '/topic',
+                url: '/seminar/' + seminar + '/topic',
                 type: 'POST',
                 contentType: 'application/json',
                 dataType: 'json',

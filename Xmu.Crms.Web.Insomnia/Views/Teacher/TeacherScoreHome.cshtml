@@ -113,7 +113,7 @@
             $(".courseIntroduction").text(c.description);
         }
         $.ajax({
-            url: '/desktop/seminar/' + id + '/group',
+            url: '/seminar/' + id + '/group',
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},
@@ -122,7 +122,7 @@
                 remain = groups.length;
                 for (var i = groups.length; i--;) {
                     $.ajax({
-                        url: '/desktop/group/' + groups[i].id + '?embedGrade=true',
+                        url: '/group/' + groups[i].id + '?embedGrade=true',
                         type: 'GET',
                         dataType: 'json',
                         headers: {"Authorization": "Bearer " + token},
