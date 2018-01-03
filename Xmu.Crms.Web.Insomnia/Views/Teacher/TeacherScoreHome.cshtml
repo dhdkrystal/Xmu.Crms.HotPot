@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title></title>
+    <link rel="stylesheet" href="~/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/teacher/content.css">
+</head>
+<body>
+<div class="top">
+    <div class="font">
+        课堂管理系统
+    </div>
+    <div class="icon">
+        <a href="/desktop/Teacher" style="color: white"><img src="~/img/home.png" alt="">首页</a>
+        <a href="#" style="color: white"><img src="~/img/help.png" alt="">帮助</a>
+        <a href="/desktop/Login" style="color: white"><img src="~/img/exit.png" alt="">退出</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="body">
+    <div class="navigation">
+        <div class="courseName">OOAD</div>
+        <div class="line"></div>
+        <div class="courseIntroduction">ooad is xxx</div>
+    </div>
+    <div class="content">
+        <div class="contentBlock">
+            <div class="title">评分</div>
+            <div class="returnButton">返回上一页</div>
+            <div class="line"></div>
+            <div class="itemBody">
+                <table class="table table-striped">
+                    <thead class="tableTitle">
+                    <tr>
+                        <th>Topic</th>
+                        <th>组名</th>
+                        <th>组长</th>
+                        <th>课堂讨论得分</th>
+                        <th>报告提交情况</th>
+                        <th>报告分数</th>
+                        <th>总分</th>
+                        <th>报告</th>
+                    </tr>
+                    </thead>
+                    <tbody class="tableContent">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<script src="~/js/query.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script type="text/javascript">
+    var token = window.localStorage.getItem("jwt");
+    var id = getQuery()["id"];
+    var course = getQuery()["course"];
+    var groups = [];
+    var remain = 0;
+
+    function showGroups() {
+        for (var i = groups.length; i--;) {
+            var hasReport = !(groups[i].report === null || groups[i].report === "");
+            $(".tableContent").prepend("<tr><td>" +
+                $.map(groups[i].topics, function(g) { return g.name }).join(",") +
+                "</td><td>" +
+                groups[i].name +
+                "</td><td>" +
+                groups[i].leader.name +
+                "</td><td>" +
+                $.map(groups[i].grade.presentationGrade, function(g) { return g.grade }).join(", ") +
+                "</td><td>" +
+                (hasReport ? "已提交" : "未提交") +
+                "</td><td>" +
+                groups[i].grade.reportGrade +
+                "</td><td>" +
+                groups[i].grade.grade +
+                "</td><td>" +
+                (hasReport
+                    ? (
+                        "<a href=\"/desktop/Teacher/Seminar/GroupReport?" +
+                            "id=" +
+                            groups[i].id +
+                            "&course=" +
+                            course +
+                            "&seminar=" +
+                            id +
+                            "\"><img src=\"/img/view.png\" alt=\"预览\"></a><a href=\"" +
+                            groups[i].report +
+                            "\"><img src=\"/img/download.png\" alt=\"下载\"></a>")
+                    : "") +
+                "</td></tr>");
+        }
+    }
+
+    function groupCallBack(i) {
+        return function(result) {
+            groups[i] = result;
+            if (--remain === 0) {
+                showGroups();
+            }
+        };
+    }
+
+    $(function() {
+        if (window.localStorage.getItem("course" + course)) {
+            var c = JSON.parse(window.localStorage.getItem("course" + course));
+            $(".courseName").text(c.name);
+            $(".courseIntroduction").text(c.description);
+        }
+        $.ajax({
+            url: '/desktop/seminar/' + id + '/group',
+            type: 'GET',
+            dataType: 'json',
+            headers: {"Authorization": "Bearer " + token},
+            success: function(result) {
+                groups = result;
+                remain = groups.length;
+                for (var i = groups.length; i--;) {
+                    $.ajax({
+                        url: '/desktop/group/' + groups[i].id + '?embedGrade=true',
+                        type: 'GET',
+                        dataType: 'json',
+                        headers: {"Authorization": "Bearer " + token},
+                        success: groupCallBack(i)
+                    });
+                }
+            }
+        });
+        $(".returnButton").click(function() {
+            window.history.back();
+        });
+    });
+</script>
+</body>
+</html>

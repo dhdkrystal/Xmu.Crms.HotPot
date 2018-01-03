@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>教师基本信息</title>
+    <link href="~/css/common/HomePage.css" rel="stylesheet" type="text/css"/>
+
+</head>
+<body>
+<div class="top">
+    <div class="font">
+        课堂管理系统
+    </div>
+    <div class="icon">
+        <a href="/desktop/Teacher" style="color: white"><img src="~/img/home.png" alt="">首页</a>
+        <a href="#" style="color: white"><img src="~/img/help.png" alt="">帮助</a>
+        <a href="/desktop/Login" style="color: white"><img src="~/img/exit.png" alt="">退出</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="body">
+    <div class="navigation">
+        <div class="title">导航</div>
+        <div class="line"></div>
+        <div class="courseIntroduction">
+            <a class="guidefont" href="/desktop/Teacher">基本信息</a>
+            <a class="guidefont" href="/desktop/Teacher/Course">课程信息</a>
+            <a class="guidefont" href="/desktop/Teacher/Course/Create">新建课程</a>
+        </div>
+    </div>
+    <div class="content">
+
+        <div class="title">基本信息</div>
+        <div class="line"></div>
+        <div class="imgarea">
+            <img class="img" src="~/img/link.jpg"/>
+        </div>
+
+        <div class="info">
+            <table class="table">
+                <tr class="itemName">
+                    <td >用户名：<span id="phone">12345678978</span></td>
+                    <td>教工号：<span id="number">12345678978</span></td>
+                </tr>
+                <tr class="itemName">
+                    <td>姓名：<span id="name">12345678978</span></td>
+                    <td>性别：<span id="gender">12345678978</span></td>
+                </tr>
+                <tr class="itemName">
+                    <td>学校：<span id="school">12345678978</span></td>
+                    <td>职称：<span id="title">12345678978</span></td>
+                </tr>
+                <tr class="itemName">
+                    <td>E-mail：<span id="email">12345678978</span></td>
+                    <td>联系方式：<span id="phoneNum">12345678978</span></td>
+                </tr>
+            </table>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <div class="button">
+                <button>修改</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="clear"></div>
+</div>
+<script src="~/js/query.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script type="text/javascript">
+    var token = window.localStorage.getItem("jwt");
+
+    $(function() {
+        $.ajax({
+            url: '../me',
+            type: 'GET',
+            dataType: 'json',
+            headers: {"Authorization": "Bearer " + token},
+            success: function(result) {
+                $("#name").text(result.name);
+                $("#phone").text(result.phone);
+                $("#phoneNum").text(result.phone);
+                $("#number").text(result.number);
+                $("#email").text(result.email);
+                $("#school").text(result.school.name);
+                $("#title").text(result.title);
+                $("#gender").text(result.gender === "Male" ? "男" : "女");
+                $(".img").attr("src", result.avatar);
+            }
+        });
+        $(".button").click(function() {
+            window.location.href = "Teacher/Modify";
+        });
+    });
+</script>
+</body>
+</html>

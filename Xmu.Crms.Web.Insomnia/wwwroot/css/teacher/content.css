@@ -1,0 +1,319 @@
+        html
+        {
+         height:100%;
+         margin:0;
+        }
+        body
+        {
+            height:100%;
+            margin:0; 
+        }
+      .top{
+        width: 100%;
+        height: 16%;
+        min-height: 100px;
+        background-color: rgba(65,199,219,0.7);
+        text-align: center;
+        margin: 0 auto;
+      }
+
+
+      /**
+      *这个是指下面的导航和显示信息的块的样式，从整体上来讲，下面是一个大块
+      */
+
+      .body{
+        width: 100%;
+        height: 84%;
+        background-color: white;
+      }
+      .navigation{
+        width: 20%;
+        height: 100%;
+        background-color: rgba(204,204,204,0.6);
+        float: left;
+      }
+      .icon{
+        width:25%;
+        font-family: YouYuan;
+        font-size: 20px;
+        text-align: center;
+        color: white;
+        padding-top: 4%;
+        float: right;
+      }
+      .content{
+        width: 80%;
+        height: 100%;
+        background-color: white;
+        float: right;
+      }
+      .clear{
+        clear: both;
+      }
+      .font{
+        width: 50%;
+        font-family: YouYuan;
+        font-size: 40px;
+        font-weight: bold;
+        text-align: right;
+        padding-top: 2%;
+        margin-left: 9%;
+        float: left;
+        color: #FFFFFF;
+      }
+      .courseName{
+        width: 20%;
+        font-family: consolas;
+        font-size: 20px;
+        color: #0BACE1;
+        margin-left: 5%;
+        margin-top: 5%;
+      }
+      .courseIntroduction{
+        width: 90%;
+        height: 80%;
+        margin-top: 4%;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: YouYuan;
+        font-size: 18px;
+      }
+      .title{
+        width: 20%;
+        font-family: YouYuan;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 1px;
+        margin-left: 2%;
+        margin-top: 1.2%;
+        color: #0BACE1;
+      }
+      .classInfo{
+        width: 100%;
+        height: 35%;
+        margin: 0 auto;
+      }
+      .block{
+        width: 100%;
+        height: 65%;
+        margin: 0 auto;
+      }
+      .blockBody{
+    width: 96%;
+    height: 80%;
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+}
+      .seminarInfo{
+    width: 100%;
+    height: 65%;
+    margin: 0 auto;
+}
+      .contentBlock{
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+      }
+      .itemBody{
+        width: 96%;
+        height: 80%;
+        margin-top: 2%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .item{
+        width: 80%;
+        height: 15%;
+        padding-bottom: 1%;
+        margin: 0 auto;
+      }
+      .itemName{
+        width: 16%;
+        height: 100%;
+        display: inline-block;
+        font-family: YouYuan;
+        font-size: 18px;
+      }
+      .smallItemName{
+        height: 100%;
+        display: inline-block;
+        font-family: YouYuan;
+        font-size: 18px;
+      }
+      .bigInput{
+        border: 1px solid black;
+        width: 80%;
+        height: 70%;
+      }
+      .smallInput{
+        border: 1px solid black;
+        width: 8%;
+        height: 60%;
+      }
+      .middleInput{
+        width: 15%;
+        height: 60%;
+        border: 1px solid black;
+      }
+      .bigSelect{
+        width: 30%;
+        height: 70%;
+        margin-right: 2%;
+        border: 1px solid black;
+      }
+      .smallSelect{
+        width: 15%;
+        height: 70%;
+        margin-right: 2%;
+        border: 1px solid black;
+      }
+      .addImg{
+    padding-top: 15%;
+}
+      .addButton{
+        background-color: #D4EEF2;
+        border: 1px solid #D4EEF2;
+        border-radius: 8px;
+        text-align: center;
+        width: 10%;
+        height: 70%;
+      }
+      .selectFile{
+        width: 10%;
+        height: 70%;
+        font-family: YouYuan;
+        font-size: 14px;
+        background-color: #D4EEF2;
+        border: 1px solid #D4EEF2;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .submit{
+        width: 15%;
+        height: 100%;
+        margin-top: 5%;
+        margin-left: 30%;
+        font-family: YouYuan;
+        font-size: 18px;
+        float: left;
+        background-color: #D4EEF2;
+        border: 1px solid #D4EEF2;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .reset{
+        width: 15%;
+        height: 100%;
+        margin-right: 30%;
+        margin-top: 5%;
+        font-family: YouYuan;
+        font-size: 18px;
+        float: right;
+        background-color: #D4EEF2;
+        border: 1px solid #D4EEF2;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .line{
+        width: 96%;
+        margin: 0 auto;
+        border: 1.5px solid #41C7DB;
+      }
+      .returnButton{
+        width: 10%;
+        background-color: #D4EEF2;
+        border: 1px solid #D4EEF2;
+        border-radius: 8px;
+        text-align: center;
+        margin-top: -3%;
+        margin-bottom: 1%;
+        margin-left: 85%;
+        z-index: 100;
+      }
+      .leftButton{
+        width: 15%;
+        height: 100%;
+        margin-top: 5%;
+        margin-left: 10%;
+        font-family: YouYuan;
+        font-size: 18px;
+        float: left;
+        background-color: #D4EEF2;
+        border: 1px solid #D4EEF2;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .middleButton{
+        width: 15%;
+        height: 100%;
+        margin-top: 5%;
+        margin-left: 10%;
+        font-family: YouYuan;
+        font-size: 18px;
+        float: left;
+        background-color: #D4EEF2;
+        border: 1px solid #D4EEF2;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .rightButton{
+        width: 15%;
+        height: 100%;
+        margin-top: 5%;
+        margin-right: 23%;
+        font-family: YouYuan;
+        font-size: 18px;
+        float: right;
+        background-color: #D4EEF2;
+        border: 1px solid #D4EEF2;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .textStyle{
+        width: 80%;
+        height: 100%;
+        border: 1px solid black;
+      }
+      .timeStyle{
+        width: 25%;
+        height: 70%;
+        border: 1px solid black;
+      }
+      .topicBlockBody{
+        width: 96%;
+        height: 80%;
+        margin-top: 2%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .topicBlock{
+        width:24%;
+        height: 120px;
+        background-color: rgba(11, 172, 225, 0.2);
+        border-radius: 24px;
+        text-align: center;
+        margin-right: 2%;
+        margin-bottom: 1%;
+        float: left;
+      }
+      .topicBlockFont{
+        font-family: YouYuan;
+        font-size: 20px;
+        font-weight: bold;
+        padding-top: 20%;
+        color: #000000;
+      } .tableTitle{
+          font-family: YouYuan;
+          font-size: 18px;
+          background-color: #D4EEF2;
+      }
+      .tableContent{
+          font-family: YouYuan;
+          font-size: 15px;
+          text-align: center;
+      }
+      th{
+          text-align: center;
+      }

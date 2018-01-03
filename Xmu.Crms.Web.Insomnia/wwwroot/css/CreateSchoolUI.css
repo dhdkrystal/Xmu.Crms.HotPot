@@ -1,0 +1,143 @@
+/* CreateSchoolUI.wxss */
+
+
+html{
+  font-family:"微软雅黑";
+  font-size:100px;
+  height:100%;
+  width: 100%;
+}
+.body{
+  height: 100%
+}
+/* 灯泡img */
+.bulb{
+  position:absolute;margin-left: 10%;margin-top: 8%;
+  width:9%;
+  height:19%;
+}
+/* 背景img */
+.Picture{
+  width:100%;
+  height:100%;
+}
+/* 标题 */
+.title{
+  margin-left: 5em;
+  color: #000000;
+  margin-top: 8%;
+  font-size: 3em;
+  position:absolute;
+  font-weight: bold;
+  z-index:2; 
+  top:5%;
+}
+
+
+/* 背景图的view*/
+.PictureDiv{  
+  left: 0rpx;
+  width: 100%;
+  position:relative;
+  height:30%;
+}
+/*黑色线的样式*/
+.hrDiv {
+    height: 1px;
+    width: 80%;
+    margin: auto;
+    border: 1px solid black;
+    background-color: black;
+    color: black;
+    float: right;
+    margin-left: 5%;
+    position: absolute;
+    top: 11%;
+}
+/* 省份的文字 */
+.font1{
+  position: absolute;
+  font-size: 2.5em;
+  top: 34%;
+  left: 20%;
+  font-weight: bolder;
+}
+/* 州市的文字 */
+.font2{
+  position: absolute;
+  font-size: 2.5em;
+  top: 39%;
+  left: 20%;
+  font-weight: bolder;
+}
+/*下方的主要选择页面*/
+.mainView
+{
+  background: rgba(102, 204, 255, 0.5);
+  width:100%;
+  height: 130em;
+}
+/*学校名的标签*/
+.schoolName
+{
+  position:absolute;
+  font-size: 2.5em;
+  font-weight: bolder;
+  left:20%;
+  top:44%;
+  z-index: 2;
+}
+/*学校名输入框*/
+.inputSchool
+{
+  position:absolute;
+  background: #fff;
+  width: 8em;
+  height: 1.5em;
+  font-size:3em;
+  left:35%;
+  top:44%;
+  z-index:2;
+  border-radius: 10px;
+
+}
+/*确定按钮*/
+.confirmButton
+{
+  width:150px;
+  height:65px;
+  font-size: 25px;
+  top:50%;
+}
+.tipIcon
+{
+  position: absolute;
+  width: 3%;
+  height: 2%;
+  left: 34%;
+  top:49%;
+  z-index: 2;
+}
+.tipFont
+{
+    position: absolute;
+  font-size: 2em;
+  color: red;
+  font-weight: bolder;
+  left: 38%;
+  top:49%;
+  z-index: 2;
+}
+.createButton{
+  width: 30%;
+  height: 8%;
+  font-size: 3.5em;
+  position: absolute;
+  top:60%;
+  left: 30%;
+  font-weight: bolder;
+  color: black;
+  border-radius: 0.5em;
+  background-color: white;
+
+}

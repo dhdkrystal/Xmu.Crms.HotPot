@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="zh">
+    <meta charset="UTF-8">
+    <title>创建班级</title>
+    <link rel="stylesheet" href="~/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/teacher/content.css">
+</head>
+<body>
+
+<div class="top">
+    <div class="font">
+        课堂管理系统
+    </div>
+    <div class="icon">
+        <a href="/desktop/Teacher" style="color: white"><img src="~/img/home.png" alt="">首页</a>
+        <a href="#" style="color: white"><img src="~/img/help.png" alt="">帮助</a>
+        <a href="/desktop/Login" style="color: white"><img src="~/img/exit.png" alt="">退出</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="body">
+    <div class="navigation">
+        <div class="courseName">OOAD</div>
+        <div class="line"></div>
+        <div class="courseIntroduction">ooad is xxx</div>
+    </div>
+    <div class="content">
+        <form method="post" class="block">
+            <div class="title">创建班级</div>
+            <div class="returnButton">返回上一页</div>
+            <div class="line"></div>
+            <div class="itemBody">
+                <div class="item">
+                    <label class="itemName">班级名称:</label>
+                    <input type="text" name="className" id="name" class="bigInput">
+                </div>
+                <div class="item">
+                    <label class="itemName">上课地点:</label>
+                    <input type="text" name="classNickname" id="site" class="bigInput">
+                </div>
+                <div class="item">
+                    <label class="itemName">上课时间:</label>
+                    <input type="text" name="classNickname" id="time" class="bigInput">
+                </div>
+                <div class="item">
+                    <label class="itemName">评分规则:</label>
+                    <label class="itemName">讨论课分数占比</label>
+                    <input type="text" name="seminarGrade" id="presentation" class="smallInput">
+                    <label class="itemName">报告分数占比</label>
+                    <input type="text" name="seminarGrade" id="report" class="smallInput">
+                </div>
+                <div class="item" style="margin-left: 18%">
+                    <label class="itemName">5分占比</label>
+                    <input type="text" name="seminarGrade" id="a" class="smallInput">
+                    <label class="itemName">4分占比</label>
+                    <input type="text" name="seminarGrade" id="b" class="smallInput">
+                    <label class="itemName">3分占比</label>
+                    <input type="text" name="seminarGrade" id="c" class="smallInput">
+                </div>
+                <div class="item">
+                    <label class="itemName">导入学生名单:</label>
+                    <label class="itemName">文件名</label>
+                    <button class="selectFile">选择文件</button>
+                </div>
+                <div class="item">
+                    <button class="submit" type="button">提交</button>
+                    <button class="reset" type="reset">重置</button>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="clear"></div>
+</div>
+<script src="~/js/query.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script type="text/javascript">
+    var token = window.localStorage.getItem("jwt");
+    var course = getQuery()["course"];
+    $(function() {
+        if (window.localStorage.getItem("course" + course)) {
+            var c = JSON.parse(window.localStorage.getItem("course" + course));
+            $(".courseName").text(c.name);
+            $(".courseIntroduction").text(c.description);
+        }
+        $("form").attr("action", window.location.href);
+        $(".submit").click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/desktop/course/' + course + '/class',
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                headers: {"Authorization": "Bearer " + token},
+                data: JSON.stringify({
+                    name: $("#name").val(),
+                    time: $("#time").val(),
+                    site: $("#site").val(),
+                    proportions: {
+                        presentation: $("#presentation").val(),
+                        report: $("#report").val(),
+                        c: $("#c").val(),
+                        b: $("#b").val(),
+                        a: $("#a").val()
+                    }
+                }),
+                success: function(result) {
+                    window.location.href = '/desktop/Teacher/Class?id=' + result.id + "&course=" + course;
+                }
+            });
+        });
+        $(".returnButton").click(function() {
+            window.history.back();
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>创建话题</title>
+    <link rel="stylesheet" href="~/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/teacher/content.css">
+</head>
+<body>
+
+<div class="top">
+    <div class="font">
+        课堂管理系统
+    </div>
+    <div class="icon">
+        <a href="/desktop/Teacher" style="color: white"><img src="~/img/home.png" alt="">首页</a>
+        <a href="#" style="color: white"><img src="~/img/help.png" alt="">帮助</a>
+        <a href="/desktop/Login" style="color: white"><img src="~/img/exit.png" alt="">退出</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="body">
+    <div class="navigation">
+        <div class="courseName">OOAD</div>
+        <div class="line"></div>
+        <div class="courseIntroduction">ooad is xxx</div>
+    </div>
+    <div class="content">
+        <div class="block">
+            <div class="title">讨论课</div>
+            <div class="returnButton">返回上一页</div>
+            <div class="line"></div>
+            <div class="itemBody">
+                <div class="item">
+                    <label class="itemName">题 目 :</label>
+                    <input type="text" id="name" name="seminarName" class="bigInput">
+                </div>
+                <div class="item" style="height: 40%;">
+                    <label class="itemName">说 明 :</label>
+                    <textarea class="textStyle" id="description"></textarea>
+                </div>
+                <div class="item">
+                    <label class="itemName">组数限制: </label>
+                    <input type="text" id="groupLimit" name="groupLimit" class="middleInput">
+                </div>
+                <div class="item">
+                    <label class="itemName">组内人数上限: </label>
+                    <input type="text" id="groupMemberLimit" name="groupLimit" class="middleInput">
+                </div>
+                <div class="item">
+                    <button class="submit" type="button">提 交</button>
+                    <button class="reset" type="reset">重 置</button>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<script src="~/js/query.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script type="text/javascript">
+    var token = window.localStorage.getItem("jwt");
+    var course = getQuery()["course"];
+    var seminar = getQuery()["seminar"];
+    $(function() {
+        if (window.localStorage.getItem("course" + course)) {
+            var c = JSON.parse(window.localStorage.getItem("course" + course));
+            $(".courseName").text(c.name);
+            $(".courseIntroduction").text(c.description);
+        }
+        $("form").attr("action", window.location.href);
+        $(".submit").click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/desktop/seminar/' + seminar + '/topic',
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                headers: {"Authorization": "Bearer " + token},
+                data: JSON.stringify({
+                    name: $("#name").val(),
+                    description: $("#description").val(),
+                    groupMemberLimit: $("#groupMemberLimit").val(),
+                    groupStudentLimit: $("#groupMemberLimit").val(),
+                    groupLimit: $("#groupLimit").val(),
+                    groupNumberLimit: $("#groupLimit").val()
+                }),
+                success: function(result) {
+                    window.location.href = '/desktop/Teacher/Topic?id=' + result.id + "&course=" + course;
+                }
+            });
+        });
+        $(".returnButton").click(function() {
+            window.history.back();
+        });
+    });
+</script>
+</body>
+</html>

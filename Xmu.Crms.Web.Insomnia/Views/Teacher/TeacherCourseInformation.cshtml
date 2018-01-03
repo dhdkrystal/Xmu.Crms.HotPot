@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>教师课程内页</title>
+    <link href="~/css/teacher/TeacherCourseInformation.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="top">
+    <div class="font">
+        课堂管理系统
+    </div>
+    <div class="icon">
+        <a href="/desktop/Teacher" style="color: white"><img src="~/img/home.png" alt="">首页</a>
+        <a href="#" style="color: white"><img src="~/img/help.png" alt="">帮助</a>
+        <a href="/desktop/Login" style="color: white"><img src="~/img/exit.png" alt="">退出</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="body">
+    <div class="navigation">
+        <div class="courseName">OOAD</div>
+        <div class="line"></div>
+        <div class="courseIntroduction">ooad is xxx</div>
+    </div>
+    <div class="content">
+        <div class="classInfo">
+            <div class="title">课程班级</div>
+            <div class="returnButton">返回上一页</div>
+            <div class="line"></div>
+            <div class="blockBody" id="classes">
+                <div class="block classblock">
+                    <img class="addImg" src="~/img/smalladd.png" alt="添加">
+                </div>
+            </div>
+        </div>
+        <div class="seminarInfo">
+            <div class="title">讨论课</div>
+            <div class="line"></div>
+            <div class="blockBody" id="seminars">
+                <div class="block seminarblock">
+                    <img class="addImg" src="~/img/smalladd.png" alt="添加">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<script src="~/js/query.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script async src="~/js/tether.min.js"></script>
+<script defer src="~/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+    var token = window.localStorage.getItem("jwt");
+    var id = getQuery()["id"];
+    $(function() {
+        $.ajax({
+            url: '/desktop/course/' + id,
+            type: 'GET',
+            dataType: 'json',
+            headers: {"Authorization": "Bearer " + token},
+            success: function(result) {
+                window.localStorage.setItem("course" + id, JSON.stringify(result));
+                $(".courseName").text(result.name);
+                $(".courseIntroduction").text(result.description);
+            }
+        });
+        $.ajax({
+            url: '/desktop/course/' + id + "/class",
+            type: 'GET',
+            dataType: 'json',
+            headers: {"Authorization": "Bearer " + token},
+            success: function(result) {
+                for (var i = result.length; i--;) {
+                    $("#classes").prepend("<div class=\"block classblock\" data-class-id=" +
+                        result[i].id +
+                        "> <div class=\"blockFont\">" +
+                        result[i].name +
+                        "</div></div>");
+                }
+                $(".classblock").click(function() {
+                    if ($(this).attr("data-class-id")) {
+                        window.location.href =
+                            "/desktop/Teacher/Class?id=" + $(this).attr("data-class-id") + "&course=" + id;
+                    } else {
+                        window.location.href =
+                            "/desktop/Teacher/Class/Create?course=" + id;
+                    }
+                });
+            }
+        });
+        $.ajax({
+            url: '/desktop/course/' + id + "/seminar",
+            type: 'GET',
+            dataType: 'json',
+            headers: {"Authorization": "Bearer " + token},
+            success: function(result) {
+                for (var i = result.length; i--;) {
+                    $("#seminars").prepend("<div class=\"block seminarblock\" data-seminar-id=" +
+                        result[i].id +
+                        "> <div class=\"blockFont\">" +
+                        result[i].name +
+                        "</div></div>");
+                }
+                $(".seminarblock").click(function() {
+                    if ($(this).attr("data-seminar-id")) {
+                        window.location.href =
+                            "/desktop/Teacher/Seminar?id=" + $(this).attr("data-seminar-id") + "&course=" + id;
+                    } else {
+                        window.location.href =
+                            "/desktop/Teacher/Seminar/Create?course=" + id;
+                    }
+                });
+            }
+        });
+        $(".returnButton").click(function() {
+            window.history.back();
+        });
+    });
+</script>
+</body>
+</html>

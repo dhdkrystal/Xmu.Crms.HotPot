@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta name="viewport" content="width=device-width,
+                                     initial-scale=1.0,
+                                     maximum-scale=1.0,
+                                     user-scalable=no">
+    <title>ClassManage</title>
+    <link href="~/css/teacher/TeacherCreateSchool.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+<div class="titleBackground"></div>
+<div class="title">课程管理系统</div>
+<div class="icon">
+    <a href="/desktop/Teacher" style="color: white"><img src="~/img/home.png" alt="">首页</a>
+    <a href="#" style="color: white"><img src="~/img/help.png" alt="">帮助</a>
+    <a href="/desktop/Login" style="color: white"><img src="~/img/exit.png" alt="">退出</a>
+</div>
+<div class="province">
+    所在省份： <select class="provinceSelect" id="province"></select>
+</div>
+<div class="city">
+    所在城市： <select class="citySelect" id="city"></select>
+</div>
+<div class="school">
+    学校名称： <input type="text" name="school" id="name"/>
+</div>
+<div class="submit">提交</div>
+<script src="~/js/query.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $(".submit").click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/desktop/school',
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify({
+                    province: $("#province").val(),
+                    city: $("#city").val(),
+                    name: $("#name").val()
+                }),
+                success: function(result) {
+                    window.location.href = "/desktop/RegisterPage?school=" + result.id;
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

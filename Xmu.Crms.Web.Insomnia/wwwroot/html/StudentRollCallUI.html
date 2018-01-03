@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+    <meta name="divport" content="width=device-width,
+                                     initial-scale=1.0,
+                                     maximum-scale=1.0"
+                                    >
+<title>Untitled Document</title>
+  <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="../css/StudentRollCallUI.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <!--设置左上角的blueBoardIcon-->
+  <div class="blueUsersDiv" >
+        <img src="../images/blueBoard.png" class='blueUsersIcon' style="float:left;margin-top:7%; "/>
+        <strong class="title">讨论课信息</strong>
+   </div>
+
+  <!--细线，hr不好设置css，用一个高度很小的div来代替-->
+   <div class="hrDiv">
+   </div>
+<div class="lowBox">
+  <!--课堂信息，由一个icon和一行文字组成-->
+  <div class="courseInfoDiv">
+        <img src="../images/teacher.png" class='courseInfoIcon'/>
+        <strong>邱明</strong>
+   </div>
+   <div class="courseInfoDiv">
+        <img src="../images/mail.png" class='courseInfoIcon'/>
+        <strong>mingqiu@gmail.com</strong>
+   </div>
+   <div class="courseInfoDiv">
+        <img src="../images/date.png" class='courseInfoIcon'/>
+        <strong>2017-11-11</strong>
+   </div>
+   <div class="courseInfoDiv">
+        <img src="../images/site.png" class='courseInfoIcon'/>
+        <strong>海韵教学楼201</strong>
+   </div>
+</div>
+
+  <!--签到成功-
+  <div class="successCall">
+        <img src="../images/闹钟.png" class='courseInfoIcon'/>
+        <strong>签到成功</strong>
+   </div>
+  -->
+  <!--迟到签到
+  <div class="lateCall">
+        <img src="../images/闹钟.png" class='courseInfoIcon'/>
+        <strong>迟到签到成功</strong>
+   </div>
+  -->
+
+<!--签到按钮-->
+  <div>
+    <button type="button" class="blueBigBtn">
+     签到
+    </button>
+  </div>
+
+
+</body>
+</html>

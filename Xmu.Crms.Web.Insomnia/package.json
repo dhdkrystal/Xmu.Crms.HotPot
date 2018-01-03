@@ -1,0 +1,27 @@
+{
+  "name": "classmanagementsystem",
+  "version": "1.0.0",
+  "description": "Class Management System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Librazy/ClassManagementSystem.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Librazy/ClassManagementSystem/issues"
+  },
+  "homepage": "https://github.com/Librazy/ClassManagementSystem#readme",
+  "dependencies": {
+    "bootstrap": "^4.0.0-beta.2",
+    "gulp": "^3.9.1",
+    "jquery": "^3.2.1",
+    "tether": "^1.4.3"
+  },
+  "devDependencies": {}
+}

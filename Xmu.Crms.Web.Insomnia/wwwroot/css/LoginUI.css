@@ -1,0 +1,148 @@
+ /*LoginUI.css*/
+
+html{
+  font-family:"微软雅黑";
+  font-size:100px;
+  height:100%;
+  width: 100%;
+
+}
+.body{
+  background-color: rgba(102, 204, 255, 0.5);  
+  height: 100%
+}
+/* 灯泡img */
+.bulb{
+  position:absolute;margin-left: 15%;margin-top: 9%;
+  width:9%;
+  height:16%;
+}
+.hrDiv {
+  height: 4px;
+  width: 80%;
+  margin: auto;
+  position: absolute;
+  border: 0.5px solid black;
+  background-color: black;
+  color: black;
+  float: left;
+  margin-left: 5%;
+  margin-right: 15%;
+  top:12%;
+}
+/* 背景img */
+.Picture{
+  width:100%;
+  height:100%;
+}
+/* 标题 */
+.title{
+  margin-left: 7em;
+  color: #000000;
+  margin-top: 8%;
+  font-size: 3em;
+  position:absolute;
+  font-weight: bold;
+  z-index:2; 
+  top:7%
+}
+
+/* 背景图的view*/
+.PictureDiv{  
+  left: 0rpx;
+  width: 100%;
+  position:relative;
+  height:30%;
+}
+/*下方的主要选择页面*/
+.mainView
+{
+  background-color: rgba(102, 204, 255, 0.5);  
+  width:100%;
+  height: 100em;
+}
+/*手机号的标签*/
+.phoneID
+{
+  position:absolute;
+  font-size: 3em;
+  left:15%;
+  font-weight: bolder;
+  top:40%;
+}
+/*密码的标签*/
+.password
+{
+  position:absolute;
+  font-size: 3em;
+  left:15%;
+  top:50%;
+  font-weight: bolder;
+}
+/*手机号输入框*/
+.inputPhoneID
+{
+  position:absolute;
+  background: #fff;
+  width: 10em;
+  height: 2em;
+  font-size:3em;
+  left:35%;
+  top:39.3%;
+  border-radius: 5px;
+}
+/*密码输入框*/
+.inputPassword
+{
+  position:absolute;
+  background: #fff;
+  width: 10em;
+  height: 2em;
+  font-size:3em;
+  left:35%;
+  top:49.3%;
+  border-radius: 5px;
+}
+.confirmDiv{
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  height: 4em;
+  top:50%;
+}
+/*确定按钮*/
+.confirmButton
+{
+  position: absolute;
+   background-color: #ffffff;
+  color:#000000;
+  font-size: 3em;
+  border:blue;
+  display: inline-block;
+  margin-top: 60%;
+  margin-left: 35%;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.1);
+  width:30%;
+  height: 3em;
+  border-radius: 15px;
+  font-weight: bolder;
+}
+/*“还没有注册账号？”*/
+.tip1
+{
+  position: absolute;
+    font-size:2em;
+    top:73%;
+    left: 44%;
+
+}
+/*“请先注册”*/
+.tip2
+{
+  position: absolute;
+    font-size: 2em;
+    color:blue;
+    top:76%;
+    left: 45%;
+    z-index:2;
+}

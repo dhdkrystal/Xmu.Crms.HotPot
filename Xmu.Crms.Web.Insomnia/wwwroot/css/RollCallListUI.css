@@ -1,0 +1,120 @@
+@charset "utf-8";
+/* 背景色 */
+html{
+    font-family:"微软雅黑";
+    font-size:100px;
+    height:100%;
+    width: 100%;
+}
+.body{
+    height: 100%;
+}
+body {
+    background: rgba(102, 204, 255, 0.5);
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+/* 左上角的蓝色板的容器*/
+.blueBoardDiv {
+    width: 30em;
+    height: 30em;
+    float: left;
+    padding-top: 10%;
+    padding-left: 10%;
+}
+
+/* 左上角的蓝色板图标大小*/
+.blueBoardIcon {
+    width: 100%;
+    height: 100%;
+}
+
+/* 班级名的位置、字体等样式 */
+.classNameDiv {
+    margin-top: 13%;
+    margin-left: 0.66%;
+    margin-right: 4%;
+    width: 40%;
+    height: 7.5%;
+    font-size: 8em;
+    float: left;
+    padding-left: 5.3%;
+}
+
+/* 学生总数的位置、字体等样式*/
+.studentSumDiv {
+    font-size: 3.5em;
+    width: 46.6%;
+    height: 6%;
+    float: left;
+    margin-left: 0.66%;
+    padding-top: 4%;
+    padding-left: 5.3%;
+}
+
+/* 下端的div */
+.lowBox{
+    width: 100%;
+    height:50em;
+}
+
+/*学生名单上面蓝色的bar*/
+.studentListBarDiv {
+    background-color: #6cf;
+    float: right;
+    width: 90%;
+    height: 4%;
+    border-radius: 6px;
+    color: black;
+    margin-right: 5%;
+    margin-top: 10%;
+    padding-bottom: 1%;
+}
+
+/* 蓝条的文字 */
+.barText{
+   font-size: 2.5em;
+   margin-left: 2%;
+   margin-top: 0.5em;
+}
+/*左边的学生块*/
+.studentLeftBlock {
+    background-color: #fff;
+    width: 45%;
+    float: left;
+    border-radius: 2em;
+    color: black;
+    height: 7.5%;
+    margin-left: 5%;
+}
+
+/*右边的学生块*/
+.studentRightBlock {
+    background-color: #fff;
+    width: 45%;
+    float: right;
+    border-radius: 2em;
+    color: black;
+    height: 7.5%;
+    margin-right: 5%;
+}
+
+/*学生前面的icon*/
+.userIcon {
+    float: left;
+    width: 25%;
+    height: 100%;
+}
+
+/*学生名字的文本*/
+.studentName {
+    float: left;
+    font-size: 2.5em;
+    margin-left: 20%;
+    margin-top: 6%;
+}
+

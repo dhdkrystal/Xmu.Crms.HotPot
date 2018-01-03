@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,
+                                     initial-scale=1.0,
+                                     maximum-scale=1.0,
+                                     user-scalable=no">
+    <title>ClassManage</title>
+    <link href="~/css/common/RegisterPage.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+<div class="titleBackground"></div>
+<div class="title">课程管理系统</div>
+<div class="icon">
+    <img src="/img/home.png" alt="">首页
+    <img src="/img/help.png" alt="">帮助
+    <img src="/img/exit.png" alt="">退出
+</div>
+<div class="phoneNum">
+    手机号:<input type="text" name="phoneNum" id="phoneNum"/>
+</div>
+<div class="password">
+    密码:<input type="text" name="password" id="password"/>
+</div>
+<div class="name">
+    姓名:<input type="text" name="name" id="name"/>
+</div>
+<div class="province">
+    省:<select class="provinceSelect"><option>福建</option></select>
+</div>
+<div class="city">
+    市:<select class="citySelect"><option>厦门</option></select>
+</div>
+<div class="school">
+    学校:<select class="schoolSelect" id="school"><option>厦门大学</option></select>
+    <div class="createSchool">创建学校</div>
+</div>
+<div class="gender">性别:</div>
+<div class="male">
+    男<input type="radio" value="male" name="gender" checked="checked"/>
+</div>
+<div class="female">
+    女<input type="radio" value="female" name="gender"/>
+</div>
+<div class="role">角色:</div>
+<div class="student">
+    学生<input type="radio" value="student" name="role" checked="checked"/>
+</div>
+<div class="teacher">
+    教师<input type="radio" value="teacher" name="role"/>
+</div>
+<div class="stuffNum">
+    教工号:<input type="text" name="stuffNum" id="stuffNum"/>
+</div>
+<div class="eMail">
+    邮箱:<input type="text" name="eMail" id="eMail"/>
+</div>
+<div class="submit" id="submit">提交</div>
+<script src="~/js/jquery.min.js"></script>
+<script async src="~/js/tether.min.js"></script>
+<script defer src="~/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+    $("#submit").click(function() {
+        $.ajax({
+            url: '/register',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ phone: $("#phoneNum").val(), password: $("#password").val() }),
+            dataType: 'json',
+            success: function (result) {
+                window.localStorage.setItem('jwt', result.jwt);
+                $.ajax({
+                    url: '/desktop/me',
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    headers: {"Authorization": "Bearer " + result.jwt},
+                    data: JSON.stringify({
+                        name: $("#name").val(),
+                        school: { id: 1 }, //TODO
+                        gender: $('input[name=gender]:checked').val(),
+                        type: $('input[name=role]:checked').val(),
+                        number: $("#stuffNum").val(),
+                        email: $("#eMail").val()
+                    }),
+                    dataType: 'json',
+                    success: function() {
+                        if ($('input[name=role]:checked').val().type === "student") {
+                            window.location.href = "/desktop/Student/";
+                        } else {
+                            window.location.href = "/desktop/Teacher/";
+                        }
+                    }
+                });
+            }
+        });
+    });
+    $(".createSchool").click(function() {
+        window.location.href = "/desktop/TeacherCreateSchool";
+    });
+</script>
+</body>
+
+</html>

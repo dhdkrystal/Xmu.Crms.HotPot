@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>教师基本信息改</title>
+    <link href="~/css/common/InfoModifyPage.css" rel="stylesheet" type="text/css"/>
+
+</head>
+<body>
+<div class="top">
+    <div class="font">
+        课堂管理系统
+    </div>
+    <div class="icon">
+        <a href="/desktop/Teacher" style="color: white"><img src="~/img/home.png" alt="">首页</a>
+        <a href="#" style="color: white"><img src="~/img/help.png" alt="">帮助</a>
+        <a href="Login" style="color: white"><img src="~/img/exit.png" alt="">退出</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="body">
+    <div class="navigation">
+        <div class="title">导航</div>
+        <div class="line"></div>
+        <div class="courseIntroduction">
+            <a class="guidefont" href="/desktop/Teacher">基本信息</a>
+            <a class="guidefont" href="/desktop/Teacher/Course">课程信息</a>
+            <a class="guidefont" href="/desktop/Teacher/Course/Create">新建课程</a>
+        </div>
+    </div>
+    <div class="content">
+        <div class="title">基本信息</div>
+        <hr class="line"/>
+        <div class="imgarea">
+            <img class="img" src="~/img/link.jpg"/>
+        </div>
+
+        <div class="info">
+
+            <form>
+                <table class="table">
+                    <tr class="itemName">
+                        <td>用户名：<span id="phone">12345678978</span></td>
+                        <td>教工号：<input type="text" name="number" id="number"/></td>
+                    </tr>
+                    <tr class="itemName">
+                        <td>姓名：<input type="text" name="name" id="name"/></td>
+                        <td>
+                            性别：
+                            <select name="gender">
+                                <option value="male">男</option><option value="female">女</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="itemName">
+                        <td>
+                            学校:<select disabled="" class="schoolSelect" id="school"></select>
+                        </td>
+                        <td>职称：<input type="text" name="title" id="title"/></td>
+                    </tr>
+                    <tr class="itemName">
+                        <td>E-mail：<input type="text" name="e-mail" id="email"/></td>
+                        <td>联系方式：<input type="text" disabled name="phone" id="phoneNum"/></td>
+                    </tr>
+                </table>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div >
+                    <input class="button" type="submit" name="submit"/>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<script src="~/js/query.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script type="text/javascript">
+    var token = window.localStorage.getItem("jwt");
+
+    $(function() {
+        $("form").attr("action", window.location.href);
+        $.ajax({
+            url: '/desktop/me',
+            type: 'GET',
+            dataType: 'json',
+            headers: { "Authorization": "Bearer " + token },
+            success: function(result) {
+                $("#phone").val(result.phone);
+                $("#name").val(result.name);
+                $("#gender").val(result.gender);
+                $("#number").val(result.number);
+                $("#school").val(result.school.id);
+                $("#title").val(result.title);
+                $("#email").val(result.email);
+                $("#phoneNum").val(result.phone);
+                $(".img").attr("src", result.avatar);
+            }
+        });
+        $(".button").click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/desktop/me',
+                type: 'PUT',
+                contentType: 'application/json',
+                dataType: 'json',
+                headers: { "Authorization": "Bearer " + token },
+                data: JSON.stringify({
+                    name: $("#name").val(),
+                    school: { id: $("#school").val() },
+                    gender: $("#gender").val(),
+                    number: $("#number").val(),
+                    title: $("#title").val(),
+                    email: $("#email").val()
+                }),
+                success: function() {
+                    window.location.href = 'Teacher';
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>教师查看学生报告</title>
+    <link rel="stylesheet" href="~/css/vendor/bootstrap.min.css">
+    <style>
+        html {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .top {
+            height: 8%;
+            margin-top: 3%;
+            width: 90%;
+        }
+
+        .body {
+            height: 92%;
+            margin-left: 5%;
+            width: 90%;
+        }
+
+        .file {
+            border-color: black;
+            border-style: solid;
+            border-width: %1;
+            height: 100%;
+            width: 100%;
+        }
+
+        .pdfFile {
+            font-family: YouYuan;
+            padding-left: 5%;
+        }
+
+        .item1 {
+            height: 5%;
+            margin-left: 5%;
+            width: 40%;
+        }
+
+        .item2 {
+            height: 5%;
+            margin-left: 85%;
+            width: 40%;
+        }
+
+        .itemName {
+            font-family: YouYuan;
+            font-size: 20px;
+            padding-left: 3%;
+        }
+      
+    </style>
+</head>
+<body>
+
+<div class="top">
+    <div class="item1">
+        <label class="itemName" id="seminarName">讨论课</label>
+        <label class="itemName" id="name">1-A-1组</label>
+        <label class="itemName" id="leader">组长：……</label>
+    </div>
+    <div class="item2">
+        <label class="itemName">评分:</label>
+        <input type="text" id="score" placeholder="3-5"/>
+        <button class="itemName" id="submit">确认打分</button>
+    </div>
+</div>
+<div class="body">
+    <div class="file">
+        <embed class="pdfFile" style="height: 100%; padding: 0; width: 100%;" type="application/pdf"/>
+    </div>
+</div>
+<script src="~/js/query.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script>
+    var token = window.localStorage.getItem("jwt");
+    var query = getQuery();
+    var course = query["course"];
+    var seminar = query["seminar"];
+    var id = query["id"];
+    $(function() {
+        if (window.localStorage.getItem("seminar" + seminar)) {
+            $("#seminarName").text(JSON.parse(window.localStorage.getItem("seminar" + seminar)).name);
+        }
+
+        $.ajax({
+            url: '/desktop/group/' + id,
+            type: 'GET',
+            dataType: 'json',
+            headers: {"Authorization": "Bearer " + token},
+            success: function(result) {
+                $(".pdfFile").attr("src", result.report);
+                $("#name").text(result.name);
+                $("#leader").text(result.leader.name);
+            }
+        });
+        $("#submit").click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/desktop/group/' + id + '/grade/report',
+                type: 'PUT',
+                dataType: 'json',
+                contentType: 'application/json',
+                headers: {"Authorization": "Bearer " + token},
+                data: JSON.stringify({ reportGrade: $("#score").val() }),
+                success: function() {
+                    window.location.href = "/desktop/Teacher/Seminar/Score?id=" + seminar + "&course=" + course;
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

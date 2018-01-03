@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+    <meta name="divport" content="width=device-width,
+                                     initial-scale=1.0,
+                                     maximum-scale=1.0"
+                                    >
+<title>Untitled Document</title>
+  <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="../css/RandomGroupChooseTopicUI2.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <!--设置左上角的usersIcon-->
+  <div class="blueUsersDiv">
+    <img src="../images/users.png" class='blueUsersIcon' />
+    <strong class="title">请为您的队伍选题</strong>
+  </div>
+
+  <!--细线，hr不好设置css，用一个高度很小的div来代替-->
+  <div class="hrDiv">
+  </div>
+
+  <!--当选题未选完时框是蓝色的，要增加新框就直接复制-->
+  <div class="blueTopicDiv">
+    <span class="topic">话题A</span>
+    <div class="hrVertical"> </div>
+    <span class="topicName">领域模型设计</span>
+    <!--剩余选题数量大于等于2时-->
+    <span class="leftNumWhite">剩余 ： 2/5</span>
+    <img src='../images/ninedot.png' class="nineIcon"></img>
+  </div>
+
+  <!--当点击九点时出现topic的简介-->
+  <div class="topicDescribeDiv">
+    <span class="topicDescribeTitle">
+      领域模型设计
+    </span>
+    <span class="topicDescribeText">
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    </span>
+
+  </div>
+
+  <div class="blueTopicDiv">
+    <span class="topic">话题B</span>
+    <div class="hrVertical"> </div>
+    <span class="topicName">包划分</span>
+    <!--剩余选题为1时会变红-->
+    <span class="leftNumRed">剩余 ： 1/5</span>
+    <img src='../images/ninedot.png' class="nineIcon"></img>
+  </div>
+
+  <!--无剩余名额时选题框为灰色-->
+  <div class="greyTopicDiv">
+    <span class="topic">话题C</span>
+    <div class="hrVertical"> </div>
+    <span class="topicName">界面设计</span>
+    <span class="leftNumWhite">剩余 ： 0/5</span>
+    <img src='../images/ninedot.png' class="nineIcon"></img>
+  </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+    <ProjectReference Include="..\Xmu.Crms.API.Insomnia\Xmu.Crms.API.Insomnia.csproj" />
+    <ProjectReference Include="..\Xmu.Crms.Mobile.HighGrade\Xmu.Crms.Mobile.HighGrade.csproj" />
+    <ProjectReference Include="..\Xmu.Crms.Services.HighGrade\Xmu.Crms.Services.HighGrade.csproj" />
+    <ProjectReference Include="..\Xmu.Crms.Services.Insomnia\Xmu.Crms.Services.Insomnia.csproj" />
+    <ProjectReference Include="..\Xmu.Crms.Services.ViceVersa\Xmu.Crms.Services.ViceVersa.csproj" />
+    <ProjectReference Include="..\Xmu.Crms.Shared1\Xmu.Crms.Shared1.csproj" />
+    <ProjectReference Include="..\Xmu.Crms.Shared\Xmu.Crms.Shared.csproj" />
+    <ProjectReference Include="..\Xmu.Crms.Web.Insomnia\Xmu.Crms.Web.Insomnia.csproj" />
+    <PackageReference Update="Microsoft.NETCore.App" Version="2.0.3" />
+  </ItemGroup>
+  
+  <Target Name="CopyDepsFiles" AfterTargets="Build" Condition="'$(TargetFramework)'!=''">
+    <ItemGroup>
+      <DepsFilePaths Include="$([System.IO.Path]::ChangeExtension('%(_ResolvedProjectReferencePaths.FullPath)', '.deps.json'))" />
+    </ItemGroup>
+
+    <Copy SourceFiles="%(DepsFilePaths.FullPath)" DestinationFolder="$(OutputPath)" Condition="Exists('%(DepsFilePaths.FullPath)')" />
+  </Target>
+  
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
+</Project>

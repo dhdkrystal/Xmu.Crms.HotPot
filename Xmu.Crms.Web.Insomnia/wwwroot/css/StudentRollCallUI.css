@@ -1,0 +1,118 @@
+@charset "utf-8";
+/* 背景色 */
+body {
+    background: rgba(102, 204, 255, 0.5);
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+html{
+    font-family:"微软雅黑";
+    font-size:100px;
+    height:100%;
+    width: 100%;
+}
+.body{
+    height: 100%
+}
+/* 左上角的users图标和文字的容器*/
+
+.blueUsersDiv {
+    width: 60%;
+    height: 10%;
+    margin-top: 5%;
+    margin-left: 10%;
+
+}
+
+.title{
+    font-size: 2.6em;
+    float:left;
+    position: absolute;
+    margin-top: 15%;
+    margin-left: 18%;
+}
+/* 左上角的蓝色users图标大小*/
+
+.blueUsersIcon {
+    width: 10em;
+    height: 10em;
+    margin-right: 10%;
+    margin-top:30%;
+    position: absolute;
+    float: left;
+}
+
+/*黑色线的样式*/
+.hrDiv {
+  height: 4px;
+  width: 80%;
+  margin: auto;
+  position: absolute;
+  border: 0.5px solid black;
+  background-color: black;
+  color: black;
+  float: left;
+  margin-left: 5%;
+  margin-right: 15%;
+  top:17%;
+}
+
+/*课程信息的文本+ICon的容器*/
+.courseInfoDiv {
+    width: 80%;
+    height: 5%;
+    float: left;
+    margin-top: 5%;
+    margin-left: 5%;
+    font-size: 2em;
+
+}
+/* 下端的div*/
+.lowBox{
+    margin-top: 10%;
+}
+
+/*课程信息的Icon*/
+.courseInfoIcon {
+    width: 3em;
+    height: 3em;
+    margin-right: 10%;
+    margin-left: 20%;
+}
+
+/*成功签到情况下的图标+文本容器*/
+.successCall {
+    width: 80%;
+    height: 5%;
+    float: left;
+    margin-top: 15%;
+    margin-left: 15%;
+    font-size: 2em;
+}
+
+/*迟到签到情况下的图标+文本容器*/
+.lateCall {
+    width: 80%;
+    height: 5%;
+    float: left;
+    margin-top: 15%;
+    margin-left: 15%;
+    font-size: 2em;
+    color: #FA8888
+}
+
+/*蓝色的大button，显示 签到 */
+.blueBigBtn {
+    background-color: rgba(102, 204, 255, 1);
+    color: white;
+    font-size: 3em;
+    height: 3em;
+    width: 30%;
+    border-radius: 0.5em;
+    margin-left: 35%;
+    margin-top: 11.2%;
+    border-style: none;
+}

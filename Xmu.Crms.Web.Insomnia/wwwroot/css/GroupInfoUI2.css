@@ -1,0 +1,137 @@
+@charset "utf-8";
+/*背景色*/
+body {
+    background: rgba(102, 204, 255, 0.5);
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* 左上角的users图标和文字的容器*/
+
+.blueUsersDiv {
+    width: 60%;
+    height: 10%;
+    float: left;
+    margin-top: 5%;
+    margin-left: 10%;
+}
+
+.title{
+    float: left;
+    margin-top: 13%;
+    font-size: 2.5em;
+}
+
+/* 左上角的蓝色users图标大小*/
+
+.blueUsersIcon {
+    width: 10em;
+    margin-right: 10%;
+    float: left;
+}
+
+/*黑色线的样式*/
+.hrDiv {
+    height: 1.5%;
+    width: 80%;
+    margin: auto;
+    border: 1px solid black;
+    background-color: black;
+    color: black;
+    float: right;
+    margin-right: 10%;
+    margin-top: 2.5%;
+    margin-bottom: 5%;
+}
+
+/*学生名单上面那个蓝色的bar*/
+.studentListBarDiv {
+    background-color: #6cf;
+    float: right;
+    width: 90%;
+    height: 2em;
+    border-radius: 0.3em;
+    font-size: 3em;
+    color: black;
+    margin-right: 5%;
+    margin-top: 2%;
+    padding-bottom: 1%;
+}
+
+.groupName{
+    padding-left: 0.8em;
+}
+/*队伍和选题的文字*/
+.groupTopics {
+    float: right;
+    margin-right: 25%;
+}
+
+/*左边的学生块*/
+.studentLeftBlock {
+    background-color: #fff;
+    width: 45%;
+    float: left;
+    border-radius: 1em;
+    color: black;
+    height: 7%;
+    margin-left: 5%;
+}
+
+/*右边的学生块*/
+.studentRightBlock {
+    background-color: #fff;
+    width: 45%;
+    float: right;
+    border-radius: 10px;
+    color: black;
+    height: 7%;
+    margin-right: 5%;
+}
+
+/*学生前面的icon*/
+.userIcon {
+    float: left;
+    width: 25%;
+    height: 100%;
+}
+
+/*学生名字的文本*/
+.studentName {
+    float: left;
+    margin-left: 25%;
+    margin-top: 6%;
+    font-size: 2.5em;
+}
+
+/*取消加入迟到学生的红叉*/
+.redCancelIcon {
+    float: right;
+    margin-right: 5%;
+    margin-top: 5%;
+    width: 15%;
+    height: 60%;
+}
+
+/*增加学生前面的加号*/
+.addIcon {
+    float: right;
+    width: 25%;
+    height: 100%;
+}
+
+/*未签到学生名单上面那个蓝色的bar,相比普通的增加了上方间距*/
+.studentNoCallBarDiv {
+    background-color: #6cf;
+    float: right;
+    width: 90%;
+    height: 5%;
+    border-radius: 6px;
+    font-size: 3em;
+    color: black;
+    margin-right: 5%;
+    margin-top: 10%;
+    padding-bottom: 1%;
+}

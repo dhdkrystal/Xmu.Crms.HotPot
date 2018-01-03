@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>查看话题</title>
+    <link rel="stylesheet" href="~/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/teacher/content.css">
+
+</head>
+<body>
+
+<div class="top">
+    <div class="font">
+        课堂管理系统
+    </div>
+    <div class="icon">
+        <a href="/desktop/Teacher" style="color: white"><img src="~/img/home.png" alt="">首页</a>
+        <a href="#" style="color: white"><img src="~/img/help.png" alt="">帮助</a>
+        <a href="/desktop/Login" style="color: white"><img src="~/img/exit.png" alt="">退出</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="body">
+    <div class="navigation">
+        <div class="courseName">OOAD</div>
+        <div class="line"></div>
+        <div class="courseIntroduction">ooad is xxx</div>
+    </div>
+    <div class="content">
+        <div class="block">
+            <div class="title">查看话题</div>
+            <div class="returnButton">返回上一页</div>
+            <div class="line"></div>
+            <div class="itemBody">
+                <div class="item">
+                    <label class="itemName">题 目 : <span id="name"></span></label>
+                </div>
+                <div class="item" style="height: 40%;">
+                    <label class="itemName">说 明 : <span id="description"></span></label>
+                </div>
+                <div class="item">
+                    <label class="itemName">组数限制: <span id="groupLimit"></span></label>
+                </div>
+                <div class="item">
+                    <label class="itemName">组内人数上限: <span id="groupMemberLimit"></span></label>
+
+                </div>
+                <div class="item">
+                    <label class="itemName">已选小组: </label>
+                    <ul id="groups"></ul>
+                </div>
+                <div class="item">
+                    <button class="submit" id="update">修 改</button>
+                    <button class="reset" id="delete">删除话题</button>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<script src="~/js/query.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script type="text/javascript">
+    var token = window.localStorage.getItem("jwt");
+    var id = getQuery()["id"];
+    var course = getQuery()["course"];
+    var seminar = getQuery()["seminar"];
+    $(function() {
+        if (window.localStorage.getItem("course" + course)) {
+            var c = JSON.parse(window.localStorage.getItem("course" + course));
+            $(".courseName").text(c.name);
+            $(".courseIntroduction").text(c.description);
+        }
+        $.ajax({
+            url: '/desktop/topic/' + id,
+            type: 'GET',
+            dataType: 'json',
+            headers: {"Authorization": "Bearer " + token},
+            success: function(result) {
+                $("#name").text(result.name);
+                $("#description").text(result.description);
+                $("#groupLimit").text(result.groupLimit);
+                $("#groupMemberLimit").text(result.groupMemberLimit);
+            }
+        });
+        $.ajax({
+            url: '/desktop/topic/' + id + '/group',
+            type: 'GET',
+            dataType: 'json',
+            headers: {"Authorization": "Bearer " + token},
+            success: function(result) {
+                for (var i = result.length; i--;) {
+                    $("#groups").prepend("<li>" + result[i].name + "</li>");
+                }
+            }
+        });
+        $("#update").click(function() {
+            window.location.href = "/desktop/Teacher/Topic/Update?id=" + id + "&course=" + course + "&seminar=" + seminar;
+        });
+        $("#delete").click(function() {
+            if (confirm("是否确认删除话题？")) {
+                $.ajax({
+                    url: '/desktop/topic/' + id,
+                    type: 'DELETE',
+                    headers: {"Authorization": "Bearer " + token},
+                    success: function() {
+                        window.location.href = "/desktop/Teacher/Seminar?id=" + seminar;
+                    }
+                });
+            }
+        });
+        $(".returnButton").click(function() {
+            window.history.back();
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>学生基本信息</title>
+    <link href="~/css/common/HomePage.css" rel="stylesheet" type="text/css"/>
+
+</head>
+<body>
+<div class="top">
+    <div class="font">
+        课堂管理系统
+    </div>
+    <div class="icon">
+        <img id="skiphome" src="~/img/home.png">首页
+        <img id="skiphelp" src="~/img/help.png">帮助
+        <img id="skipexit" src="~/img/exit.png">退出
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="body">
+    <div class="navigation">
+        <div class="title">导航</div>
+        <div class="line"></div>
+        <div class="courseIntroduction">
+            <a class="guidefont" href="/desktop/Student">基本信息</a>
+            <a class="guidefont" href="/desktop/Student/Course">课程信息</a>
+            <a class="guidefont" href="/desktop/Student/Choosecourse">选择课程</a>
+        </div>
+    </div>
+    <div class="content">
+
+        <div class="title">基本信息</div>
+        <div class="line"></div>
+        <div id="insertinfo" class="imgarea">
+            <img class="img" src="~/img/link.jpg"/>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<script src="~/js/jquery.min.js"></script>
+<script async src="~/js/tether.min.js"></script>
+<script defer src="~/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+    var token = window.localStorage.getItem("jwt");
+
+    $(function() {
+        $.ajax({
+            url: '/desktop/me',
+            type: 'GET',
+            dataType: 'json',
+            headers: {"Authorization": "Bearer " + token},
+            success: function(result) {
+                $("#insertinfo").after(
+                    "<div class=\"info\">" +
+                    "<table class=\"table\">" +
+                    "\<tr class=\"itemName\">" +
+                    "<td>用户名：<span>" +
+                    result.phone +
+                    "</span ></td >" +
+                    "<td>学号：<span>" +
+                    result.number +
+                    "</span ></td >" +
+                    "</tr><tr class=\"itemName\"><td>姓名：<span>" +
+                    result.name +
+                    "</span></td>" +
+                    "<td>性别：<span>" +
+                    (result.gender === "Male" ? "男" : "女") +
+                    "</span ></td >" +
+                    "</tr ><tr class=\"itemName\"><td>学校：<span>" +
+                    result.school.name +
+                    "</span></td>" +
+                    "<td>学历：<span>" +
+                    result.education +
+                    "</span></td>" +
+                    "</tr ><tr class=\"itemName\"><td>E-mail：<span>" +
+                    result.email +
+                    "</span ></td >" +
+                    "<td>联系方式：<span>" +
+                    result.phone +
+                    "</span ></td >" +
+                    "</tr ></table>" +
+                    "<br/><br/><br/><br/><div id=\"modify\" class=\"button\"><button>修改</button></div></div>");
+                $("#modify").click(function() {
+                    window.location.href = "/desktop/Student/Modify";
+                });
+            }
+        });
+    });
+    $("#skiphome").click(function() {
+        window.location.href = "/desktop/Student";
+    });
+    $("#skiphelp").click(function() {
+        alert("需要帮助吗？");
+    });
+    $("#skipexit").click(function() {
+        window.location.href = "/desktop/Login";
+    });
+</script>
+</body>
+
+</html>

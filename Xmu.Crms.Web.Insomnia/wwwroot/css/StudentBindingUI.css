@@ -1,0 +1,199 @@
+/* StudentBindingUI.css */
+html{
+  font-family:"微软雅黑";
+  font-size:100px;
+  height:100%;
+  width: 100%;
+
+}
+.body{
+  background-color: rgba(102, 204, 255, 0.5);  
+  height: 100%
+}
+/* 灯泡img */
+.bulb{
+  position:absolute;margin-left: 15%;margin-top: 10%;
+  width:9%;
+  height:15%;
+}
+.hrDiv {
+  height: 4px;
+  width: 80%;
+  margin: auto;
+  position: absolute;
+  border: 0.5px solid black;
+  background-color: black;
+  color: black;
+  float: left;
+  margin-left: 5%;
+  margin-right: 15%;
+  top:12%;
+}
+/* 背景img */
+.Picture{
+  width:100%;
+  height:100%;
+}
+/* 标题 */
+.title{
+  margin-left: 7em;
+  color: #000000;
+  margin-top: 8%;
+  font-size: 3em;
+  position:absolute;
+  font-weight: bold;
+  z-index:2; 
+  top:7%
+}
+
+/* 背景图的view*/
+.PictureDiv{  
+  left: 0rpx;
+  width: 100%;
+  position:relative;
+  height:30%;
+}
+/*下方的主要选择页面*/
+.mainView
+{
+  background-color: rgba(102, 204, 255, 0.5);  
+  width:100%;
+  height: 100em;
+}
+/*学号的标签*/
+.studentID
+{
+  position:absolute;
+  font-size: 3em;
+  left:15%;
+  font-weight: bolder;
+  top:35%;
+}
+/*密码的标签*/
+.Name
+{
+  position:absolute;
+  font-size: 3em;
+  left:15%;
+  top:45%;
+  font-weight: bolder;
+}
+/*学校的标签*/
+.school
+{
+  float:left;
+  position:absolute;
+  font-size: 3em;
+  left:15%;
+  top:55%;
+  font-weight: bolder;
+}
+/*学号输入框*/
+.inputstudentID
+{
+  position:absolute;
+  background: #fff;
+  width: 10em;
+  height: 2em;
+  font-size:3em;
+  left:35%;
+  top:34.3%;
+  border-radius: 5px;
+}
+/*姓名输入框*/
+.inputName
+{
+  position:absolute;
+  background: #fff;
+  width: 42%;
+  height: 2em;
+  font-size:3em;
+  left:35%;
+  top:44.3%;
+  border-radius: 5px;
+}
+/*学号输入框*/
+.inputstudentID
+{
+  position:absolute;
+  background: #fff;
+  width: 42%;
+  height: 2em;
+  font-size:3em;
+  left:35%;
+  top:34.3%;
+  border-radius: 5px;
+}
+/*学校输入框*/
+.inputSchool
+{
+  position:absolute;
+  background: #fff;
+  width: 42%;
+  height: 2em;
+  font-size:3em;
+  left:35%;
+  top:54.3%;
+  border-radius: 5px;
+}
+
+.confirmDiv{
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  height: 4em;
+  top:50%;
+}
+/*确定按钮*/
+.confirmButton
+{
+  position: absolute;
+   background-color: #ffffff;
+  color:#000000;
+  font-size: 3em;
+  border:blue;
+  display: inline-block;
+  margin-top: 70%;
+  margin-left: 35%;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.1);
+  width:30%;
+  height: 3em;
+  border-radius: 15px;
+  font-weight: bolder;
+}
+
+
+
+/*提示图标*/
+.tipIcon
+{
+  position: absolute;
+  width: 3%;
+  height: 2%;
+  left: 38%;
+  top:40.2%;
+  z-index: 2;
+}
+/*提示文字自体*/
+.tipFont
+{
+  position: absolute;
+  font-size: 2em;
+  color: red;
+  font-weight: bolder;
+  left: 43%;
+  top:40%;
+  z-index: 2;
+}
+/*选择学校按钮*/
+.selectSchoolIcon
+{
+  position:absolute;
+  background: #fff;
+  width: 45px;
+  height: 45px;
+   margin-left: 71%;
+  top:55.8%;
+  float:left;
+  z-index:2;
+}

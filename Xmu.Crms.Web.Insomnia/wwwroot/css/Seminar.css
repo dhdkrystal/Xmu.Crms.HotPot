@@ -1,0 +1,143 @@
+.body{
+	height: 100%
+}
+.topBox
+{
+	width:100%;
+	height:30em;
+	position:relative;
+	background-color: #66CCFF;
+}
+
+.title
+{
+    font-family:"微软雅黑";
+	font-size: 10em;
+	position: absolute;
+	color: #FFFFFF;
+	width: 100%;
+	height: 50%;
+	text-align: center;
+	margin: auto;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+}
+/* 讨论课4 的文字*/
+.title2
+{
+	font-size: 3vw;
+	position: absolute;
+	color: #FFFFFF;
+	margin-left: 73%;
+	margin-top: 8em;
+}
+/* 打分的框 */
+.ScoreBox
+{
+	position:relative;
+	float: right;
+	margin-right: 5%;
+	background-color:#66CCFF;
+	margin-top: 5%;
+	width: 40%;
+	padding-bottom: 85%;
+	border-radius: 15px;
+}
+/* 打分灰色的框 */
+.greyScoreBox
+{
+	position:relative;
+	float: right;
+	margin-right: 5%;
+	background-color:#cccccc;
+	margin-top: 5%;
+	width: 40%;
+	padding-bottom: 85%;
+	border-radius: 15px;
+}
+/* 签到的框 */
+.CallBox
+{
+	position: relative;
+	float: left;
+	margin-left: 5%;
+	margin-right: 5%;
+	background-color:#66CCFF;
+	margin-top: 5%;
+	width: 40%;
+	padding-bottom: 40%;
+	border-radius: 15px;
+	
+}
+/* 签到灰色的框 */
+.greyCallBox
+{
+	position: relative;
+	float: left;
+	margin-left: 5%;
+	margin-right: 5%;
+	background-color:#cccccc;
+	margin-top: 5%;
+	width: 40%;
+	padding-bottom: 40%;
+	border-radius: 15px;
+	
+}
+/* 分组选题的框 */
+.GroupBox
+{
+	position: relative;
+	float: left;
+	margin-left: 5%;
+	margin-right: 5%;
+	background-color:#66CCFF;
+	margin-top: 5%;
+	width: 40%;
+	padding-bottom: 40%;
+	border-radius: 15px;
+	
+}
+/* 分组选题灰色的框 */
+.greyGroupBox
+{
+	position: relative;
+	float: left;
+	margin-left: 5%;
+	margin-right: 5%;
+	background-color:#cccccc;
+	margin-top: 5%;
+	width: 40%;
+	padding-bottom: 40%;
+	border-radius: 15px;
+	
+}
+.ScoreText
+{
+	font-size: 2.5em;
+	position: absolute;
+	color: #FFFFFF;
+	margin-top: 45%;
+	width: 100%;
+	text-align: center;
+	margin-top: 100%;
+}
+.CallText
+{
+	font-size: 2.5em;
+	position: absolute;
+	color: #FFFFFF;
+	margin-top: 45%;
+	width: 100%;
+	text-align: center;
+}
+.GroupText
+{
+	font-size: 2.5em;
+	position: absolute;
+	color: #FFFFFF;
+	margin-top: 45%;
+	width: 100%;
+	text-align: center;
+}

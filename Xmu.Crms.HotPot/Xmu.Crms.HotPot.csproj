@@ -21,6 +21,8 @@
 
   <ItemGroup>
 
+    <ProjectReference Include="..\Xmu.Crms.API.Insomnia\Xmu.Crms.API.Insomnia.csproj" />
+
     <ProjectReference Include="..\Xmu.Crms.Mobile.HotPot\Xmu.Crms.Mobile.HotPot.csproj" />
 
     <ProjectReference Include="..\Xmu.Crms.Services.1-7\Xmu.Crms.Services.Group1_7.csproj" />
@@ -29,9 +31,13 @@
 
     <ProjectReference Include="..\Xmu.Crms.Services.HotPot\Xmu.Crms.Services.HotPot.csproj" />
 
+    <ProjectReference Include="..\Xmu.Crms.Services.Insomnia\Xmu.Crms.Services.Insomnia.csproj" />
+
     <ProjectReference Include="..\Xmu.Crms.Services.SmartFive\Xmu.Crms.Services.SmartFive.csproj" />
 
     <ProjectReference Include="..\Xmu.Crms.Shared\Xmu.Crms.Shared.csproj" />
+
+    <ProjectReference Include="..\Xmu.Crms.Web.Insomnia\Xmu.Crms.Web.Insomnia.csproj" />
 
     <Content Update="launchSettings.json">
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>

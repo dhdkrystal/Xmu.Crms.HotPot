@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>新建课程</title>
+    <link href="~/css/teacher/TeacherCreateCoursePage.css"rel="stylesheet" type="text/css"/>
+
+</head>
+<body>
+<div class="top">
+    <div class="font">
+        课堂管理系统
+    </div>
+    <div class="icon">
+        <a href="/desktop/Teacher" style="color: white"><img src="~/img/home.png" alt="">首页</a>
+        <a href="#" style="color: white"><img src="~/img/help.png" alt="">帮助</a>
+        <a href="/desktop/Login" style="color: white"><img src="~/img/exit.png" alt="">退出</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="body">
+    <div class="navigation">
+        <div class="title">导航</div>
+        <div class="line"></div>
+        <div class="courseIntroduction">
+            <a class="guidefont" href="/desktop/Teacher">基本信息</a>
+            <a class="guidefont" href="/desktop/Teacher/Course">课程信息</a>
+            <a class="guidefont" href="/desktop/Teacher/Course/Create">新建课程</a>
+        </div>
+    </div>
+    <div class="content">
+
+        <div class="title">新建课程</div>
+        <hr class="line"/>
+
+        <br/>
+        <form class="form">
+            <div class="itemName">
+                课程名称：<input type="text" name="coursename" required id="name"/>
+                <br/>
+                <br/>
+                开始时间：<input type="date" name="begintime" required id="startTime"/> 结束时间：<input type="date" name="endtime" required id="endTime"/><br/><br/>
+                课程介绍：<br/>
+                <textarea name="courseinfo" cols="80" rows="5" required id="description"></textarea><br/>
+                评分规则： <br/>
+                <div class="scorerule">
+                    <p>
+                        讨论课分数占比:<input type="text" name="seminarscore" id="presentation">报告分数占比：<input type="text" name="reportscore" id="report">
+                    </p>
+                    <p>
+                        五分占比:<input type="text" name="five" id="a">四分占比：<input type="text" name="four" id="b">三分占比：<input type="text" name="three" id="c">
+                    </p>
+                </div>
+                <br/>
+                <div class="buttons">
+                    <button class="button" type="submit" name="submit" id="submit">提交</button><button class="button" type="reset" name="reset">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="clear"></div>
+<script src="~/js/query.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script type="text/javascript">
+    var token = window.localStorage.getItem("jwt");
+    $(function() {
+        $("#submit").click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/desktop/course',
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                headers: {"Authorization": "Bearer " + token},
+                data: JSON.stringify({
+                    name: $("#name").val(),
+                    description: $("#description").val(),
+                    startTime: $("#startTime").val(),
+                    endTime: $("#endTime").val(),
+                    proportions: {
+                        presentation: $("#presentation").val(),
+                        report: $("#report").val(),
+                        c: $("#c").val(),
+                        b: $("#b").val(),
+                        a: $("#a").val()
+                    }
+                }),
+                success: function(result) {
+                    window.location.href = '/desktop/Teacher/Course/Courseinfo?id=' + result.id;
+                }
+            });
+        });
+        $(".returnButton").click(function() {
+            window.history.back();
+        });
+    });
+</script>
+</body>
+</html>

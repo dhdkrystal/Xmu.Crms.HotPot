@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>创建讨论课</title>
+    <link rel="stylesheet" href="~/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/teacher/content.css">
+</head>
+<body>
+
+<div class="top">
+    <div class="font">
+        课堂管理系统
+    </div>
+    <div class="icon">
+        <a href="/desktop/Teacher" style="color: white"><img src="~/img/home.png" alt="">首页</a>
+        <a href="#" style="color: white"><img src="~/img/help.png" alt="">帮助</a>
+        <a href="/desktop/Login" style="color: white"><img src="~/img/exit.png" alt="">退出</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="body">
+    <div class="navigation">
+        <div class="courseName">OOAD</div>
+        <div class="line"></div>
+        <div class="courseIntroduction">ooad is xxx</div>
+    </div>
+    <div class="content">
+        <div class="block">
+            <div class="title">创建讨论课</div>
+            <div class="returnButton">返回上一页</div>
+            <div class="line"></div>
+            <div class="itemBody">
+                <div class="item">
+                    <label class="itemName">讨论课名称:</label>
+                    <input type="text" name="seminarName" id="name" class="bigInput">
+                </div>
+                <div class="item" style="height: 40%;">
+                    <label class="itemName">讨论课说明:</label>
+                    <textarea id="description" class="textStyle"></textarea>
+                </div>
+                <div class="item">
+                    <label class="itemName">分组方式: </label>
+                    <select class="bigSelect" id="groupingMethod">
+                        <option value="fixed">固定</option>
+                        <option value="random">随机</option>
+                    </select>
+                </div>
+                <div class="item">
+                    <label class="itemName">开始时间: </label>
+                    <input type="date" name="startTime" id="startTime" class="timeStyle">
+                    <label class="itemName" style="margin-left: 15%">结束时间: </label>
+                    <input type="date" name="startTime" id="endTime" class="timeStyle">
+                </div>
+                <div class="item">
+                    <button class="submit" type="button">提 交</button>
+                    <button class="reset" type="reset">重 置</button>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<script src="~/js/query.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script type="text/javascript">
+    var token = window.localStorage.getItem("jwt");
+    var course = getQuery()["course"];
+    $(function() {
+        if (window.localStorage.getItem("course" + course)) {
+            var c = JSON.parse(window.localStorage.getItem("course" + course));
+            $(".courseName").text(c.name);
+            $(".courseIntroduction").text(c.description);
+        }
+        $("form").attr("action", window.location.href);
+        $(".submit").click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/desktop/course/' + course + '/seminar',
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                headers: {"Authorization": "Bearer " + token},
+                data: JSON.stringify({
+                    name: $("#name").val(),
+                    description: $("#description").val(),
+                    startTime: $("#startTime").val(),
+                    endTime: $("#endTime").val(),
+                    groupingMethod: $("#groupingMethod").val(),
+                    isFixed: ($("#groupingMethod").val() === "fixed")
+                }),
+                success: function(result) {
+                    window.location.href = '/desktop/Teacher/Seminar?id=' + result.id + "&course=" + course;
+                }
+            });
+        });
+        $(".returnButton").click(function() {
+            window.history.back();
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+@CHARSET "UTF-8";
+
+html
+{
+height:100%;
+margin:0;
+}
+body
+{
+height:100%;
+margin:0; 
+background-image:url("/img/back.png");
+background-repeat:no-repeat;
+background-size:cover;
+}
+.titleBackground{
+background-color:rgba(65,199,219,0.7);
+width:100%;
+height:16%;
+z-index:-1;
+text-align: center;
+margin: 0 auto;
+}
+.title{
+font-style:normal;
+font-family:YouYuan;
+font-size:40px;
+font-weight:blod;
+display:block;
+position:absolute;
+left:40%;top:20px;
+color:white
+}
+.icon{
+width:20%;
+margin-top:-3.5%;
+font-family: YouYuan;
+font-size: 20px;
+text-align: center;
+color: white;
+padding-top: -4%;
+float: right;
+}
+.font{
+width: 20%;
+font-family: YouYuan;
+font-size: 40px;
+font-weight: bold;
+margin-left: 35%;
+text-align: center;
+padding: 4%;
+float: left;
+color: #FFFFFF;
+}
+.phoneNum{
+font-family:Arial;
+font-size:20px;
+display:block;
+position:absolute;
+width:90px;height:26px;
+left:40%;top:165px;
+color:black
+}
+.phoneNum input{
+position:absolute;	
+width:130px;height:23px;
+left:70px;top:4px;
+font-size:15px;
+}
+.password{
+font-family:Arial;
+font-size:20px;
+display:block;
+position:absolute;
+width:90px;height:26px;
+left:40%;top:200px;
+color:black
+}
+.password input{
+position:absolute;	
+width:130px;height:23px;
+left:70px;top:6px;
+font-size:15px;
+}
+.name{
+font-family:Arial;
+font-size:20px;
+display:block;
+position:absolute;
+width:90px;height:26px;
+left:40%;top:240px;
+color:black
+}
+.name input{
+position:absolute;	
+width:130px;height:23px;
+left:70px;top:5px;
+font-size:15px;
+}
+.province{
+font-family:Arial;
+font-size:20px;
+display:block;
+position:absolute;
+width:90px;height:26px;
+left:40%;top:283px;
+color:black
+}
+.provinceSelect{
+position:absolute;
+left:70px;
+width: 90%;
+height: 100%;
+margin-right: 2%;
+}
+.city{
+font-family:Arial;
+font-size:20px;
+display:block;
+position:absolute;
+width:90px;height:26px;
+left:40%;top:318px;
+color:black
+}
+.citySelect{
+position:absolute;
+left:70px;
+width: 90%;
+height: 100%;
+margin-right: 2%;
+}
+.school{
+font-family:Arial;
+font-size:20px;
+display:block;
+position:absolute;
+width:135px;height:26px;
+left:40%;top:350px;
+color:black
+}
+.schoolSelect{
+position:absolute;
+left:70px;
+width: 100%;
+height: 100%;
+margin-right: 2%;
+}
+.createSchool{
+position:absolute;
+left:230px;
+width: 70%;
+background-color: white;
+color:black;
+padding:3px 4px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 20px;
+font-family:Arial;
+cursor: pointer;
+}
+.gender{
+font-family:Arial;
+font-size:20px;
+display:block;
+position:absolute;
+width:90px;height:26px;
+left:40%;top:385px;
+color:black
+}
+.male{
+font-family:Arial;
+font-size:20px;
+display:block;
+position:absolute;
+width:90px;height:26px;
+left:47%;top:385px;
+color:black
+}
+.male input{
+position:absolute;	
+width:80px;height:23px;
+left:-50px;top:1px;
+}
+.female{
+font-family:Arial;
+font-size:20px;
+display:block;
+position:absolute;
+width:90px;height:26px;
+left:52%;top:385px;
+color:black
+}
+.female input{
+position:absolute;	
+width:80px;height:23px;
+left:-50px;top:1px;
+}
+.role{
+font-family:Arial;
+font-size:20px;
+display:block;
+position:absolute;
+width:90px;height:26px;
+left:40%;top:425px;
+color:black
+}
+.student{
+font-family:Arial;
+font-size:20px;
+display:block;
+position:absolute;
+width:90px;height:26px;
+left:47%;top:425px;
+color:black
+}
+.student input{
+position:absolute;	
+width:80px;height:23px;
+left:-50px;top:1px;
+}
+.teacher{
+font-family:Arial;
+font-size:20px;
+display:block;
+position:absolute;
+width:90px;height:26px;
+left:52%;top:425px;
+color:black
+}
+.teacher input{
+position:absolute;	
+width:80px;height:23px;
+left:-50px;top:1px;
+}
+.stuffNum{
+font-family:Arial;
+font-size:20px;
+display:block;
+position:absolute;
+width:90px;height:26px;
+left:40%;top:470px;
+color:black
+}
+.stuffNum input{
+position:absolute;	
+width:190px;height:23px;
+left:70px;top:4px;
+font-size:15px;
+}
+.eMail{
+font-family:Arial;
+font-size:20px;
+display:block;
+position:absolute;
+width:90px;height:26px;
+left:40%;top:515px;
+color:black
+}
+.eMail input{
+position:absolute;	
+width:190px;height:23px;
+left:70px;top:4px;
+font-size:15px;
+}
+.submit{
+position:absolute;
+left:47%;top:585px;
+background-color: white;
+color:black;
+padding:3px 4px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 20px;
+font-family:Arial;
+cursor: pointer;
+}

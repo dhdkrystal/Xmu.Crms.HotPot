@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>学生查看讨论课（随机）</title>
+    <link href="~/css/teacher/content.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<div class="top">
+    <div class="font">
+        课堂管理系统
+    </div>
+    <div class="icon">
+        <a href="/desktop/Teacher" style="color: white"><img src="~/img/home.png" alt="">首页</a>
+        <a href="#" style="color: white"><img src="~/img/help.png" alt="">帮助</a>
+        <a href="/desktop/Login" style="color: white"><img src="~/img/exit.png" alt="">退出</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="body">
+    <div class="navigation">
+        <div class="courseName">OOAD</div>
+        <div class="line"></div>
+        <div class="courseIntroduction">ooad is xxx</div>
+    </div>
+    <div class="content">
+        <div class="block">
+            <div class="title">讨论课1</div>
+            <div class="returnButton">返回上一页</div>
+            <div class="line"></div>
+            <div class="itemBody">
+
+                <div class="item">
+                    <label class="itemName">讨论课名称：</label>
+                    <label class="itemName" id="name"></label><br/>
+                    <label class="itemName">讨论课说明：</label>
+                    <label class="itemName" id="description"></label><br/>
+                    <label class="itemName">分组方式：</label>
+                    <label class="itemName" id="groupingMethod"></label><br/>
+                    <label class="itemName">开始时间：</label>
+                    <label class="itemName" id="startTime"></label><br/>
+                    <label class="itemName">结束时间：</label>
+                    <label class="itemName" id="endTime"></label><br/>
+                    <button class="leftButton" id="grade">评分</button>
+                    <button class="middleButton" id="update">修改</button>
+                    <button class="rightButton" id="delete">删除讨论课</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="block">
+            <div class="seminarInfo">
+                <div class="title">话题</div>
+                <div class="line"></div>
+                <div class="topicBlockBody">
+                    <div class="topicBlock">
+                        <img class="addImg" src="~/img/smalladd.png" alt="添加">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<script src="~/js/query.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script type="text/javascript">
+    var token = window.localStorage.getItem("jwt");
+    var id = getQuery()["id"];
+    var course = getQuery()["course"];
+    $(function() {
+        if (window.localStorage.getItem("course" + course)) {
+            var c = JSON.parse(window.localStorage.getItem("course" + course));
+            $(".courseName").text(c.name);
+            $(".courseIntroduction").text(c.description);
+        }
+        $.ajax({
+            url: '/desktop/seminar/' + id,
+            type: 'GET',
+            dataType: 'json',
+            headers: { "Authorization": "Bearer " + token },
+            success: function(result) {
+                $("#name").text(result.name);
+                $("#description").text(result.description);
+                $("#groupingMethod").text(result.groupingMethod === "fixed" ? "固定分组" : "随机分组");
+                $("#startTime").text(result.startTime);
+                $("#endTime").text(result.endTime);
+                window.localStorage.setItem("seminar" + id, JSON.stringify(result));
+            }
+        });
+        $.ajax({
+            url: '/desktop/seminar/' + id + '/topic',
+            type: 'GET',
+            dataType: 'json',
+            headers: { "Authorization": "Bearer " + token },
+            success: function(result) {
+
+                for (var i = result.length; i--;) {
+                    $(".topicBlockBody").prepend("<div class=\"topicBlock\" data-topic-id=\"" +
+                        result[i].id +
+                        "\"><div class=\"topicBlockFont\">" +
+                        result[i].name +
+                        "</div></div>");
+                }
+                $(".topicBlock").click(function() {
+                    if ($(this).attr("data-topic-id")) {
+                        window.location.href = "Teacher/Topic?id=" +
+                            $(this).attr("data-topic-id") +
+                            "&course=" +
+                            course +
+                            "&seminar=" +
+                            id;
+                    } else {
+                        window.location.href = "/desktop/Teacher/Topic/Create?course=" +
+                            course +
+                            "&seminar=" +
+                            id;
+                    }
+                });
+            }
+        });
+        $("#grade").click(function() {
+            window.location.href = "/desktop/Teacher/Seminar/Score?id=" + id + "&course=" + course;
+        });
+        $("#update").click(function() {
+            window.location.href = "/desktop/Teacher/Seminar/Update?id=" + id + "&course=" + course;
+        });
+        $("#delete").click(function() {
+            if (confirm("是否确认删除讨论课？")) {
+                $.ajax({
+                    url: '/desktop/seminar/' + id,
+                    type: 'DELETE',
+                    success: function() {
+                        window.location.href = "/desktop/Teacher/Course/Courseinfo?id=" + course;
+                    }
+                });
+            }
+        });
+        $(".returnButton").click(function() {
+            window.history.back();
+        });
+    });
+</script>
+</body>
+</html>

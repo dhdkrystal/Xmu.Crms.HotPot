@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>班级信息</title>
+    <link rel="stylesheet" href="~/css/teacher/content.css">
+
+</head>
+<body>
+
+<div class="top">
+    <div class="font">
+        课堂管理系统
+    </div>
+    <div class="icon">
+        <a href="/desktop/Teacher" style="color: white"><img src="~/img/home.png" alt="">首页</a>
+        <a href="#" style="color: white"><img src="~/img/help.png" alt="">帮助</a>
+        <a href="/desktop/Login" style="color: white"><img src="~/img/exit.png" alt="">退出</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="body">
+    <div class="navigation">
+        <div class="courseName">OOAD</div>
+        <div class="line"></div>
+        <div class="courseIntroduction">ooad is xxx</div>
+    </div>
+    <div class="content">
+        <div class="block">
+            <div class="title">XXXX</div>
+            <div class="returnButton">返回上一页</div>
+            <div class="line"></div>
+            <div class="itemBody">
+                <div class="item">
+                    <label class="itemName">班级名称:</label>
+                    <label class="itemName" id="name"></label>
+                </div>
+                <div class="item">
+                    <label class="itemName">上课地点:</label>
+                    <label class="itemName" id="site">海韵</label>
+                </div>
+                <div class="item">
+                    <label class="itemName">上课时间:</label>
+                    <label class="itemName" id="time">12节 </label>
+                </div>
+                <div class="item">
+                    <label class="itemName">评分规则:</label>
+                    <label class="itemName">讨论课分数占比</label>
+                    <label class="itemName" id="presentation"> </label>
+                    <label class="itemName"> 报告分数占比</label>
+                    <label class="itemName" id="report"></label>
+                </div>
+                <div class="item" style="margin-left: 25%">
+                    <label class="smallItemName">5分占比</label>
+                    <label class="itemName" name="seminarGrade" id="a"></label>
+                    <label class="smallItemName">4分占比</label>
+                    <label class="itemName" name="seminarGrade" id="b"></label>
+                    <label class="smallItemName">3分占比</label>
+                    <label class="itemName" name="seminarGrade" id="c"></label>
+                </div>
+                <div class="item">
+                    <button class="submit" id="update">修改</button>
+                    <button class="reset" id="delete">删除班级</button>
+                    <div class="clear"></div>
+                </div>
+                <div class="item">
+                    <div class="clear"></div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<script src="~/js/query.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script type="text/javascript">
+    var token = window.localStorage.getItem("jwt");
+    var id = getQuery()["id"];
+    var course = getQuery()["course"];
+    $(function() {
+        if (window.localStorage.getItem("course" + course)) {
+            var c = JSON.parse(window.localStorage.getItem("course" + course));
+            $(".courseName").text(c.name);
+            $(".courseIntroduction").text(c.description);
+        }
+        $.ajax({
+            url: 'class/' + id,
+            type: 'GET',
+            dataType: 'json',
+            headers: {"Authorization": "Bearer " + token},
+            success: function(result) {
+                window.localStorage.setItem("class" + id, JSON.stringify(result));
+                $("#name").text(result.name);
+                $("#time").text(result.time);
+                $("#site").text(result.site);
+                $("#presentation").text(result.proportions.presentation + "%");
+                $("#report").text(result.proportions.report + "%");
+                $("#c").text(result.proportions.c + "%");
+                $("#b").text(result.proportions.b + "%");
+                $("#a").text(result.proportions.a + "%");
+            }
+        });
+        $("#update").click(function() {
+            window.location.href = "Teacher/Class/Modify?id=" + id + "&course=" + course;
+        });
+        $("#delete").click(function() {
+            if (confirm("是否确认删除班级？")) {
+                $.ajax({
+                    url: 'class/' + id,
+                    type: 'DELETE',
+                    headers: {"Authorization": "Bearer " + token},
+                    success: function() {
+                        window.location.href = "Teacher/Course/Courseinfo?id=" + course;
+                    }
+                });
+            }
+        });
+        $(".returnButton").click(function() {
+            window.history.back();
+        });
+    });
+</script>
+</body>
+</html>

@@ -40,10 +40,21 @@ namespace Xmu.Crms.HotPot
                     //Group2_10
                     .AddGroup2_10SeminarGroupService()
                     .AddGroup2_10TopicService()
-                    
+
                     //SmartFive
                     .AddSmartFiveFixGroupService()
-                    .AddSmartFiveUserService();
+                    .AddSmartFiveUserService()
+
+                    //Insomnia
+                    .AddCrmsView("Web.Insomnia")
+                    .AddCrmsView("API.Insomnia")
+                    .AddInsomniaUserService()
+                    .AddInsomniaTopicService()
+                    .AddInsomniaSeminarGroupService()
+                    .AddInsomniaPbkdf2LoginService()
+                    .AddInsomniaLoginService()
+                    .AddInsomniaFixedGroupService();
+                   
 
                 })              
                 .Build(); 

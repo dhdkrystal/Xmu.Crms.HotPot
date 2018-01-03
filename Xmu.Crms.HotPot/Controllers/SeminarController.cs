@@ -304,7 +304,7 @@ namespace Xmu.Crms.HotPot.Controllers
         {
             try
             {
-                AttendanceStatus attend = _userService.UpdateAttendanceById(classId, seminarId, studentId, location.Longitude ?? 0, location.Latitude ?? 0);
+                AttendanceStatus? attend = _userService.UpdateAttendanceById(classId, seminarId, studentId, location.Longitude ?? 0, location.Latitude ?? 0);
                 return NoContent();
             }
             catch (SeminarNotFoundException)

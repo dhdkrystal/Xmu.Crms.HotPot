@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>查看话题（固定分组）</title>
+    <link href="~/css/student/content.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="top">
+    <div class="font">
+        课堂管理系统
+    </div>
+    <div class="icon">
+        <img id="skiphome" src="~/img/home.png">首页
+        <img id="skiphelp" src="~/img/help.png">帮助
+        <img id="skipexit" src="~/img/exit.png">退出
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="body">
+    <div class="navigation">
+        <div class="courseName">OOAD</div>
+        <div class="line"></div>
+        <div class="courseIntroduction">ooad is xxx</div>
+    </div>
+    <div class="content">
+        <div class="block">
+            <div class="title">话题A</div>
+            <div class="returnButton" id="returnpage">返回上一页</div>
+            <div class="line" id="insertinfo"></div>
+
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<script src="~/js/query.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script async src="~/js/tether.min.js"></script>
+<script defer src="~/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+    var token = window.localStorage.getItem("jwt");
+    var id = getQuery()["id"];
+    var course = getQuery()["course"];
+    var seminar = getQuery()["seminar"];
+    var cls = getQuery()["class"];
+    $(function () {
+        if (window.localStorage.getItem("course" + course)) {
+            var c = JSON.parse(window.localStorage.getItem("course" + course));
+            $(".courseName").text(c.name);
+            $(".courseIntroduction").text(c.description);
+        }
+        $.ajax({
+            url: '/desktop/Topic/' + id,
+            type: 'GET',
+            dataType: 'json',
+            headers: {"Authorization": "Bearer " + token},
+            success: function(result) {
+                $("#insertinfo").after(
+                    "<div class=\"itemBody\"><div class=\"item\">" +
+                    "<label class=\"itemName\">题目:</label>" +
+                    "<label class=\"itemName\">" +
+                    result.name +
+                    "</label>" +
+                    "</div><div class=\"item\">" +
+                    "<label class=\"itemName\">说明:</label>" +
+                    "<label class=\"itemName\">" +
+                    result.description +
+                    "</label>" +
+                    "</div><div class=\"item\">" +
+                    "<label class=\"itemName\">组数限制:</label>" +
+                    "<label class=\"itemName\">" +
+                    result.groupLimit +
+                    "</label>" +
+                    "</div><div class=\"item\">" +
+                    "<label class=\"itemName\">组内人数上限:</label>" +
+                    "<label class=\"itemName\">" +
+                    result.groupMemberLimit +
+                    "</label>" +
+                    "</div><div class=\"item\">" +
+                    "<div id=\"choosetopic\" class=\"modifyButton\">选择话题</div></div></div>"
+                );
+                $("#choosetopic").click(function() {
+                    
+                    window.location.href = "/desktop/Student/Seminar/Fixed?id=" + seminar + "&course=" + course + "&class=" + cls;
+                });
+            }
+        });
+    });
+    $("#skiphome").click(function() {
+        window.location.href = "/desktop/Student";
+    });
+    $("#skiphelp").click(function() {
+        alert("需要帮助吗？");
+    });
+    $("#skipexit").click(function() {
+        window.location.href = "/desktop/Login";
+    });
+    $("#returnpage").click(function() {
+        window.location.href = "/desktop/Student/Seminar/Fixed?id=" + seminar + "&course=" + course + "&class=" + cls;
+    });
+</script>
+</body>
+</html>
