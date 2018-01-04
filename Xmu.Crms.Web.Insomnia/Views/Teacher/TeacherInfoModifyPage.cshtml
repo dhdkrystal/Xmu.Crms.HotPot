@@ -14,7 +14,7 @@
     <div class="icon">
         <a href="/desktop/Teacher" style="color: white"><img src="~/img/home.png" alt="">首页</a>
         <a href="#" style="color: white"><img src="~/img/help.png" alt="">帮助</a>
-        <a href="Login" style="color: white"><img src="~/img/exit.png" alt="">退出</a>
+        <a href="/desktop/Login" style="color: white"><img src="~/img/exit.png" alt="">退出</a>
     </div>
     <div class="clear"></div>
 </div>
@@ -85,7 +85,7 @@
     $(function() {
         $("form").attr("action", window.location.href);
         $.ajax({
-            url: '/desktop/me',
+            url: '/me',
             type: 'GET',
             dataType: 'json',
             headers: { "Authorization": "Bearer " + token },
@@ -104,7 +104,7 @@
         $(".button").click(function(e) {
             e.preventDefault();
             $.ajax({
-                url: '/desktop/me',
+                url: '/me',
                 type: 'PUT',
                 contentType: 'application/json',
                 dataType: 'json',

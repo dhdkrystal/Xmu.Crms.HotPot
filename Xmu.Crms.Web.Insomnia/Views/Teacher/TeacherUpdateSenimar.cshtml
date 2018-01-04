@@ -13,9 +13,9 @@
         课堂管理系统
     </div>
     <div class="icon">
-        <a href="Teacher" style="color: white"><img src="~/img/home.png" alt="">首页</a>
+        <a href="/desktop/Teacher" style="color: white"><img src="~/img/home.png" alt="">首页</a>
         <a href="#" style="color: white"><img src="~/img/help.png" alt="">帮助</a>
-        <a href="Login" style="color: white"><img src="~/img/exit.png" alt="">退出</a>
+        <a href="/desktop/Login" style="color: white"><img src="~/img/exit.png" alt="">退出</a>
     </div>
     <div class="clear"></div>
 </div>
@@ -76,7 +76,7 @@
         }
         $("form").attr("action", window.location.href);
         $.ajax({
-            url: '/desktop/seminar/' + id,
+            url: '/seminar/' + id,
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},
@@ -90,7 +90,7 @@
         $(".submit").click(function(e) {
             e.preventDefault();
             $.ajax({
-                url: '/desktop/seminar/' + id,
+                url: '/seminar/' + id,
                 type: 'PUT',
                 contentType: 'application/json',
                 dataType: 'json',

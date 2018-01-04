@@ -87,7 +87,7 @@
         }
         $("form").attr("action", window.location.href);
         $.ajax({
-            url: '/desktop/class/' + id,
+            url: '/class/' + id,
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},
@@ -108,7 +108,7 @@
         $(".submit").click(function(e) {
             e.preventDefault();
             $.ajax({
-                url: '/desktop/class/' + id,
+                url: '/class/' + id,
                 type: 'PUT',
                 contentType: 'application/json',
                 dataType: 'json',

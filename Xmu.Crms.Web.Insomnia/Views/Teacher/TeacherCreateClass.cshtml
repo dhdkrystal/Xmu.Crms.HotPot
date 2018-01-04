@@ -88,7 +88,7 @@
         $(".submit").click(function(e) {
             e.preventDefault();
             $.ajax({
-                url: '/desktop/course/' + course + '/class',
+                url: '/course/' + course + '/class',
                 type: 'POST',
                 contentType: 'application/json',
                 dataType: 'json',

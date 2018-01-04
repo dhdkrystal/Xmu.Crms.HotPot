@@ -80,9 +80,33 @@ namespace Xmu.Crms.Services.Group1_7
             return course;
         }
 
+        /// <summary>
+        /// 创建班级
+        /// </summary>
+        /// <param name="courseId"></param>
+        /// <param name="classInfo"></param>
+        /// <returns></returns>
         public long InsertClassById(long courseId, ClassInfo classInfo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Course course = GetCourseByCourseId(courseId);
+                //检查数据是否合法
+                if (classInfo.ReportPercentage < 0 || classInfo.ReportPercentage > 100 ||
+                   classInfo.PresentationPercentage < 0 || classInfo.PresentationPercentage > 100 ||
+                   classInfo.ReportPercentage + classInfo.PresentationPercentage != 100 ||
+                   classInfo.FivePointPercentage < 0 || classInfo.FivePointPercentage > 100 ||
+                   classInfo.FourPointPercentage < 0 || classInfo.FourPointPercentage > 100 ||
+                   classInfo.ThreePointPercentage < 0 || classInfo.ThreePointPercentage > 100 ||
+                   classInfo.FivePointPercentage + classInfo.FourPointPercentage + classInfo.ThreePointPercentage != 100)
+                    throw new InvalidOperationException();
+                classInfo.Course = course;
+                _db.ClassInfo.Add(classInfo);
+                _db.SaveChanges();
+                return classInfo.Id;    //返回classid
+
+            }
+            catch (CourseNotFoundException ec) { throw ec; }
         }
 
         /// <summary>
@@ -132,7 +156,37 @@ namespace Xmu.Crms.Services.Group1_7
 
         public IList<ClassInfo> ListClassByName(string courseName, string teacherName)
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<ClassInfo> classList = new List<ClassInfo>();
+                if (teacherName == null)//根据课程名称查
+                {
+                    IList<ClassInfo> courseClassList = ListClassByCourseName(courseName);
+                    classList.AddRange(courseClassList);
+                }
+                else if (courseName == null)//根据教师姓名查
+                {
+                    IList<ClassInfo> teacherClassList = ListClassByTeacherName(teacherName);
+                    classList.AddRange(teacherClassList);
+                }
+                else if (courseName != null && teacherName != null) //联合查找
+                {
+                    IList<ClassInfo> courseClassList = ListClassByCourseName(courseName);
+                    IList<ClassInfo> teacherClassList = ListClassByTeacherName(teacherName);
+                    foreach (ClassInfo cc in courseClassList)
+                        foreach (ClassInfo ct in teacherClassList)
+                            if (cc.Id== ct.Id) { classList.Add(cc); break; }
+                }
+
+                ////该学生已选班级列表
+                //   List<ClassInfo> studentClass = _classD.ListClassByUserId(userId);
+               // foreach (ClassInfo c in classList)
+               //     foreach (ClassInfo cs in studentClass)
+               //       if (c.Id == cs.Id ) classList.Remove(c);//学生已选的就不列出
+                return classList;
+            }
+            catch (CourseNotFoundException ec) { throw ec; }
+            catch (UserNotFoundException eu) { throw eu; }
         }
 
         /// <summary>
