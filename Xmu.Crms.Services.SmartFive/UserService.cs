@@ -20,7 +20,7 @@ namespace Xmu.Crms.Services.SmartFive
 
         public UserInfo GetUserByUserId(long userId)//测试成功
         {
-            if (userId <= 0)
+            if (userId < 0)
             {
                 throw new ArgumentException();
             }
