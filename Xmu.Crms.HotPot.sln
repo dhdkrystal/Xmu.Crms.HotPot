@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xmu.Crms.Services.SmartFive
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xmu.Crms.API.Insomnia", "Xmu.Crms.API.Insomnia\Xmu.Crms.API.Insomnia.csproj", "{1649876E-ABCA-40BC-8E79-8F1492651AA3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xmu.Crms.Services.Insomnia", "Xmu.Crms.Services.Insomnia\Xmu.Crms.Services.Insomnia.csproj", "{4D30A9AE-3CAB-47A8-B3D5-BEC5EF24424C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xmu.Crms.Web.Insomnia", "Xmu.Crms.Web.Insomnia\Xmu.Crms.Web.Insomnia.csproj", "{79D0546D-3F16-43B3-A9E0-2902880E2142}"
 EndProject
 Global

@@ -65,7 +65,7 @@
 <script type="text/javascript">
     $("#submit").click(function() {
         $.ajax({
-            url: '/register',
+            url: '/desktop/register',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ phone: $("#phoneNum").val(), password: $("#password").val() }),
@@ -87,7 +87,7 @@
                     }),
                     dataType: 'json',
                     success: function() {
-                        if ($('input[name=role]:checked').val().type === "student") {
+                        if ($('input[name=role]:checked').val() === "student") {
                             window.location.href = "/desktop/Student/";
                         } else {
                             window.location.href = "/desktop/Teacher/";

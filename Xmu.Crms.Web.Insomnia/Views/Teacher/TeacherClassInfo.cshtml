@@ -89,7 +89,7 @@
             $(".courseIntroduction").text(c.description);
         }
         $.ajax({
-            url: '/class/' + id,
+            url: '/desktop/class/' + id,
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},
@@ -111,7 +111,7 @@
         $("#delete").click(function() {
             if (confirm("是否确认删除班级？")) {
                 $.ajax({
-                    url: '/class/' + id,
+                    url: 'class/' + id,
                     type: 'DELETE',
                     headers: {"Authorization": "Bearer " + token},
                     success: function() {

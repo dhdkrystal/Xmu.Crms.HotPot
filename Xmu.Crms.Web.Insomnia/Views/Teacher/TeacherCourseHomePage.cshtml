@@ -80,7 +80,7 @@
     var token = window.localStorage.getItem("jwt");
     $(function() {
         $.ajax({
-            url: '/course',
+            url: '/desktop/course',
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},
@@ -117,7 +117,7 @@
                     $('#updateCourseDialog').modal();
                     var course = $(this).parent().attr("data-course-id");
                     $.ajax({
-                        url: '/course/' + course,
+                        url: '/desktop/course/' + course,
                         type: 'GET',
                         dataType: 'json',
                         success: function(result) {
@@ -134,7 +134,7 @@
                     e.preventDefault();
                     var course = $(this).attr("data-course-id");
                     $.ajax({
-                        url: '/course/' + course,
+                        url: '/desktop/course/' + course,
                         type: 'PUT',
                         contentType: 'application/json',
                         dataType: 'json',
@@ -155,7 +155,7 @@
                     var course = $(this).parent().attr("data-course-id");
                     if (confirm("是否确认删除课程？")) {
                         $.ajax({
-                            url: '/course/' + course,
+                            url: '/desktop/course/' + course,
                             type: 'DELETE',
                             success: function() {
                                 window.location.reload();

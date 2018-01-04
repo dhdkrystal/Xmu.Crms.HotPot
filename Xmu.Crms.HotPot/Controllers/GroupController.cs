@@ -60,12 +60,11 @@ namespace Xmu.Crms.HotPot.Controllers
                 var members = _seminarGroupService.ListSeminarGroupMemberByGroupId(groupId);
                 var topics = _topicService.ListSeminarGroupTopicByGroupId(groupId);
                 
-                var usr = _userService.GetUserByUserId(group.LeaderId??0);
                 return Json(new
                 {
                     id = group.Id,
-                    leader = new
-                    {
+                    leader = group.LeaderId == null ? null : 
+                    new {
                         id = group.LeaderId,
                         name = group.Leader.Name,
                         number = _userService.GetUserByUserId(group.LeaderId??0).Number
@@ -87,10 +86,10 @@ namespace Xmu.Crms.HotPot.Controllers
             {
                 return StatusCode(404, new { msg = "该小组不存在" });
             }
-            catch (ArgumentException)
-            {
-                return StatusCode(400, new { msg = "组号格式错误" });
-            }
+            //catch (ArgumentException)
+            //{
+            //    return StatusCode(400, new { msg = "组号格式错误" });
+            //}
         }
 
         public class TopicTemp
@@ -278,9 +277,9 @@ namespace Xmu.Crms.HotPot.Controllers
             try
             {
                 var user = _userService.GetUserByUserId(User.Id());
-                //同学按小组id和自身id,辞掉组长职位
                 _seminarGroupService.AssignLeaderById(groupId, user.Id);
-                return NoContent();
+                var topics = _topicService.ListSeminarGroupTopicByGroupId(groupId);
+                return Json(topics);
             }
             catch (UserNotFoundException)
             {

@@ -75,7 +75,7 @@
 
     $(function() {
         $.ajax({
-            url: '/me',
+            url: '/desktop/me',
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},
@@ -92,7 +92,7 @@
             }
         });
         $(".button").click(function() {
-            window.location.href = "/desktop/Teacher/Modify";
+            window.location.href = "/desktop/Modify";
         });
     });
 </script>
