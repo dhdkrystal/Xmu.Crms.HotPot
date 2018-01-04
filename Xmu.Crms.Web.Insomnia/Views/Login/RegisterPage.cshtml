@@ -87,7 +87,7 @@
                     }),
                     dataType: 'json',
                     success: function() {
-                        if ($('input[name=role]:checked').val().type === "student") {
+                        if ($('input[name=role]:checked').val() === "student") {
                             window.location.href = "/desktop/Student/";
                         } else {
                             window.location.href = "/desktop/Teacher/";

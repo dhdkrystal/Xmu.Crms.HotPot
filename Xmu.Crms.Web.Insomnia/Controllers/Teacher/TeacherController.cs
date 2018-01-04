@@ -11,6 +11,11 @@ namespace Xmu.Crms.Web.Insomnia.Controllers.Teacher
         {
             return View();
         }
+        [Route(PREFIX + "/TeacherCreateSchool")]
+        public IActionResult TeacherCreateSchool()
+        {
+            return View();
+        }
 
         [Route(PREFIX + "/Teacher/Modify")]
         public IActionResult TeacherInfoModifyPage()
