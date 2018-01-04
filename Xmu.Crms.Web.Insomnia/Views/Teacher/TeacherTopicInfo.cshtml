@@ -73,7 +73,7 @@
             $(".courseIntroduction").text(c.description);
         }
         $.ajax({
-            url: '/desktop/topic/' + id,
+            url: '/topic/' + id,
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},
@@ -85,7 +85,7 @@
             }
         });
         $.ajax({
-            url: '/desktop/topic/' + id + '/group',
+            url: '/topic/' + id + '/group',
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},
@@ -101,7 +101,7 @@
         $("#delete").click(function() {
             if (confirm("是否确认删除话题？")) {
                 $.ajax({
-                    url: '/desktop/topic/' + id,
+                    url: '/topic/' + id,
                     type: 'DELETE',
                     headers: {"Authorization": "Bearer " + token},
                     success: function() {

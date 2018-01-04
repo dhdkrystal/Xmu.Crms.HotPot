@@ -52,7 +52,7 @@
     $("#submit").click(function(e) {
         e.preventDefault();
         $.ajax({
-            url: '/desktop/class?courseName=' + $("#course").val() + "&courseTeacher=" + $("#teacher").val(),
+            url: 'class?courseName=' + $("#course").val() + "&courseTeacher=" + $("#teacher").val(),
             type: 'GET',
             dataType: 'json',
             headers: { "Authorization": "Bearer " + token },

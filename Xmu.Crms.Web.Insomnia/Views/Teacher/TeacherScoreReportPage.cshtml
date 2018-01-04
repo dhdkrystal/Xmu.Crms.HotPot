@@ -93,7 +93,7 @@
         }
 
         $.ajax({
-            url: '/desktop/group/' + id,
+            url: '/group/' + id,
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},
@@ -106,7 +106,7 @@
         $("#submit").click(function(e) {
             e.preventDefault();
             $.ajax({
-                url: '/desktop/group/' + id + '/grade/report',
+                url: '/group/' + id + '/grade/report',
                 type: 'PUT',
                 dataType: 'json',
                 contentType: 'application/json',

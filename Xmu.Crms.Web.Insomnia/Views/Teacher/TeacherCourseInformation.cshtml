@@ -55,7 +55,7 @@
     var id = getQuery()["id"];
     $(function() {
         $.ajax({
-            url: '/desktop/course/' + id,
+            url: '/course/' + id,
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},
@@ -66,7 +66,7 @@
             }
         });
         $.ajax({
-            url: '/desktop/course/' + id + "/class",
+            url: '/course/' + id + "/class",
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},
@@ -90,7 +90,7 @@
             }
         });
         $.ajax({
-            url: '/desktop/course/' + id + "/seminar",
+            url: '/course/' + id + "/seminar",
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},

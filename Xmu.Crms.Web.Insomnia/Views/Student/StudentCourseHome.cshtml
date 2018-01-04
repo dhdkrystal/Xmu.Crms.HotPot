@@ -42,7 +42,7 @@
     var token = window.localStorage.getItem("jwt");
     $(function() {
         $.ajax({
-            url: '/desktop/class',
+            url: '/class',
             type: 'GET',
             dataType: 'json',
             headers: { "Authorization": "Bearer " + token },
@@ -80,7 +80,7 @@
                     var cls = $(this).parent().attr("data-class-id");
                     if (confirm("是否确认退选该班级课程？")) {
                         $.ajax({
-                            url: '/desktop/class/' + cls + '/student/' + window.localStorage.getItem("id"),
+                            url: '/class/' + cls + '/student/' + window.localStorage.getItem("id"),
                             type: 'DELETE',
                             headers: { "Authorization": "Bearer " + token },
                             success: function() {
