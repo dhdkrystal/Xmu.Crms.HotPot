@@ -201,6 +201,7 @@ namespace Xmu.Crms.Services.Group2_10
             if (seminar == null) throw new SeminarNotFoundException();//找不到seminar抛出异常
 
             //将seminarId对应得seminar赋值给要插入的topic对象
+            topic.Serial =topic.Name;
             topic.Seminar = seminar;
 
             //插入到Topic数据集中

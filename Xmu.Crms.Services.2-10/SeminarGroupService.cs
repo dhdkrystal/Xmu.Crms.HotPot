@@ -663,8 +663,8 @@ namespace Xmu.Crms.Services.Group2_10
                 .ToList();
 
             //未找到小组
-            if (sgtlist.Count == 0)
-                throw new SeminarNotFoundException();
+ //           if (sgtlist.Count == 0)
+//                throw new SeminarNotFoundException();
 
             //将sgtlist中的每个SeminarGroup组成一个list
             List<SeminarGroup> sglist = new List<SeminarGroup>();
