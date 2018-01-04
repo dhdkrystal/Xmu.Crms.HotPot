@@ -64,8 +64,11 @@
                 contentType: 'application/json;charset=utf-8',
                 datatype: 'json',
                 headers: { "Authorization": "Bearer " + token },
-                success: function (data) {
-                    window.location.href = '/Seminar/FixedGroupLeaderUI2?groupId=' + group + '&&seminarId=' + seminar;
+                success: function (result) {
+                    if(result[0]==null)
+                        window.location.href = '/Seminar/FixedGroupLeaderUI2?groupId=' + group + '&&seminarId=' + seminar;
+                    else 
+                        window.location.href = '/Seminar/FixedGroupLeaderUI?groupId=' + group + '&&seminarId=' + seminar;
                 },
                 error: function (mesg) {
                     alert(mesg);

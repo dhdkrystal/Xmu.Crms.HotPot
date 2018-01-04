@@ -159,7 +159,7 @@ namespace Xmu.Crms.HotPot.Controllers
             {
                 var usrid = User.Id();
                 var semg = _service2.GetSeminarGroupById(seminarId, User.Id());
-                var lead = _service2.GetSeminarGroupLeaderById(usrid, seminarId);
+                var lead = semg.Leader;
                 var topics = _service3.ListSeminarGroupTopicByGroupId(semg.Id);
 
                 return Json(new { userid = usrid, seminargroup = semg, leader = lead, topic = topics });
