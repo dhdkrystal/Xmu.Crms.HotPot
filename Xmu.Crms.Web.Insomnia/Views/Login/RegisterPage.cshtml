@@ -65,7 +65,7 @@
 <script type="text/javascript">
     $("#submit").click(function() {
         $.ajax({
-            url: '/register',
+            url: '/desktop/register',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ phone: $("#phoneNum").val(), password: $("#password").val() }),
