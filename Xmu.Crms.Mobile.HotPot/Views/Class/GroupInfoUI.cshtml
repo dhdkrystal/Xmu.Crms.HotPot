@@ -55,7 +55,7 @@
                         var topics = data[i].topicname;
                         var topicname = '';
                         for (j = 0; j < topics.length; j++)
-                            topicname += "话题" + topics[j].serial + "  ";
+                            topicname += topics[j].name + "  ";
                         var member = '<div id=' + tmpgroup.groupId + '>';
                         var members = data[i].members;
                         for (j = 0; j < members.length; j++) {
