@@ -154,6 +154,10 @@ namespace Xmu.Crms.Insomnia
                 });
                 return NoContent();
             }
+            catch (CourseNotFoundException)
+            {
+                return StatusCode(404, new { msg = "课程不存在" });
+            }
             catch (ClassNotFoundException)
             {
                 return StatusCode(404, new {msg = "班级不存在"});

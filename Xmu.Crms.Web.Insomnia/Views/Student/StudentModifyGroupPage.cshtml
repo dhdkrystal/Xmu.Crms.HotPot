@@ -106,6 +106,7 @@
             headers: {"Authorization": "Bearer " + token},
             success: function(result) {
                 for (var i = result.length; i--;) {
+
                     if (i % 2) {
                         if (result[i].isLeader) {
                             $("#insertinfo").after(
