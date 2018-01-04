@@ -58,7 +58,7 @@
 
     $(function() {
         $.ajax({
-            url: '/course/' + course,
+            url: '/desktop/course/' + course,
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},
@@ -69,7 +69,7 @@
             }
         });
         $.ajax({
-            url: 'course/' + course + "/seminar",
+            url: '/desktopcourse/' + course + "/seminar",
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},

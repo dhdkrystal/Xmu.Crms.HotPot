@@ -91,7 +91,7 @@
 
     $(function() {
         $.ajax({
-            url: '/me',
+            url: '/desktop/me',
             type: 'GET',
             dataType: 'json',
             headers: { "Authorization": "Bearer " + token },
@@ -111,7 +111,7 @@
                     $("#submitinfo").click(function(e) {
                     e.preventDefault();
                     $.ajax({
-                        url: '/me',
+                        url: '/desktop/me',
                         type: 'PUT',
                         contentType: 'application/json',
                         dataType: 'json',

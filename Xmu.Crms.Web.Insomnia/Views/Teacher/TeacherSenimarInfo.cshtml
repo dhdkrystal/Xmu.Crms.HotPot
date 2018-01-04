@@ -80,7 +80,7 @@
             $(".courseIntroduction").text(c.description);
         }
         $.ajax({
-            url: '/seminar/' + id,
+            url: '/desktop/seminar/' + id,
             type: 'GET',
             dataType: 'json',
             headers: { "Authorization": "Bearer " + token },
@@ -94,7 +94,7 @@
             }
         });
         $.ajax({
-            url: '/seminar/' + id + '/topic',
+            url: '/desktop/seminar/' + id + '/topic',
             type: 'GET',
             dataType: 'json',
             headers: { "Authorization": "Bearer " + token },
@@ -133,7 +133,7 @@
         $("#delete").click(function() {
             if (confirm("是否确认删除讨论课？")) {
                 $.ajax({
-                    url: '/seminar/' + id,
+                    url: '/desktop/seminar/' + id,
                     type: 'DELETE',
                     success: function() {
                         window.location.href = "/desktop/Teacher/Course/Courseinfo?id=" + course;

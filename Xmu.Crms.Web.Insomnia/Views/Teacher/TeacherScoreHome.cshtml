@@ -113,7 +113,7 @@
             $(".courseIntroduction").text(c.description);
         }
         $.ajax({
-            url: '/seminar/' + id + '/group',
+            url: '/desktop/seminar/' + id + '/group',
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},

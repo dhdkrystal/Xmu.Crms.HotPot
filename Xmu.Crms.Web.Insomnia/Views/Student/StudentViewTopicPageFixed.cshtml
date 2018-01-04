@@ -53,7 +53,7 @@
             $(".courseIntroduction").text(c.description);
         }
         $.ajax({
-            url: '/Topic/' + id,
+            url: '/desktop/Topic/' + id,
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},

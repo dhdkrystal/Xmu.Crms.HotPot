@@ -99,7 +99,7 @@
             $(".courseIntroduction").text(c.description);
         }
         $.ajax({
-            url: '/seminar/' + id,
+            url: '/desktop/seminar/' + id,
             type: 'GET',
             dataType: 'json',
             headers: {"Authorization": "Bearer " + token},
@@ -127,7 +127,7 @@
         });
     });
     $.ajax({
-        url: '/seminar/' + id + '/topic',
+        url: '/desktop/seminar/' + id + '/topic',
         type: 'GET',
         dataType: 'json',
         headers: { "Authorization": "Bearer " + token },

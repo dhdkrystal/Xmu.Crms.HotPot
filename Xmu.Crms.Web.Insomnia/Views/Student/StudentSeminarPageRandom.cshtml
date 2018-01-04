@@ -110,7 +110,7 @@
             $(".courseIntroduction").text(c.description);
         }
         $.ajax({
-            url: '/seminar/' + id,
+            url: '/desktop/seminar/' + id,
             type: 'GET',
             dataType: 'json',
             headers: { "Authorization": "Bearer " + token },
@@ -142,7 +142,7 @@
         });
     });
     $.ajax({
-        url: '/seminar/' + id + '/topic',
+        url: '/desktop/seminar/' + id + '/topic',
         type: 'GET',
         dataType: 'json',
         headers: { "Authorization": "Bearer " + token },
@@ -164,7 +164,7 @@
     $(function() {
         $("form").attr("action", window.location.href);
         $.ajax({
-            url: '/seminar/' + id + '/group/my',
+            url: '/desktop/seminar/' + id + '/group/my',
             type: 'GET',
             dataType: 'json',
             headers: { "Authorization": "Bearer " + token },
